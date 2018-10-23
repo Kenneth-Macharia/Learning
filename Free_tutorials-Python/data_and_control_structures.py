@@ -98,16 +98,21 @@ def ask_user(names_list):
 ''' dict are key-value sets, unique(by key) & unordered '''
 lottery_players = [
 {
-    'name':'Rolf',
-    'numbers':(23, 56, 89, 78)
+    'name':'Rolf', 'numbers':(23, 56, 89, 78)
 },
 {
-    'name':'Anna',
-    'numbers':[56, 89, 52, 10]
+    'name':'Anna', 'numbers':[56, 89, 52, 10]
 }
 ]
 
 print(sum(lottery_players[0]['numbers']))
-print(lottery_players[1]['name'] = 'Greg')
-print(lottery_players[0]['numbers'] = {lottery_players[1]['numbers']})
-print(lottery_players[1]['numbers'][2] = 22)
+print((lottery_players[1]['numbers'])[1] + (lottery_players[1]['numbers'])[3])
+
+lottery_players[1]['name'] = 'Greg'
+print(lottery_players[1])
+
+lottery_players[1]['numbers'][2] = 22
+print(lottery_players[1]['numbers'])
+
+lottery_players[0]['numbers'] = (lottery_players[1]['numbers'])
+print(lottery_players[0]['numbers'])
