@@ -40,4 +40,4 @@ def decorator_with_args(decorator_arg):
 def decorated_func(x, y):
     print x + y
 
-decorated_func(4, 5)
+#decorated_func(4, 5)
