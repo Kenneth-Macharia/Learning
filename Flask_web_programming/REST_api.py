@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 
@@ -7,7 +7,6 @@ app = Flask(__name__)
 # @app.route('/')
 # def home():
 #     return 'Hello world'
-
 
 
 ''' Web server is software designed to accept web requests '''
@@ -34,49 +33,70 @@ stores = [
             {
                 'name':'some_item',
                 'price':100.00
-            },
-            {
-                'name':'other_item',
-                'price':120.00
-            }
-        ]
-    },
-    {    'name':'store2',
-        'items':[
-            {
-                'name':'an_item',
-                'price':50.00
             }
         ]
     }
 ]
 
+#Home page endpoint that will be called via javascript in index.html
+@app.route('/')
+def home_page():
+    return render_template('index.html')
+
 #GET /store -  Returns all stores
-@app.route('/store', methods=['GET'])
+@app.route('/store')
 def return_all_store():
-    return jsonify({'Stores':stores})
+    return jsonify({'Response':stores})
 
 #POST /store {POST data:store name} - Adds a store
 @app.route('/store', methods=['POST'])
 def create_store():
-    pass
+    request_data = request.get_json()
+    new_store = {
+        'name':request_data['name'],
+        'items': []
+    }
+    stores.append(new_store)
+    return jsonify({'Response':new_store})
 
 #GET /store/<string:name> - Returns a specific store
 @app.route('/store/<string:name>', methods=['GET'])
 def return_a_store(name):
-    pass
+    for store in stores:
+        if store['name'] == name:
+            return jsonify({'Response':store})
+    return jsonify({'Response':'Store not found'})
 
 #POST /store/<string:name>/item {POST data:item name & price}
 @app.route('/store/<string:name>/item', methods=['POST'])
 def create_store_item(name):
-    pass
+    request_data = request.get_json()
+    for store in stores:
+        if store['name'] == name:
+            new_store_item = {
+                'name':request_data['name'],
+                'price':request_data['price']
+            }
+            store['items'].append(new_store_item)
+            return jsonify({'Response':new_store_item})
+        return jsonify({'Response':'Store not found'})
 
 #GET /store/store/<string:name>/item - Returns all items in a store
-@app.route('/store/<string:name>/item', methods=['GET'])
+@app.route('/store/<string:name>/item')
 def return_store_items(name):
-    pass
-
-
+    for store in stores:
+        if store['name'] == name:
+            return jsonify({'Response':store['items']})
+    return jsonify({'Response':'Store not found'})
 
 #Run the app
+''' Activate fenv in windows : fenv\Scripts\activate '''
+''' Export the env variables manually in Windows:
+        set FLASK_ENV='development'
+        set FLASK_DEBUG=1 '''
+
 app.run(port=3000)
+
+''' Calling api endpoints from javascript important for flask web applications,
+ not so important for api'''
+''' Differences between web app and web api? '''
