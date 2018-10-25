@@ -35,11 +35,11 @@ class Item(Resource):
 
         #item = filter(lambda item: item['name'] == name, items)
         item_retrieved = list(filter(lambda item: item['name'] == name, items))
-        return item_retrieved, 200 if item_retrieved else 404  #staus 'OK' else status 'not found'
+        return item_retrieved, 200 if item_retrieved else 404  # staus 'OK' else status 'not found'
 
     def post(self, name):
         if list(filter(lambda item: item['name'] == name, items)):
-            return {'message':'Item {} already exists'.format(name)}, 400  #bad reuwest
+            return {'message':'Item {} already exists'.format(name)}, 400  # bad request
 
         response = request.get_json()
         item = {'name':name, 'price':response['price']}
@@ -57,4 +57,4 @@ api.add_resource(Items, '/items')
 
 
 #Run the app
-app.run(port=3000, debug=True)
+app.run(debug=True)
