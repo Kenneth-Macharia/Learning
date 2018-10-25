@@ -50,12 +50,12 @@ class Store(object):
 # store1.add_item('bread',50)
 # print(store1.name, store1.get_items(), store1.stock_price())
 
-store2 = Store('Tuskys')
-store2.add_item('sugar',100)
-store2.add_item('salt',30)
-store2.add_item('bread',50)
-print(Store.franchise('Nakumatt'))
-print(Store.store_details('Naivas'))
+# store2 = Store('Tuskys')
+# store2.add_item('sugar',100)
+# store2.add_item('salt',30)
+# store2.add_item('bread',50)
+# print(Store.franchise('Nakumatt'))
+# print(Store.store_details('Naivas'))
 
 ''' Inheritance (Why to use class or static methods)'''
 class Student(object):
