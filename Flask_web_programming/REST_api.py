@@ -97,6 +97,13 @@ def return_store_items(name):
 
 app.run(port=3000)
 
+''' Good json response format:
+{
+    'Description':'User friendly msg of what went wrong'
+    'Error':'Name of error'
+    'Status_code':401
+} '''
+
 ''' Calling api endpoints from javascript important for flask web applications,
  not so important for api'''
 ''' Differences between web app and web api? '''

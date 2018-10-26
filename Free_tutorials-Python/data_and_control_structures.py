@@ -39,9 +39,9 @@ set_two = {3, 5, 10, 13, 4}
 
 #Flow control coding exercise
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-def even_numbers():
-    return list(filter(lambda x: x%2 == 0, nums))
-    return [x for x in nums if x%2 == 0]
+# def even_numbers():
+#     return list(filter(lambda x: x%2 == 0, nums))
+#     return [x for x in nums if x%2 == 0]
 
 #print(even_numbers())
 # def user_menu(choice):
@@ -105,14 +105,14 @@ lottery_players = [
 }
 ]
 
-print(sum(lottery_players[0]['numbers']))
-print((lottery_players[1]['numbers'])[1] + (lottery_players[1]['numbers'])[3])
-
-lottery_players[1]['name'] = 'Greg'
-print(lottery_players[1])
-
-lottery_players[1]['numbers'][2] = 22
-print(lottery_players[1]['numbers'])
-
-lottery_players[0]['numbers'] = (lottery_players[1]['numbers'])
-print(lottery_players[0]['numbers'])
+# print(sum(lottery_players[0]['numbers']))
+# print((lottery_players[1]['numbers'])[1] + (lottery_players[1]['numbers'])[3])
+#
+# lottery_players[1]['name'] = 'Greg'
+# print(lottery_players[1])
+#
+# lottery_players[1]['numbers'][2] = 22
+# print(lottery_players[1]['numbers'])
+#
+# lottery_players[0]['numbers'] = (lottery_players[1]['numbers'])
+# print(lottery_players[0]['numbers'])
