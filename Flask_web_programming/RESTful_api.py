@@ -1,3 +1,6 @@
+''' This module contains code & tutorial notes for the creation of a CRUD RESTful_api
+    i.e Create, Read, Update, Delete '''
+
 ''' Run different python versions i.e. 2.7 > python or python2.7 or 3.5 > python3.5 '''
 ''' Use pip the same way, pip for python 2.7 or pip3.5 for python3.5 '''
 ''' install desired python version in virtual env > virtual <env> --python=python<version> '''
@@ -6,7 +9,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required #a decorator to decorate endpoints requiring authentication
-from security import authenticate, identity
+from users import authenticate, identity
 
 ''' Resources are things the api is concerned with e.g, items, students etc '''
 
@@ -76,10 +79,10 @@ class Item(Resource):
 
     @jwt_required()
     def delete(self, name):
+        global items
         if not list(filter(lambda item: item['name'] == name, items)):
             return {'Response':'Item {} does not exist'.format(name)}, 400
 
-        global items
         items = list(filter(lambda x: x['name'] != name, items))
         return {'Response':'Item deleted'}, 200
 

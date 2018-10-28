@@ -1,3 +1,4 @@
+''' This module contains code & tutorial notes for the creation of a REST_api '''
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
