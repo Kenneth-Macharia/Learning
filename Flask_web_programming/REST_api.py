@@ -19,9 +19,9 @@ app = Flask(__name__)
     http://www.google.com is the host '''
 ''' Browsers do GET requests by default thus a route must specifiy what HTTP verb to use, and will default
     to GET if none is specified '''
-''' JSON is a key-value pair (of the dict form) for sending data between application of a string type
+''' JSON is a key-value pair (of the dict form) for sending data between application of string type
     and uses double quotes (" ") not single quotes'''
-''' jsonify is a Flask method for covnerting a python objects into json strings '''
+''' jsonify is a Flask method for converting a python objects into json strings '''
 
 
 ''' A online store REST API '''
