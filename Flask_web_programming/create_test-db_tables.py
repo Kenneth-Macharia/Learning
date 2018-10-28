@@ -7,7 +7,7 @@ import sqlite3
 connection = sqlite3.Connection('test.db')
 cursor = connection.cursor()
 
-#Create tables with autp incrementing IDs - specify INTEGER & PRIMARY KEY
+#Create tables with auto incrementing IDs - specify INTEGER & PRIMARY KEY
 create_table = "CREATE TABLE IF NOT EXISTS users_table (id INTEGER PRIMARY KEY, \
                 username text, password text)"
 cursor.execute(create_table)
