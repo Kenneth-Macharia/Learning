@@ -5,6 +5,9 @@
 ''' Use pip the same way, pip for python 2.7 or pip3.5 for python3.5 '''
 ''' Install desired python version in virtual env > virtualenv <env> --python=python<version> '''
 ''' Using virtual environments you can run python version & other package versions desired '''
+''' Run atom and open desired folder: $atom <folder>/ '''
+
+''' Run sample_sqlite_db.py to set up the databse for this api '''
 
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
@@ -110,7 +113,6 @@ class Items(Resource):
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(Items, '/items')
-
 
 #Run the app
 app.run(debug=True)

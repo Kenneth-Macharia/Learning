@@ -26,13 +26,13 @@ app = Flask(__name__)
 
 ''' A online store REST API '''
 
-#Data storage
+#Data structure storage format
 stores = [
     {
-        'name':'store1',
+        'name':'Naivas',
         'items':[
             {
-                'name':'some_item',
+                'name':'Sugar',
                 'price':100.00
             }
         ]
@@ -47,7 +47,7 @@ def home_page():
 #GET /store -  Returns all stores
 @app.route('/store')
 def return_all_store():
-    return jsonify({'Response':stores})
+    return jsonify({'All Stores':stores})
 
 #POST /store {POST data:store name} - Adds a store
 @app.route('/store', methods=['POST'])
@@ -58,17 +58,17 @@ def create_store():
         'items': []
     }
     stores.append(new_store)
-    return jsonify({'Response':new_store})
+    return jsonify({'New store added':new_store})
 
 #GET /store/<string:name> - Returns a specific store
 @app.route('/store/<string:name>', methods=['GET'])
 def return_a_store(name):
     for store in stores:
         if store['name'] == name:
-            return jsonify({'Response':store})
-    return jsonify({'Response':'Store not found'})
+            return jsonify({'Requested store':store})
+    return jsonify({'Requested store':'Store not found'})
 
-#POST /store/<string:name>/item {POST data:item name & price}
+#POST /store/<string:name>/item - Adds an item to a store
 @app.route('/store/<string:name>/item', methods=['POST'])
 def create_store_item(name):
     request_data = request.get_json()
@@ -79,24 +79,24 @@ def create_store_item(name):
                 'price':request_data['price']
             }
             store['items'].append(new_store_item)
-            return jsonify({'Response':new_store_item})
-        return jsonify({'Response':'Store not found'})
+            return jsonify({'Item added':new_store_item})
+    return jsonify({'Requested store':'Store not found'})
 
 #GET /store/store/<string:name>/item - Returns all items in a store
 @app.route('/store/<string:name>/item')
 def return_store_items(name):
     for store in stores:
         if store['name'] == name:
-            return jsonify({'Response':store['items']})
-    return jsonify({'Response':'Store not found'})
+            return jsonify({'All store items':store['items']})
+    return jsonify({'Requested store':'Store not found'})
 
 #Run the app
-''' Activate fenv in windows : fenv\Scripts\activate '''
+''' Activate venv in windows : venv\Scripts\activate '''
 ''' Export the env variables manually in Windows:
         set FLASK_ENV='development'
         set FLASK_DEBUG=1 '''
 
-app.run(port=3000)
+app.run(port=3000, debug=True)
 
 ''' Good json response format:
 {

@@ -2,6 +2,8 @@
 ''' We will add persistent storage for this version of the app '''
 ''' We will use sql-lite as the RDB, which has bult in python support '''
 
+''' Run create_test-db_tables.py first, to set up the database for this api '''
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT

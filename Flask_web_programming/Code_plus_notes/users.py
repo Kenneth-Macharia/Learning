@@ -1,12 +1,13 @@
 ''' This module contains code & tutorial notes for searching & authenticating
     users for our RESTful_api '''
-'''It has three models for achieving the above '''
+'''It has three options for achieving the above '''
 
 import sqlite3
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp #for safely comparing string in python 2x
 
-''' Managing users via data structures '''
+
+''' Option 1: Managing users via data structures '''
 # users = [
 #     {
 #         'id':1,
@@ -32,6 +33,7 @@ from werkzeug.security import safe_str_cmp #for safely comparing string in pytho
 #     }
 # }
 #
+#
 # ''' Custom methos for checking if a user exists '''
 # def authenticate(username, password):
 #     user = username_mapping.get(username, None)
@@ -44,7 +46,7 @@ from werkzeug.security import safe_str_cmp #for safely comparing string in pytho
 #     return userid_mapping.get(user_id, None)
 
 
-''' Managing users via OOP only '''
+''' Options 2: Managing users via OOP only '''
 # class User(object):
 #     def __init__(self, _id, username, password):
 #         self.id = _id
@@ -58,19 +60,21 @@ from werkzeug.security import safe_str_cmp #for safely comparing string in pytho
 # username_mapping = {u.username: u for u in users}
 # userid_mapping = {u.id: u for u in users}
 #
-# ''' Custom methos for checking if a user exists '''
+#
+# ''' Custom fucntion for checking if a user exists '''
 # def authenticate(username, password):
 #     user = username_mapping.get(username, None)
 #     if user is not None and safe_str_cmp(user.password, password):
 #         return user
 #
-# ''' Identity method is unique to JWT '''
+# ''' Identity method is unique to JWT for authenitcating registered users'''
 # def identity(payload):    # payload is the contents of the JWT token
 #     user_id = payload['identity']
 #     return userid_mapping.get(user_id, None)
 
 
-''' Managing users via OOP and a database (test.db)'''
+''' Options 3: Managing users via OOP and a database (test.db). Includes user sign up
+    functionality '''
 class User_db(object):
     def __init__(self, _id, username, password):
         ''' Since no method is using 'self, then they can all be class methods '''
@@ -121,15 +125,6 @@ class User_db(object):
         connection.close()
         return user
 
-def authenticate(username, password):
-    user = User_db.find_by_username(username)
-    if user and safe_str_cmp(user.password, password):
-        return user
-
-def identity(payload):
-    user_id = payload['identity']
-    return User_db.find_by_id(user_id)
-
 
 ''' Class for registering users into the DB '''
 class UserRegistration(Resource):
@@ -154,3 +149,12 @@ class UserRegistration(Resource):
         connection.close()
 
         return {'Response':'User created'}, 201
+
+def authenticate(username, password):
+    user = User_db.find_by_username(username)
+    if user and safe_str_cmp(user.password, password):
+        return user
+
+def identity(payload):
+    user_id = payload['identity']
+    return User_db.find_by_id(user_id)

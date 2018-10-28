@@ -1,11 +1,13 @@
-''' This module contains sample table creation and hard-coded data '''
+''' This module creates a sample user table with a user who will be used by the RESTful_api.
+    It also demonstrates inseting multiple users into a database and prints then out. '''
+
 import sqlite3
 
 #create a connection & a cursor obj
 connection = sqlite3.connect('test.db')
 cursor = connection.cursor()
 
-#create a table
+#create a user table
 create_table = "CREATE TABLE users_table (id int, username text, password text)"
 cursor.execute(create_table)
 

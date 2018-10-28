@@ -2,3 +2,4 @@
 venv_flask
 .env
 *.pyc
+*.db
