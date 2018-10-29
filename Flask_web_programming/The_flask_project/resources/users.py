@@ -2,52 +2,7 @@
 
 import sqlite3
 from flask_restful import Resource, reqparse
-
-
-class User(object):
-    def __init__(self, _id, username, password):
-        self.id = _id
-        self.username = username
-        self.password = password
-
-    @classmethod
-    def find_by_username(cls, username):
-        ''' class method for finding a user by username '''
-
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
-
-        get_user_query = "SELECT * FROM users_table WHERE username=?"
-        query_result = cursor.execute(get_user_query, (username,))
-        row = query_result.fetchone()
-
-        if row:
-            user = cls(*row)
-        else:
-            user = None
-
-        connection.close()
-        return user
-
-    @classmethod
-    def find_by_id(cls, _id):
-        ''' class method for finding a user by id '''
-
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
-
-        get_user_query = "SELECT * FROM users_table WHERE id=?"
-        query_result = cursor.execute(get_user_query, (_id,))
-        row = query_result.fetchone()
-
-        if row:
-            user = cls(*row)
-        else:
-            user = None
-
-        connection.close()
-        return user
-
+from models.user import UserModel
 
 ''' Class for registering users into the DB '''
 class UserRegistration(Resource):
@@ -59,7 +14,7 @@ class UserRegistration(Resource):
     def post(self):
         req_data = UserRegistration.parser.parse_args()
 
-        if User.find_by_username(req_data['username']):
+        if UserModel.find_by_username(req_data['username']):
             return {'Response':'User already exists'}, 400
 
         connection = sqlite3.connect('test.db')
