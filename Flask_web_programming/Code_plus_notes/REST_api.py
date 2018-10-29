@@ -91,7 +91,7 @@ def return_store_items(name):
     return jsonify({'Requested store':'Store not found'})
 
 #Run the app
-''' Activate venv in windows : venv\Scripts\activate '''
+''' Activate venv in windows : venv\Scripts\activate.bat '''
 ''' Export the env variables manually in Windows:
         set FLASK_ENV='development'
         set FLASK_DEBUG=1 '''
