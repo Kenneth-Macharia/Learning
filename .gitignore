@@ -1,5 +1,6 @@
 .DS_Store
-venv_flask
+venv2
+venv3
 .env
 *.pyc
 *.db
