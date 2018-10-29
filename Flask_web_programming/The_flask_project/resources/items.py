@@ -12,7 +12,7 @@ class Item(Resource):
     @jwt_required()
     def get(self, name):
         if ItemModel.find_item_by_name(name):
-            return ItemModel.find_item_by_name(name).json()
+            return ItemModel.find_item_by_name(name).get_json_item()
         return {'Response':'Item {} does not exist'.format(name)}, 404
 
     @jwt_required()
@@ -23,7 +23,7 @@ class Item(Resource):
         response_data = Item.parser.parse_args()
         item_to_add = ItemModel(name, response_data['price'])
 
-        item_to_add.insert_item()
+        item_to_add.save_item()
         return {'Response':'Item {} created'.format(name)}, 201
 
     @jwt_required()
@@ -31,27 +31,20 @@ class Item(Resource):
         if ItemModel.find_item_by_name(name) is None:
             return {'Response':'Item {} does not exist'.format(name)}, 400
 
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
-
-        delete_item_query = "DELETE FROM items_table WHERE name=?"
-        cursor.execute(delete_item_query, (name,))
-
-        connection.commit()
-        connection.close()
-
+        ItemModel.find_item_by_name(name).delete_item()
         return {'Response':'Item {} deleted'.format(name)}, 200
 
     @jwt_required()
     def put(self, name):
         response_data = Item.parser.parse_args()
-        item_to_add_or_update = ItemModel(name, response_data['price'])
 
         if ItemModel.find_item_by_name(name):
-            item_to_add_or_update.update_item()
+            ItemModel.find_item_by_name(name).price = response_data['price']
+            ItemModel.find_item_by_name(name).save_item()
             return {'Response':'Item {} updated'.format(name)}, 200
 
-        item_to_add_or_update.insert_item()
+        item_to_add = ItemModel(name, response_data['price'])
+        item_to_add.save_item()
         return {'Response':'Item {} created'.format(name)}, 201
 
 

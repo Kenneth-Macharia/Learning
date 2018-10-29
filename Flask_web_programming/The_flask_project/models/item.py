@@ -1,54 +1,36 @@
 ''' This module contains helper model for interacting with items '''
 
-import sqlite3
-from sqlalchemy import db
+from sqlalchemy_init import db_obj
 
 
-class ItemModel(db.Model):
+class ItemModel(db_obj.Model):
     #Tell sqlalchemy where the models will be stored i.e. table & columns
-    __tablename__ =  'items_table'
+    __tablename__ = 'items_table'
 
-    id = db.Colunm(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))  #Character length
-    price = db.Column(db.Float(precision=2))  #Decimal number to two decimal places
+    id = db_obj.Column(db_obj.Integer, primary_key=True)
+    name = db_obj.Column(db_obj.String(80))  #Character length
+    price = db_obj.Column(db_obj.Float(precision=2))  #Decimal number to two decimal places
 
     def __init__(self, name, price):
         self.name = name
         self.price = price
 
-    def json(self):
+    def get_json_item(self):
         return {'name':self.name, 'price':self.price}  #returns a json rep of the model i.e items
 
     @classmethod
     def find_item_by_name(cls, name):
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
+        # Below equivalent: SELECT * FROM items_table WHERE name=name LIMIT1 ie. first row only '''
+        # Below also convert the retruend row into an ItemModel object with its attributes 'id, name & price'
+        return cls.query.filter_by(name=name).first()
 
-        get_item_query = "SELECT * FROM items_table WHERE name=?"
-        result = cursor.execute(get_item_query, (name,))
-        row = result.fetchone()
-        connection.close()
+    def save_item(self):   #change name as it can perfom add & update
+        # We just instruct sqlalchemy to insert an object
+        # A session is a colelction of objects to add, which can all be written at once
+        # This will be used to update an objects's attribute as well
+        db_obj.session.add(self)
+        db_obj.session.commit()
 
-        if row:
-            #return cls(row[0], row[1])  #return an ItemModel object representing the row returned.
-            return cls(*row)  #{arg unpacking} returns the object elements in their order as per the __init__
-
-    def insert_item(self):
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
-
-        insert_item_query = "INSERT INTO items_table VALUES (?, ?)"
-        cursor.execute(insert_item_query, (self.name, self.price))
-
-        connection.commit()
-        connection.close()
-
-    def update_item(self):
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
-
-        edit_item_query = "UPDATE items_table SET price=? WHERE name=?"
-        cursor.execute(edit_item_query, (self.price, self.name))
-
-        connection.commit()
-        connection.close()
+    def delete_item(self):  #change to delete method
+        db_obj.session.delete(self)
+        db_obj.session.commit()
