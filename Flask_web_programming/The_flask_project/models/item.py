@@ -11,16 +11,23 @@ class ItemModel(db_obj.Model):
     name = db_obj.Column(db_obj.String(80))  #Character length
     price = db_obj.Column(db_obj.Float(precision=2))  #Decimal number to two decimal places
 
-    def __init__(self, name, price):
+    ''' This col specifies the store to which the item model belongs to,
+        linked by the foreign_key with the primary_key in the store model. '''
+    store_id = db_obj.Column(db_obj.Integer, db_obj.ForeigKey(store_table.id))
+
+    store = db_obj.relationship('StoreModel') #Finds the related store by the store_id
+
+    def __init__(self, name, price, store_id):
         self.name = name
         self.price = price
+        self.store_id = store_id
 
     def get_json_item(self):
         return {'name':self.name, 'price':self.price}  #returns a json rep of the model i.e items
 
     @classmethod
     def find_item_by_name(cls, name):
-        # Below equivalent: SELECT * FROM items_table WHERE name=name LIMIT1 ie. first row only '''
+        # Below equivalent: SELECT * FROM items_table WHERE name=name LIMIT 1 ie. first row only '''
         # Below also convert the retruend row into an ItemModel object with its attributes 'id, name & price'
         return cls.query.filter_by(name=name).first()
 

@@ -1,13 +1,15 @@
 ''' This module contains the items resources '''
 
-import sqlite3
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.item import ItemModel
 
 class Item(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('price', type=float, required=True, help='This field cant be left blank!')
+    parser.add_argument('price', type=float, required=False, help='This field cant be left blank!')
+
+    parser = reqparse.RequestParser()
+    parser.add_argument('store_id', type=int, required=False, help='This field cant be left blank!')
 
     @jwt_required()
     def get(self, name):
@@ -21,7 +23,7 @@ class Item(Resource):
             return {'Response':'Item {} already exists'.format(name)}, 400
 
         response_data = Item.parser.parse_args()
-        item_to_add = ItemModel(name, response_data['price'])
+        item_to_add = ItemModel(name, **response_data)  #kwargs {price & store_id}
 
         item_to_add.save_item()
         return {'Response':'Item {} created'.format(name)}, 201
@@ -39,11 +41,16 @@ class Item(Resource):
         response_data = Item.parser.parse_args()
 
         if ItemModel.find_item_by_name(name):
-            ItemModel.find_item_by_name(name).price = response_data['price']
-            ItemModel.find_item_by_name(name).save_item()
-            return {'Response':'Item {} updated'.format(name)}, 200
+            if response_data['price']:
+                ItemModel.find_item_by_name(name).price = response_data['price']
+                ItemModel.find_item_by_name(name).save_item()
+                return {'Response':'Price for item {} updated'.format(name)}, 200
 
-        item_to_add = ItemModel(name, response_data['price'])
+            ItemModel.find_item_by_name(name).store_id = response_data['store_id']
+            ItemModel.find_item_by_name(name).save_item()
+            return {'Response':'Item {} store has been changed'.format(name)}, 200
+
+        item_to_add = ItemModel(name, **response_data)  #kwargs {price & store_id}
         item_to_add.save_item()
         return {'Response':'Item {} created'.format(name)}, 201
 
@@ -51,17 +58,9 @@ class Item(Resource):
 class Items(Resource):
     @jwt_required()
     def get(self):
-        connection = sqlite3.connect('test.db')
-        cursor = connection.cursor()
+        ''' List comprehension option'''
+        return {'All database items':[item.get_json_item() for item in \
+                ItemModel.query.all()]}, 200 if ItemModel.query.all() else 404
 
-        get_all_query = "SELECT * FROM items_table"
-        result = cursor.execute(get_all_query)
-
-        items = []
-
-        for row in result:
-            items.append({'name':row[0], 'price':row[1]})
-
-        connection.close()
-
-        return {'All database items':items}, 200
+        ''' Lambda function option '''
+        #return {'All database items':list(map(lambda x: x.get_json_item(), ItemModel.query.all()}, 200
