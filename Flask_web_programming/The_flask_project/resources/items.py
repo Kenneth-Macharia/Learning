@@ -6,10 +6,8 @@ from models.item import ItemModel
 
 class Item(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('price', type=float, required=False, help='This field cant be left blank!')
-
-    parser = reqparse.RequestParser()
-    parser.add_argument('store_id', type=int, required=False, help='This field cant be left blank!')
+    parser.add_argument('price', type=float, required=True, help='Price field required for all items!')
+    parser.add_argument('store_id', type=int, required=True, help='Store ID required for all items!')
 
     @jwt_required()
     def get(self, name):
@@ -23,6 +21,8 @@ class Item(Resource):
             return {'Response':'Item {} already exists'.format(name)}, 400
 
         response_data = Item.parser.parse_args()
+        print (response_data['price'])
+        print (response_data['store_id'])
         item_to_add = ItemModel(name, **response_data)  #kwargs {price & store_id}
 
         item_to_add.save_item()
@@ -59,7 +59,7 @@ class Items(Resource):
     @jwt_required()
     def get(self):
         ''' List comprehension option'''
-        return {'All database items':[item.get_json_item() for item in \
+        return {'All items':[item.get_json_item() for item in \
                 ItemModel.query.all()]}, 200 if ItemModel.query.all() else 404
 
         ''' Lambda function option '''

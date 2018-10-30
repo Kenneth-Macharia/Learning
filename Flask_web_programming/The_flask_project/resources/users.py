@@ -8,8 +8,8 @@ from models.user import UserModel
 class UserRegistration(Resource):
 
     parser = reqparse.RequestParser()
-    parser.add_argument('username', type=str, required=True, help='Cant be left blank!')
-    parser.add_argument('password', type=str, required=True, help='Cant be left blank!')
+    parser.add_argument('username', type=str, required=True, help='Username required!')
+    parser.add_argument('password', type=str, required=True, help='Password required!')
 
     def post(self):
         req_data = UserRegistration.parser.parse_args()

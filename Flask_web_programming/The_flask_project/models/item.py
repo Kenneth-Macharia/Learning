@@ -13,8 +13,8 @@ class ItemModel(db_obj.Model):
 
     ''' This col specifies the store to which the item model belongs to,
         linked by the foreign_key with the primary_key in the store model. '''
-    store_id = db_obj.Column(db_obj.Integer, db_obj.ForeigKey(store_table.id))
 
+    store_id = db_obj.Column(db_obj.Integer, db_obj.ForeignKey('store_table.id'))
     store = db_obj.relationship('StoreModel') #Finds the related store by the store_id
 
     def __init__(self, name, price, store_id):
@@ -23,7 +23,7 @@ class ItemModel(db_obj.Model):
         self.store_id = store_id
 
     def get_json_item(self):
-        return {'name':self.name, 'price':self.price}  #returns a json rep of the model i.e items
+        return {'id':self.id, 'name':self.name, 'price':self.price, 'store':self.store_id}  #returns a json rep of the model i.e items
 
     @classmethod
     def find_item_by_name(cls, name):

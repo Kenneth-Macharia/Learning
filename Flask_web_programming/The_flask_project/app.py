@@ -7,6 +7,7 @@ from flask_jwt import JWT
 from security import authenticate, identity
 from resources.users import UserRegistration, UserCheck
 from resources.items import Item, Items
+from resources.stores import Store, Stores
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -24,6 +25,8 @@ jwt = JWT(app, authenticate, identity)
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(Items, '/items')
+api.add_resource(Store, '/store/<string:name>')
+api.add_resource(Stores, '/stores')
 api.add_resource(UserRegistration, '/user_reg')
 api.add_resource(UserCheck, '/user/<string:name>')
 
