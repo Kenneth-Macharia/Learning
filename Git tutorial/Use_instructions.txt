@@ -7,7 +7,7 @@ A.LOCAL REPO:
 -Create a file on mac > $touch <file name>
 -Edit a README using a text editor or CLI editor (nano or vim) using markdown, in order to properly
   display it on Github as a showcase for the project.
--Guidlines to creating a README : https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+-Guidelines to creating a README : https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 -Git creates a .git file in this folder that will host all details of the repo to use.
   Always run git commands from within the folder containing this file or its sub folders.
 -Check changes in repo > $git status
@@ -17,14 +17,14 @@ A.LOCAL REPO:
 -Commit all changes to the local git repo >$git commit -m <"commit message">
 
 B.REMOTE REPO (GITHUB):
--If local repo already exsits (already initialized), you can push it to Github:
+-If local repo already exists (already initialized), you can push it to Github:
   1. On Github, create a repo and DON'T initialize with README, you can add locally and push it.
   2. Copy the HTTPS repo URL
   3. On the terminal and in the folder hosting the local repo >$git remote add origin <repo URL>
     which adds the local repo to the newly created remote repo.
   4. If commits have been made to the local repo, push them to remote repo > $git push (if the
     remote remote repo has the branch in which to push from) else >$git push --set upstream origin <branch name>,
-    alernatively use >$git push origin <branch name> (which will create the branch remotely and push
+    alternatively use >$git push origin <branch name> (which will create the branch remotely and push
     all commits to it)
 
 -If local repo does not exist:
@@ -41,7 +41,7 @@ D.SSH KEYS:
 -SSH key has a private and public key. The former is used to encrypt and the latter to decrypt
   the encrypted data. Share the public key with services to interact with so that they can verify the
   data sent to them is from the intended source, because only the public key shared with them can
-  decypt the data, encrypted by the source private key.
+  decrypt the data, encrypted by the source private key.
 -Detailed info on SSH :https://www.ssh.com/ssh/key/ and https://jumpcloud.com/blog/what-are-ssh-keys/
 -For Github:
   1.At the terminal >$ssh-keygen (which generates the ssh key-value pair file). Leave the default file or
@@ -52,5 +52,5 @@ D.SSH KEYS:
     ensure there are no spaces between any of the characters EXCEPT between the ssh*** header and the key
     body and add SSH key.
   5.When getting the remote repo URl, select the SSH version instead of HTTPs, to clone it or copy the local
-   repo to it, and consequntly no credentals will be required if working from the machine used to generate
+   repo to it, and consequently no credentials will be required if working from the machine used to generate
    the SSH key.
