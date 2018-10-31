@@ -17,9 +17,6 @@ api = Api(app)
 
 ''' Using a flask decorator to ensure the db creation function runs before any
     request to the app '''
-@app.before_first_request
-def setup_sqlite_dB():
-    db_obj.create_all()
 
 jwt = JWT(app, authenticate, identity)
 
