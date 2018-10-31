@@ -1,4 +1,4 @@
-INTRO:
+A.INTRO:
 -Heroku is a distributed web service for hosting apps and other resources e.g websites.
 -It allows end users to interact with the deployed app.
 -Heroku allocates a dyno (a virtual machine) to allow the app to run on. Multiple
@@ -11,7 +11,7 @@ INTRO:
   and clients will be secured.
 -A free Heroku account allows 1 dyno per app and limited running time for the dyno.
 
-DEPLOYING: (See heroku_deployment branch for the project deployment version)
+B.DEPLOYING: (See heroku_deployment branch for the project deployment version)
 -Create a free Heroku account.
 -Create a new app and select a run region, based on where most users of the app are located.
 -Connect Github: Deploy > connect Github and select a repo to deploy from.
@@ -24,3 +24,19 @@ DEPLOYING: (See heroku_deployment branch for the project deployment version)
 -Select a build package: Settings > Add build package
 -Set up heroku to either deploy manually or automatically, and the branch to deploy.
 -Ensure successful deployment and launch of the app.
+
+C.HEROKU TROUBLESHOOTING:
+-This would usually be after the app crushed on Heroku, after attempting to run it.
+-On heroku devcenter, download and install the Heroku CLI for the appropriate OS.
+-If terminal wa running during installation, restart it.
+-Run $heroku login and enter Heroku credentials to log in.
+-Once logged, in extract an error log: $heroku logs --app=<app name on Heroku>
+
+-For our app, we have fixes to app.py to ensure our app (store-items-restful-api) runs:
+  1.Error : db_obj in app.py is not defined, because it's being imported only if
+    app.py is run as __main__. uWSGI on Heroku runs the app object not the file so
+    db_obj which enables SQLAlchemy to set up the database, is never imported.
+  2.Fix : Create a run.py and import db_obj from slqalchemy & the app object from
+   app.py. Include the 'db_obj.init_app(app)' and move the create_all() function
+   and it's decorator here. The change uswgi.ini to run the app in run.py (run:app)
+    as opposed to the app in the app module (app:app).
