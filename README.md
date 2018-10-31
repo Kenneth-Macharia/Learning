@@ -1,2 +1,2 @@
-# Code-practise
-My code practise sessions
+# Code Practise sessions
+This repo contains my tutorial code and notes as I learn different framworks.
