@@ -1,2 +1,2 @@
-# Code Practise sessions
-This repo contains my tutorial code and notes as I learn different frameworks.
+# Code Practise sessions - Heroku Version
+This branch contains the required files only to deploy the app to Heroku.
