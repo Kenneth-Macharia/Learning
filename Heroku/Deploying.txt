@@ -25,6 +25,7 @@ B.DEPLOYING: (See heroku_deployment branch for the project deployment version)
   a .ini file is not required. A single space between the process name and dyno and
   between the dyno name and app to run are crucial, without which the procifle
   will not be read bty Heroku)
+-Set a build pack e.g. Python
 -Set up heroku to either deploy manually or automatically, and the branch to deploy.
 -Ensure successful deployment and launch of the app.
 
