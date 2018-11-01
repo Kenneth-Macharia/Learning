@@ -29,8 +29,7 @@ B.DEPLOYING: (See heroku_deployment branch for the project deployment version)
 -Ensure successful deployment and launch of the app.
 
 C.HEROKU TROUBLESHOOTING:
--This would usually be after the app crushed on Heroku, after attempting to run it.
 -On heroku devcenter, download and install the Heroku CLI for the appropriate OS.
 -If terminal was running during installation, restart it.
 -Run $heroku login and enter Heroku credentials to log in.
--The Heroku CLI can be used to run and debug the app locally as if it was running on Heroku.
+-The Heroku CLI can be used to run and debug the app locally, as if it was running on Heroku.
