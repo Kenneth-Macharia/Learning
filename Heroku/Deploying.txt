@@ -16,27 +16,21 @@ B.DEPLOYING: (See heroku_deployment branch for the project deployment version)
 -Create a new app and select a run region, based on where most users of the app are located.
 -Connect Github: Deploy > connect Github and select a repo to deploy from.
 -Before deployment, ensure to have the following files in your project root:
-  1.requirements.txt (a list of all the app dependancies). To generate, run at the
-    prompt, while in the app virtual environment $pip freeze > requirements.txt
-  2.runtime.txt (will contain > the app python version e.g. 'python 2.7.15')
+  1.requirements.txt (Do not use pip freeze to generate. The dependancies should
+  be non-specific versions e.g. Flask instead of flask == x.x.x)
+  2.runtime.txt OPTIONAL (will contain > the app python version e.g. 'python 2.7.15',
+  Heroku supported versions are 2.7.15, 3.6.6 & 3.7.0)
   3.uwsgi.ini (uwsgi config file to tell Heroku how to run uwsgi for the app)
-  4.Procfile (specify what dyno to use)
--Select a build package: Settings > Add build package
+  4.Procfile (specify what dyno to use, can be uwsgi or gunicorn. If gunicorn, then
+  a .ini file is not required. A single space between the process name and dyno and
+  between the dyno name and app to run are crucial, without which the procifle
+  will not be read bty Heroku)
 -Set up heroku to either deploy manually or automatically, and the branch to deploy.
 -Ensure successful deployment and launch of the app.
 
 C.HEROKU TROUBLESHOOTING:
 -This would usually be after the app crushed on Heroku, after attempting to run it.
 -On heroku devcenter, download and install the Heroku CLI for the appropriate OS.
--If terminal wa running during installation, restart it.
+-If terminal was running during installation, restart it.
 -Run $heroku login and enter Heroku credentials to log in.
--Once logged, in extract an error log: $heroku logs --app=<app name on Heroku>
-
--For our app, we have fixes to app.py to ensure our app (store-items-restful-api) runs:
-  1.Error : db_obj in app.py is not defined, because it's being imported only if
-    app.py is run as __main__. uWSGI on Heroku runs the app object not the file so
-    db_obj which enables SQLAlchemy to set up the database, is never imported.
-  2.Fix : Create a run.py and import db_obj from slqalchemy & the app object from
-   app.py. Include the 'db_obj.init_app(app)' and move the create_all() function
-   and it's decorator here. The change uswgi.ini to run the app in run.py (run:app)
-    as opposed to the app in the app module (app:app).
+-The Heroku CLI can be used to run and debug the app locally as if it was running on Heroku.
