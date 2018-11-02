@@ -4,5 +4,5 @@ from app import app
 db_obj.init_app(app)
 
 @app.before_first_request
-def setup_sqlite_dB():
+def setup_dB():
     db_obj.create_all()

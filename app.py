@@ -16,7 +16,7 @@ app = Flask(__name__)
     variable but also pass the sqlite db URL as a default for running the app locally.
     Add psycopg2, a python lib, that enables the app to interact with a postgres db.'''
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///test.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///test.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 app.secret_key = 'myveryfirstjwtsecuredapiwihadb'
 api = Api(app)
