@@ -1,5 +1,5 @@
 INTRO:
--Digtial oceans offers servers for rent, to run our app.
+-Digital oceans offers servers for rent, to run our app.
 -The users full access to the server machines running their apps.
 -Users do have to set up and configure their servers before deploying their apps.
 -Droplets are the servers rented.
@@ -17,18 +17,18 @@ SETTING UP AND USING THE UBUNTU DROPLET:
   5.Create another user so as not to use the root super user in the server for
     non-admin tasks: #adduser <username> then follow instructions. This also
     creates a group with the same name as the user, so as to share rights.
-  6.Ensure the new user can temporarily get root priviledges for admin tasks like
-    installing programs in the server: #visudo , modify the file's user priviledge
+  6.Ensure the new user can temporarily get root rights for admin tasks like
+    installing programs in the server: #visudo , modify the file's user rights
     by adding the created user with the same parameters as root.
-  7.For security reasons, deny root sign in priviledges and grant the new user
-    this priviledge: #vi /etc/ssh/sshd_config. (Opens vim editor file for user configs
+  7.For security reasons, deny root sign in rights and grant the new user
+    this right: #vi /etc/ssh/sshd_config. (Opens vim editor file for user configs
     service, press i to enter insert mode & esc to exit insert mode. esc > : > wq,
     saves changes and exits the vim editor). In the user service file change:
     1.PermitRootLogin > no
     2.Add to PasswordAuthenitcation: 'AllowUsers <username>'
-    Exit the user config service and enter:# serivce sshd reload to refresh.
+    Exit the user config service and enter:# service sshd reload to refresh.
   8.#exit to exit the server.
-  9.Log in as <user> as above. To get root rights: #sudo su and enter passowrd.
+  9.Log in as <user> as above. To get root rights: #sudo su and enter password.
     To return the normal user <user>: #exit.
 
 INSTALLING & USING POSTGRESQL:
@@ -40,3 +40,31 @@ INSTALLING & USING POSTGRESQL:
 -We can run other sql commands e.g to create table etc, but our app will
   create everything for us, thanks to sqlalchemy.
 -#\q disconnects from the database & # exit reverts to the root super user.
+-Link the new server user to postgres:
+ 1.Log in
+ 2.Make the user, the root users: sudo su
+ 3.Become the postgres user: #sudo -i -u postgres
+ 4.Create a postgresql user/role, having the same user name as the server user (must):
+    # createuser <username> -P (-P allows setting a password)
+ 5.Create a db for the new user #createdb <username> (to delete a db #drop db
+    using user postgres ONLY)
+ 6.Set All local connections to db server to require passwords to connect:
+    # sudo vi /etc/postgresql/9.5/main/pg_hba.conf to edit the postgres user
+    configuration file. Ammend unix domain socket connections from 'peer' to md5.
+    SQLAchemy require this configuration, else it will not work.
+
+INSTALLING NGINX:
+-This is a web server and reverse proxy.
+-It will act as a gateway between the app and the external users. It will receive
+ app requests and direct them to the right app.
+-It allows multi-threaded operations of the app via uwsgi.
+-Allow running of multiple flask apps on the server.
+-Install nginx: #sudo apt-get update then #sudo apt-get install nginx.
+-Check the ubuntu firewall status: #sudo ufw status, if inactive, activate it:
+ #sudo ufw enable.
+-Give nginx access through the firewall: #sudo ufw allow 'Nginx HTTP'
+-Ensure ssh connections to the server are not blocked: #sudo ufw allow ssh.
+-Check that Nginx is running using the ubuntu system controller:
+    #systemctl status nginx (also start, stop, restart)
+
+CONFIGURE NGINX:
