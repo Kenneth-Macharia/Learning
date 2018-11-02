@@ -1,0 +1,42 @@
+INTRO:
+-Digtial oceans offers servers for rent, to run our app.
+-The users full access to the server machines running their apps.
+-Users do have to set up and configure their servers before deploying their apps.
+-Droplets are the servers rented.
+-Create a new ubuntu droplet and set it up, once done open it's console and log
+  into it. Log in details will be sent via email.
+
+SETTING UP AND USING THE UBUNTU DROPLET:
+-If running unix, you can connect remotely to the droplet via terminal, if on
+  Windows use the online console:
+  1.Enter ssh <username>@<server address> (ssh is ubuntu's connection protocol)
+  2.Enter the server password
+  3.This logs in as 'root' which in unix based systems is the super user.
+  4.apt > ubuntu package manager (similar to pip), can be queried for updates
+    for any installs on the server: #apt-get update.
+  5.Create another user so as not to use the root super user in the server for
+    non-admin tasks: #adduser <username> then follow instructions. This also
+    creates a group with the same name as the user, so as to share rights.
+  6.Ensure the new user can temporarily get root priviledges for admin tasks like
+    installing programs in the server: #visudo , modify the file's user priviledge
+    by adding the created user with the same parameters as root.
+  7.For security reasons, deny root sign in priviledges and grant the new user
+    this priviledge: #vi /etc/ssh/sshd_config. (Opens vim editor file for user configs
+    service, press i to enter insert mode & esc to exit insert mode. esc > : > wq,
+    saves changes and exits the vim editor). In the user service file change:
+    1.PermitRootLogin > no
+    2.Add to PasswordAuthenitcation: 'AllowUsers <username>'
+    Exit the user config service and enter:# serivce sshd reload to refresh.
+  8.#exit to exit the server.
+  9.Log in as <user> as above. To get root rights: #sudo su and enter passowrd.
+    To return the normal user <user>: #exit.
+
+INSTALLING & USING POSTGRESQL:
+-Install postgres: #apt-get install postgresql postgresql-contrib.
+-Switch over to the postgres user for the database: #sudo -i -u postgres. This also
+  creates a database called postgres, the same name as the user connecting to it.
+-Connect to the postgres database: #psql, prompt changes to : postgres=#
+-Check connection details:#\conninfo
+-We can run other sql commands e.g to create table etc, but our app will
+  create everything for us, thanks to sqlalchemy.
+-#\q disconnects from the database & # exit reverts to the root super user.
