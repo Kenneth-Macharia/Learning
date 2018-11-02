@@ -1,6 +1,7 @@
 ''' This is the main module that runs the api resources & models '''
 ''' Its an improvement of REST_api_with_DB.py '''
 
+import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -10,8 +11,13 @@ from resources.items import Item, Items
 from resources.stores import Store, Stores
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False #Turns off the flask_sqlalchemy obj tracker and leaves the sqlalchemy on
+
+''' Adding Postgres database to app on Heroku. Get the DB URL from the Heroku env
+    variable but also pass the sqlite db URL as a default for running the app locally.
+    Add psycopg2, a python lib, that enables the app to interact with a postgres db.'''
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///test.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 app.secret_key = 'myveryfirstjwtsecuredapiwihadb'
 api = Api(app)
 
