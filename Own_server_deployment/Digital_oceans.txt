@@ -58,13 +58,96 @@ INSTALLING NGINX:
 -It will act as a gateway between the app and the external users. It will receive
  app requests and direct them to the right app.
 -It allows multi-threaded operations of the app via uwsgi.
--Allow running of multiple flask apps on the server.
+-Allow running of multiple flask apps on the server, simultaneously.
 -Install nginx: #sudo apt-get update then #sudo apt-get install nginx.
 -Check the ubuntu firewall status: #sudo ufw status, if inactive, activate it:
  #sudo ufw enable.
 -Give nginx access through the firewall: #sudo ufw allow 'Nginx HTTP'
 -Ensure ssh connections to the server are not blocked: #sudo ufw allow ssh.
 -Check that Nginx is running using the ubuntu system controller:
-    #systemctl status nginx (also start, stop, restart)
+    #systemctl status nginx (also start nginx, stop nginx , restart nginx)
 
 CONFIGURE NGINX:
+-Access the ngix config file to enable interaction with the app:
+    #sudo vi /etc/nginx/sites-available/items-rest.conf (creates the config file)
+-Insert the following configurations:
+ 1.Server:specify's the app is a server and will listen for incoming requests
+ and action them:
+    a)Default port which is 80 for the internet so that the ':port' part of a url
+    is omitted.
+    b)Forward the ip of the requester to the flask app
+    c)Set the flask app to run on local host IP
+    d)server name which is localhost
+ 2.Location /:Whenever someone accesses the root location of the server, they will
+  be directed as specified here, in this case to the app:
+    a)Include uwsgi params so that ngix can communicate with uwsgi
+    b)uwsgi pass:creates a connection point between the app and nginx in form of
+     another config file.
+    c)uwsgi modifier parameter to tell the app threads when to die if they are blocked.
+ 3.Error pages:
+    a)404 redirect to the 404.html saved in a folder specified. Nginx comes with
+     these pages.
+    b)Any 500 error to the 50x,html file.
+-Basically after specifying what we are serving and how to serve it (1), then we
+ just specify the location of the app server and parameters for its dependancies
+ e.g. uwsgi (2)
+-If for some reason we are unable to do any of the above follow the error handlers
+ endpoints (3)
+-See the 'items-rest.conf' file.
+-After creating the above file, enable it by creating a soft link between the config
+ file and the nginx config source folder:
+  #sudo ln -s /etc/nginx/sites-available/items-rest.conf /etc/nginx/sites-enabled/
+
+ ADD THE FLASK APP TO THE SERVER:
+ -Create the folder to host the flask app, as specified in the conf file:
+  #sudo mkdir /var/www/html/items-rest. Note the folder is created using the user
+  'root' (used sudo), thus 'ken' does not have access to it. To give 'ken' access
+  make the user the folder owner: #sudo chown ken:ken /var/www/html/items-rest
+  (chwon - change owner)
+ -Move cd into the dir #cd /var/www/html/items-rest
+ -Clone the app from github into the flask app dir, add a ' .' at after the github
+  url to tell the server to put all the contents from the url in the current
+  (ensure the folder is empty or the ' .' will not work).
+ -Install some python dependancies:
+    1.python-pip - Python package manager
+    2.python3-dev - enable installation of psycopg2 and uwsgi
+    3.libpg-dev - allow running of psycopg2
+  #sudo apt-get install python-pip python3-dev libpq-dev
+ -Instal virtualenv and create a virtual env in the app folder.
+ -Activate 'venv' and install all from requirements.txt #pip install -r requirements.txt
+
+ CONFIGURE UWSGI:
+ -Create an ubuntu service that will run when the server start and will set
+  environment variables, in this case uWSGI (See uwsgi_items_rest.service file):
+    1.#sudo vi /etc/systemd/system/uwsgi_items_rest.service (creates a new service
+    file in the ubuntu service folder)
+    2.Define a description section [Unit]
+    3.Define a services unit to tell ubuntu what params to run the service with:
+        a)Tell ubuntu which program to run, in this case uWSGI in the venv/bin.
+        b)Includes the uwsgi.ini file which specify's how to run the flask app.
+        c)Includes user and group id to run the uwsgi service.
+        d)Specify the log to write the logs.
+        e)Specify the process to restart always if it dies.
+        f)Specify the process to shut down gracefully without losing data.
+        g)Notifications
+    4.Define the 'install section' to allow the service to start when the server
+     boots up.
+ -Edit uwsgi.ini so that the app can communicate with uwsgi and uwsgi can communicate
+  with nginx.
+-Have a section [uwsgi] and in it, add the following:
+    1.Base folder where the uwsgi folder exists
+    2.The run file, in this case run.py
+    3.Module to import from the above file (var)
+    3.Home folder for uwsgi executable
+    4.Root folder for the python project
+    5.Socket.sock file to allow communication between uwsgi and NGINX
+    6.Permissions to the socket file, 777 allows all user access.
+    7.processes (depend on the droplet)
+    8.threads (depend on the droplets)
+    9.harakiri (if one of the thread encounter a problem the emperor will kill it
+     after this time in sec)
+    10.callable is the app variable in the run.py
+    11.Place to log the python app output logs.
+
+START THE UBUNTU APP SERVICE TO RUN THE FLASK APP:
+-#sudo systemctl start uwsgi_items_rest (status as well)

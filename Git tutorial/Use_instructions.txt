@@ -31,6 +31,8 @@ B.REMOTE REPO (GITHUB):
   1. Follow step one and two above
   2. Locally > cd into preferred folder > On terminal > $git clone <remote repo URL from github>
 
+(NB)Cloning a specific branch from a repo: #git clone --single-branch -b <branch_name> <repo_URL>
+
 C:ADVANCED GIT FOR COLLABORATION:
 -Recommended git workflow: https://githubflow.github.io/
 -Advanced git commands: https://gist.github.com/jedmao/5053440
