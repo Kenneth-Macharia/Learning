@@ -37,21 +37,24 @@ INSTALLING & USING POSTGRESQL:
   creates a database called postgres, the same name as the user connecting to it.
 -Connect to the postgres database: #psql, prompt changes to : postgres=#
 -Check connection details:#\conninfo
--We can run other sql commands e.g to create table etc, but our app will
-  create everything for us, thanks to sqlalchemy.
+-We can run other sql commands : https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546
 -#\q disconnects from the database & # exit reverts to the root super user.
 -Link the new server user to postgres:
  1.Log in
- 2.Make the user, the root users: sudo su
+ 2.Make the user, the root user: sudo su
  3.Become the postgres user: #sudo -i -u postgres
  4.Create a postgresql user/role, having the same user name as the server user (must):
-    # createuser <username> -P (-P allows setting a password)
+    #createuser <username> -P (-P allows setting a password)
  5.Create a db for the new user #createdb <username> (to delete a db #drop db
     using user postgres ONLY)
  6.Set All local connections to db server to require passwords to connect:
-    # sudo vi /etc/postgresql/9.5/main/pg_hba.conf to edit the postgres user
+    #sudo vi /etc/postgresql/9.5/main/pg_hba.conf to edit the postgres user
     configuration file. Ammend unix domain socket connections from 'peer' to md5.
     SQLAchemy require this configuration, else it will not work.
+ 7.While as root user (#sudo su), #update-rc.d postgresql enable to configure
+  postgres to start when server boots up.
+ 8.Use #service postgresql <command> to instruct the postgres server, for options:
+  https://www.postgresql.org/docs/9.5/static/app-pg-ctl.html
 
 INSTALLING NGINX:
 -This is a web server and reverse proxy.
@@ -150,6 +153,7 @@ CONFIGURE NGINX:
     11.Place to log the python app output logs.
 
 START THE UBUNTU APP SERVICE TO RUN THE FLASK APP:
--#sudo systemctl start uwsgi_items_rest (status as well)
--#sudo tail -f /var/log/nginx/access.log (real time access logs)
--sudo tail -f /var/log/nginx/error.log (real time error logs)
+ -#sudo systemctl start uwsgi_items_rest (status as well)
+
+Tail nginx, uwsgi and postgres log for real time info:
+ -#sudo tail -f /var/log/nginx/access.log /var/log/nginx/error.log /var/www/html/items-rest/log/uwsgi.log /var/log/postgresql/postgresql-9.5-main.log
