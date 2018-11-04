@@ -151,3 +151,5 @@ CONFIGURE NGINX:
 
 START THE UBUNTU APP SERVICE TO RUN THE FLASK APP:
 -#sudo systemctl start uwsgi_items_rest (status as well)
+-#sudo tail -f /var/log/nginx/access.log (real time access logs)
+-sudo tail -f /var/log/nginx/error.log (real time error logs)
