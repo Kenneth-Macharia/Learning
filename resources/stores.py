@@ -28,7 +28,7 @@ class Store(Resource):
         if StoreModel.find_store_by_name(name) is None:
             return {'Response':'Store {} does not exist'.format(name)}, 400
 
-        StoreModel.find_store_by_name(name).delete_item()
+        StoreModel.find_store_by_name(name).delete_store()
         return {'Response':'Store {} deleted'.format(name)}, 200
 
 
