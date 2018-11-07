@@ -4,7 +4,26 @@
   to yield any desired color.
 -rgb values can also be used to pick any color as well but have also an option
  for color transparency. {rgb(31,61,0,0.48) > Red-31, Green-61, Blue-0, 48% transparency}
-
 -A class can be used to style as many elements as required, but I.ds can only be
  used once in the same HTML document. Class use is more encouraged even when we
   only have one class.
+
+ CSS BOX MODEL:
+ -All HTML elements are box elements.
+ -It helps define spaces between elements and contains:
+    1.Margins:Space between boxes
+    2.Borders:Surrounds the elements
+    3.Padding:Area around the content
+    4.Content:Texts & images
+    5.Box:defined by the margins.
+-Box-sizing:enables setting the height & width of the content to fit the box.
+-Block elements: e.g paragraphs occupy the width of the browser.
+-In-line elements: e.g. images, links, <strong> etc, you can set their height &
+ widths.
+
+-Browsers add default margins and padding when they are not specified.
+-Divs (divide) are used to split a webpage into sections (boxes) to hold various
+ page contents.
+-Relatively positioned elements depend on the position of other elements.
+-Absolutely positioned elements can be placed anywhere inside their parent
+ elements.

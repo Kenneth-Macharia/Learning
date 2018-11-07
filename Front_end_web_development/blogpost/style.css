@@ -1,3 +1,17 @@
+* {   /** the asterix represents all elements in the HTML doc **/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /**border: 1px dotted;   outlines the elements so as to see them as we work
+    on them **/
+}
+
+.clearfix:after {  /** counters the float **/
+    content: "";
+    display: table;
+    clear: both;
+}
+
 body {
     font-family: Helvetica Neue, Arial;
     font-size: 18px;
@@ -5,21 +19,78 @@ body {
 
 h1, h2 {
     color: #00960b;
-
 }
 
 h1 {
   font-size: 40px;
+  margin-bottom: 20px;
 }
 
 h2 {
   font-size: 25px;
+  margin-bottom: 10px;
 }
 
-.main-text {
+.main_text {
   text-align: justify;
+  margin-bottom: 20px;
 }
 
-#author-text {
+#author_text {
   font-size: 22px;
+  float: left;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+.page_container {
+    width: 1140px;
+    /** Centre the div by setting the left & right margins to auto **/
+    /** Auto means that the settings are adjusted according to the context of
+    the element i.e browser window so even if the widows is moved or resized the
+    elements remain centered **/
+    margin: 20px auto 0 auto;
+}
+
+.block_post {
+    width: 75%;  /** 75% of the width of the main container **/
+    float: left;
+    padding-right: 30px;
+    position: relative;  /** to ensure the absolute postion of the date element **/
+}
+
+.other_post {
+    width: 25%;
+    float: left;
+}
+
+.author_box {
+    width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    border-top: 1px solid #808080;
+}
+
+.other {
+    margin-bottom: 40px;
+}
+
+.author_box img {  /** alternative way to style one element only instead of
+    creating a class for it **/
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;  /** makes the border a circle **/
+    float: left;
+}
+
+.block_post img {
+    height: 150px;
+    width: auto;  /** to maintain the image aspect ratio **/
+}
+
+.date {
+    position: absolute;  /** position vs the realtive of the parent container **/
+    top: 10px;
+    right: 30px;
 }
