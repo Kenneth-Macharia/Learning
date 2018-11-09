@@ -27,3 +27,74 @@
 -Relatively positioned elements depend on the position of other elements.
 -Absolutely positioned elements can be placed anywhere inside their parent
  elements.
+
+ WEB DESIGN GUIDELINES:
+-Typography:the art and technique of arranging type to make written language
+  readable and beautiful.
+-Guidelines for good typography:
+  1.Use a font-size of between 15-25 px
+  2.Headlines:60px if the more reduce the weight of the text to make it blend
+    with the rest of the web page texts.
+  3.Use a line-spacing of 120-150% of the font-size.
+  4.Use 45-90 characters per line.
+  5.Pick a good font-type e.g. sans-serif as opposed to the traditional serifs,
+    get more from google web fonts. When choosing a font-type:
+      a)The right font for the look and feel of the website.
+      b)Use 1-2 typefaces only
+      c)Decide between sans-serif or serif typeface.
+  6.For colors:
+    a)Use one main base color (other than black, white or grey)
+    b)Flat UI color is a good tool for choosing base colors.
+    c)Create a color pallete to be used for the project, which are different shades
+      of the base color. 02-255 is a good tool for this.
+    d)To use multiple colors use adobe color cc to get a color combination that
+      makes sense.
+    e)Using color to draw attention mainly to elements that you want user see,
+      e.g action buttons.
+    f)Never use black in a design.
+    g)Color suggestions: use the right color to convey the correct tone. Brighter
+      tones are more energetic and darker tones convey power and elegance.
+      (i)Red - passion, strength
+      (ii)Orange - cheerful, creativity, courage
+      (iii)Yellow - intelligence, happiness, curiosity
+      (iv)Green - harmony, nature, health, money
+      (v)Blue - patience, peace, trustworthy, stability, profesisionalism
+      (vi)Purle - wisdom, wealth, nobility, luxury
+      (vii)Pink - Affection, care, peace
+      (viii)Brown - relaxation, confidence, durability, comfort, realibility
+  7.Using images: websites with images convert better than text only websites:
+    a)Use texts directly on an image only if they are of different shades.
+    b)Overlay a color over an image to help with the above e.g black to turn a
+      a bright image darker if the text is also bright. Other colors can also be
+      used.
+    c)Use color gradients to improve the look in the above.
+    d)Use texts in a box on top of an image with a white transparent color or
+      any other color tat matches the color pallette of the website.
+    e)Also use image blur when overlying texts images.
+    f)Use floor fade i.e. images fading into a black color and overlay the white
+      texts on the faded section.
+  8.Using icons:to shows features, products or steps to a process. Allows quick
+    browsing of a page. Also use them for links/actions but:
+    a)The icons should recognizable immediately
+    b)Label the icons
+    c)Icons should play a support role rather than be the main features of the page
+    d)Use 'vector icon fonts' instead of 'static image icons' as the later uses
+      smooth vector images that will always look sharp even when scaled up or down.
+  9.Using whitespace between all elements of the page to mage the page more elegant
+    pleasant to look at. Put whitespaces:
+    a)Between elements
+    b)Between element groups
+    c)Between website sections
+    d)to define content hierarchy i.e what the user should see first and then
+      next and so forth.
+  10.User experience:the overal experience a user has with the product, from
+    interacting with the user interface (the presentation of he product).
+    "It's not just what it looks and feels like. Design is how it works"
+    Steve Jobs. So design not just the product but the user experience.
+    Consider the User's goals vs Business goals.
+  11.Design inspiration:
+    a)Collect designs that you like
+    b)try to understand everything about them
+    c)Why do they look good?
+    d)What do these sites have in common?
+    e)How were they built in HTMl and CSS? Use browser developer tools
