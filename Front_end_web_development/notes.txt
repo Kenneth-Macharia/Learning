@@ -97,4 +97,16 @@
     b)try to understand everything about them
     c)Why do they look good?
     d)What do these sites have in common?
-    e)How were they built in HTMl and CSS? Use browser developer tools
+    e)How were they built in HTMl and CSS? Use browser developer tools.
+
+STEPS TO DEVELOPING A FUNCTIONING WEBSITE:
+1.Define the goal of the project
+2.Define the audience
+3.Plan the content e.g. text, images, videos, icons etc. Think about the visual
+ hierarchy. Content first approach: defining the content first before building.
+4.Define the navigation and site structure
+5.Get inspired and with the idea in mind, sketch it. Never star designing without
+ an ideas of what is required.
+6.After the site is built, optimize for speed and search engines.
+7.After launch, monitor the site for user interactions and make changes anywhere
+ necessary or ensure content is updated.
