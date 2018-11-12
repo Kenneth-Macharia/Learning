@@ -1,0 +1,289 @@
+/* ---------------------------------
+   BASIC SETUP SECTION
+   --------------------------------- */
+* {
+    /* Always the first page styling */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* for developments to visually see the elements on the page
+    border: 0.5px solid rgb(110, 181, 232) */
+}
+
+html {
+    /* not neccessary as white is the default */
+    background-color: #fff;
+    color:#555;
+    /* to include the google font, use the font name as below
+     and also specify other local fonts incase importing the
+     google font fails */
+    font-family: 'Lato', 'Arial', 'sans-serif';
+    font-weight: 300;
+    font-size: 20px;
+    text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------
+   RE-USABLE COMPONENTS SECTION
+   --------------------------------- */
+
+.row {
+    /* Only absolute dimension, all others will be relative. This is the entire
+    width of the page */
+    max-width: 1140px;
+    /* Center all the rows on the page, set left ad right to auto and top and
+    bottom to 0 */
+    margin: 0 auto;
+}
+
+section {
+    /* Add white spaces for each sections. Usually you use margins but padding
+    for this case */
+    padding: 80px 0;
+}
+
+.box {
+    padding: 1%;
+}
+
+/* ---------- HEADINGS ---------- */
+
+h1, h2, h3 {
+    /* h1 by default are bold, so reduce the weight */
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1 {
+    /* removes the header margins top  and bottom so there are not white spaces
+    around it */
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 200%;
+    word-spacing: 4px;
+}
+
+h2 {
+    font-size: 150%;
+    word-spacing: 2px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2:after {
+    /* Diplays the orange underline */
+    display: block;
+    height: 2px;
+    background-color: #e67e22;
+    /* Contents must be specified anytime we use an :after, in this case no words
+    just a space */
+    content: " ";
+    width: 110px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 100%;
+    margin-bottom: 15px;
+}
+
+/* ---------- PARAGRAPHS ---------- */
+
+.long-copy {
+    line-height: 135%;
+    /* Typograhy rules make this make too long, so it can be shortened and
+    re-cntered as below */
+    width:70%;
+     /* total lenght is 100%, paragraphs length is 70%, leaving 30%, distributed
+     on each side */
+    margin-left: 15%;
+    margin-bottom: 30px;
+}
+
+.box p {
+    font-size: 90%;
+    line-height: 145%;
+}
+
+/* ---------- ICONS ---------- */
+
+.icon-big {
+    font-size: 300%;
+    display: block;
+    color: #e67e22;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+
+/* ---------- BUTTONS ---------- */
+
+.btn:link,
+.btn:visited {
+    /* pseudo classes:css states for buttons: link >normal unclicked state,
+    visited >look after it has been clicked, hover >look When
+    pointed at, active > when clicked. Specify the state styling as below */
+
+    /* inline-blocks can have padding and margin and does not enforce breaks,
+    unlike an in-line element e.g. buttons, so use this inline block to make
+    inline elements, in-line blocks */
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 90%;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 100px;
+    /* transition the link to hover colors in 0.2 seconds instead of instantenouesly */
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.btn_full:link,
+.btn_full:visited {
+    /* Use flatuicolors.com to get nice flat colors of the buttons */
+    background-color: #e67e22;
+    border: 1px solid #e67e22;
+    color: #fff;
+    margin-right: 15px;
+}
+
+.btn_ghost:link,
+.btn_ghost:visited {
+    border: 1px solid #e67e22;
+    color: #e67e22;
+}
+
+.btn:hover,
+.btn:active {
+    /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
+    your color code and paste in the site to get various shades of your color */
+    background-color: #cf6d17;
+}
+
+.btn_full:hover,
+.btn_full:active {
+    background-color: #cf6d17;
+}
+
+.btn_ghost:hover,
+.btn_ghost:active {
+    border: 1px solid #cf6d17;
+    color: #fff;
+}
+
+/* ---------------------------------
+   HEADER SECTION
+   --------------------------------- */
+
+header {
+    /* include the img via 'url' and make its darker using the liner-gradient */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
+    url(img/hero.jpg);
+    /* ensure we can view the entire background image, not zoomed */
+    background-size: cover;
+    background-position: center;
+    /* set the header to fiil the page viewport i.e entire page size so that header
+    image fills the page as well */
+    height: 100vh;
+}
+
+.hero_textbox {
+    /* this will be an absolutely positined box so that we can horizontalt &
+    vertically centre it */
+    position: absolute;
+    width: 1140px;
+    top: 50%;
+    left: 50%;
+    /* transltes 50% of the element's width & length, up & left */
+    transform: translate(-50%, -50%);
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+    float: left;
+    margin-top: 20px;
+}
+
+.main_nav {
+    float: right;
+    list-style: none;  /* removes the bullets */
+    margin-top: 30px;
+
+}
+
+.main_nav li {
+    /* style all li elements inside the main nav bar */
+    /* Change the li elements from block to in-line blocks */
+    display: inline-block;
+    margin: 20px;
+
+}
+
+.main_nav li a:link,
+.main_nav li a:visited {
+    padding: 8px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 80%; /* desired font size/ base font size under 'html' */
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s;
+}
+
+.main_nav li a:hover,
+.main_nav li a:active {
+    border-bottom: 2px solid #e67e22;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 80%; /* desired font size/ base font size under 'html' */
+}
+
+/* ---------------------------------
+   MEALS SECTION
+   --------------------------------- */
+
+.section-meals {
+    padding:0;
+}
+
+.meals-showcase {
+    list-style: none;
+    width: 100%;
+
+}
+
+.meals-showcase li {
+    display: block;
+    width: 25%;
+    float: left;
+}
+
+.meal-photo {
+    width: 100%;
+    margin: 0;
+    /* zoomed img overflow below, hidden */
+    overflow: hidden;
+    /* Set the img backgorund to black to make it darker*/
+    background-color: #000;
+}
+
+.meal-photo img {
+    /* Set the img transparency to 70% to make it even darker */
+    opacity: 0.7;
+    width: 100%;
+    height: auto;
+    /* img zoomed so at to effect the zoom out effect on hover */
+    transform: scale(1.15);
+    /* creates a delayed/smooth animation effect on hover */
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.meal-photo img:hover {
+    /* Don't scale back to 1 as a white line will show at the bottom of the img */
+    opacity: 1;
+    transform: scale(1.04);
+}

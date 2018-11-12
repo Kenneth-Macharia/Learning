@@ -2,7 +2,7 @@
  color.
  -Hexadecimal values (#xxxxx) are used to pick any color combination of the 3 primary colors
   to yield any desired color.
--rgb values can also be used to pick any color as well but have also an option
+-Rgb values can also be used to pick any color as well but have also an option
  for color transparency. {rgb(31,61,0,0.48) > Red-31, Green-61, Blue-0, 48% transparency}
 -A class can be used to style as many elements as required, but I.ds can only be
  used once in the same HTML document. Class use is more encouraged even when we
@@ -45,7 +45,7 @@
   6.For colors:
     a)Use one main base color (other than black, white or grey)
     b)Flat UI color is a good tool for choosing base colors.
-    c)Create a color pallete to be used for the project, which are different shades
+    c)Create a color palette to be used for the project, which are different shades
       of the base color. 02-255 is a good tool for this.
     d)To use multiple colors use adobe color cc to get a color combination that
       makes sense.
@@ -58,10 +58,10 @@
       (ii)Orange - cheerful, creativity, courage
       (iii)Yellow - intelligence, happiness, curiosity
       (iv)Green - harmony, nature, health, money
-      (v)Blue - patience, peace, trustworthy, stability, profesisionalism
-      (vi)Purle - wisdom, wealth, nobility, luxury
+      (v)Blue - patience, peace, trustworthy, stability, professionalism
+      (vi)Purple - wisdom, wealth, nobility, luxury
       (vii)Pink - Affection, care, peace
-      (viii)Brown - relaxation, confidence, durability, comfort, realibility
+      (viii)Brown - relaxation, confidence, durability, comfort, reliability
   7.Using images: websites with images convert better than text only websites:
     a)Use texts directly on an image only if they are of different shades.
     b)Overlay a color over an image to help with the above e.g black to turn a
@@ -69,7 +69,7 @@
       used.
     c)Use color gradients to improve the look in the above.
     d)Use texts in a box on top of an image with a white transparent color or
-      any other color tat matches the color pallette of the website.
+      any other color tat matches the color palette of the website.
     e)Also use image blur when overlying texts images.
     f)Use floor fade i.e. images fading into a black color and overlay the white
       texts on the faded section.
@@ -81,13 +81,13 @@
     d)Use 'vector icon fonts' instead of 'static image icons' as the later uses
       smooth vector images that will always look sharp even when scaled up or down.
   9.Using whitespace between all elements of the page to mage the page more elegant
-    pleasant to look at. Put whitespaces:
+    pleasant to look at. Put white spaces:
     a)Between elements
     b)Between element groups
     c)Between website sections
     d)to define content hierarchy i.e what the user should see first and then
       next and so forth.
-  10.User experience:the overal experience a user has with the product, from
+  10.User experience:the overall experience a user has with the product, from
     interacting with the user interface (the presentation of he product).
     "It's not just what it looks and feels like. Design is how it works"
     Steve Jobs. So design not just the product but the user experience.
@@ -110,3 +110,13 @@ STEPS TO DEVELOPING A FUNCTIONING WEBSITE:
 6.After the site is built, optimize for speed and search engines.
 7.After launch, monitor the site for user interactions and make changes anywhere
  necessary or ensure content is updated.
+
+RESPONSIVE WEB DESIGN:
+-Building websites that display content correctly depending on the screen size
+ of the device used to view them.
+-Ingredients to responsive web design:
+    1.Using the fluid grid: all layout elements are sized in relative units e.g
+    % instead of absolute units e.g pixels
+    2.Using flexible images: images are also sized in relative units
+    3.Using media queries: which allow us to specify different CSS style rules
+    for different browser widths.
