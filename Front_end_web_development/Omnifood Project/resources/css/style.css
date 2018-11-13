@@ -287,3 +287,26 @@ header {
     opacity: 1;
     transform: scale(1.04);
 }
+
+/* ---------------------------------
+HOW IT WORKS SECTION
+--------------------------------- */
+
+.steps_box {
+  margin-top: 30px;
+}
+
+.steps_box:first-child {
+  /* Selct the first step box - on the left */
+  text-align: right;
+  padding-right: 3%;
+}
+
+.steps_box:last-child {
+  /* Selct the first step box - on the right */
+  padding-right: 3%;
+}
+
+.app_screen {
+  width: 40%;
+}
