@@ -130,6 +130,38 @@ h3 {
 
 }
 
+.icon_small {
+    /* Set the icons as inline blocks so that we can assign width to them */
+    display: inline-block;
+    width: 30px;
+    /* Centering them inside the in line block is now possible */
+    text-align: center;
+    color: #e67e22;
+    font-size: 120%;
+    margin-right: 10px;
+    /* Aligning icon fonts to text */
+    line-height: 120%;
+    vertical-align: middle;
+    margin-top: -5px;
+}
+
+/* ---------- LINKS ---------- */
+
+a:link,
+a:visited {
+    color: #e67e22;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #e67e22;
+    transition: border-bottom 0.2s, color:0.2s;
+}
+
+a:hover,
+a:active {
+    color: #555;
+    border-bottom: 1px solid transparent;
+}
+
 /* ---------- BUTTONS ---------- */
 
 .btn:link,
@@ -351,9 +383,33 @@ HOW IT WORKS SECTION
 
 }
 
+.btn_app:link,
+.btn_app:visited {
+    border-bottom: 0;
+}
+
 .btn_app img {
   height: 50px;
   width: auto;
   margin-right: 10px;
 
+}
+
+/* ---------------------------------
+CITIES SECTION
+--------------------------------- */
+
+.box img {
+    /* We can use our box class from before because it did not contain images
+    before, if it did ans we wanted to stlye these differently from the images
+    before, we would have to create a separate class for the latter */
+    /* We want the images to fill the boxes completely */
+    width: 100%;
+    height: auto;
+    /* Add some margin between the image boxes and the h3 titles */
+    margin-bottom: 15px;
+}
+
+.city_feature {
+    margin-bottom: 5px;
 }
