@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <!-- css reset file for std content viewing (normalized) on all browsers -->
         <link rel="stylesheet" type="text/css" href="vendors/css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="vendors/css/responsive_grid.css">
+        <link rel="stylesheet" type="text/css" href="vendors/css/Grid.css">
         <link rel="stylesheet" type="text/css" href="vendors/css/ionicons.min.css">
         <link rel="stylesheet" type="text/css" href="resources/css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400"
@@ -105,7 +105,7 @@
             <!-- Instead of the centred row we defined above, we want the images
             to occupy 100% of the page width -->
             <!-- Use one unordered list per row -->
-            <ul class="meals-showcase">
+            <ul class="meals-showcase clearfix">
                 <li>
                     <!-- figure is a container that can contain an image and it's
                     caption 'figcaption', but we wont include a caption -->
@@ -132,7 +132,7 @@
                     </figure>
                 </li>
             </ul>
-            <ul class="meals-showcase">
+            <ul class="meals-showcase clearfix">
                 <li>
                     <figure class="meal-photo">
                         <img src="resources/img/5.jpg" alt="Paleo beef steak with
@@ -191,6 +191,79 @@
                 alt="Play Store Button"></a>
             </div>
           </div>
+        </section>
+
+        <section class="section_cities">
+          <div class="row">
+            <h2>We're currently in these cities</h2>
+          </div>
+          <div class="row">
+            <div class="col span-1-of-4">
+              <img src="resources/img/lisbon-3.jpg" alt="Lisbon City" class="">
+              <h3>Lisbon</h3>
+              <div class="city_feature">
+                <i class="ion-ios-person"></i>
+                1600+ happy eaters
+              </div>
+              <div class="city_feature">
+                <i class="ion-ios-star"></i>
+                60+ top chefs
+              </div>
+              <div class="city_feature">
+                <i class="ion-social-twitter"></i>
+                @omnifood_lx
+              </div>
+            </div>
+            <div class="col span-1-of-4">
+              <img src="resources/img/san-francisco.jpg" alt="San-Francisco City" class="">
+              <h3>San Francisco</h3>
+              <div class="city_feature">
+                <i class="ion-ios-person"></i>
+                3700+ happy eaters
+              </div>
+              <div class="city_feature">
+                <i class="ion-ios-star"></i>
+                160+ top chefs
+              </div>
+              <div class="city_feature">
+                <i class="ion-social-twitter"></i>
+                @omnifood_sf
+              </div>
+            </div>
+            <div class="col span-1-of-4">
+              <img src="resources/img/berlin.jpg" alt="Berlin City" class="">
+              <h3>Berlin</h3>
+              <div class="city_feature">
+                <i class="ion-ios-person"></i>
+                2300+ happy eaters
+              </div>
+              <div class="city_feature">
+                <i class="ion-ios-star"></i>
+                110+ top chefs
+              </div>
+              <div class="city_feature">
+                <i class="ion-social-twitter"></i>
+                @omnifood_berlin
+              </div>
+            </div>
+            <div class="col span-1-of-4">
+              <img src="resources/img/london.jpg" alt="London City" class="">
+              <h3>London</h3>
+              <div class="city_feature">
+                <i class="ion-ios-person"></i>
+                1200+ happy eaters
+              </div>
+              <div class="city_feature">
+                <i class="ion-ios-star"></i>
+                50+ top chefs
+              </div>
+              <div class="city_feature">
+                <i class="ion-social-twitter"></i>
+                @omnifood_london
+              </div>
+            </div>
+          </div>
+
         </section>
 
     </body>

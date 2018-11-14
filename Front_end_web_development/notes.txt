@@ -27,6 +27,11 @@
 -Relatively positioned elements depend on the position of other elements.
 -Absolutely positioned elements can be placed anywhere inside their parent
  elements.
+-Floats used to move elements across the page, need to be cleared after used else
+ other sections/elements will be be affected by the uncleared floats. This happens
+ when sections overlap andone start wjere another is starting causing alignment
+ issues e.g a section having a zero px height. This is sorted using the clearfix
+ css class. #See implementation in style.css under basic setup.
 
  WEB DESIGN GUIDELINES:
 -Typography:the art and technique of arranging type to make written language
