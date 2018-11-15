@@ -300,7 +300,154 @@
                     </blockquote>
                 </div>
             </div>
-
         </section>
+
+        <section class="plans_section">
+          <div class="row">
+            <h2>Start eating healthy today</h2>
+          </div>
+          <div class="row">
+            <div class="col span-1-of-3">
+              <!-- div necessary so that to set its width and back color separate
+              from the col box -->
+              <div class="plan_box">
+                <div>
+                  <h3>Premium</h3>
+                  <!-- span styles a section of a paragraph differnt from the rest -->
+                  <p class="plan_price">399$<span>/ month</span></p>
+                  <p class="plan_price_meal">That’s only 13.30$ per meal</p>
+                </div>
+                <div>
+                  <ul>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>1 meal every day</li>
+                    <l><i class="ion-ios-checkmark-empty icon_small"></i>Order 24/7</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Access to newest creations</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Free delivery</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="#" class="btn btn_full">Sign up now</a>
+                </div>
+              </div>
+            </div>
+            <div class="col span-1-of-3">
+              <div class="plan_box">
+                <div class="">
+                  <h3>Pro</h3>
+                  <p class="plan_price">149$<span>/ month</span></p>
+                  <p class="plan_price_meal">That’s only 14.90$ per meal</p>
+                </div>
+                <div>
+                  <ul>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>1 meal 10 days/month</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Order 24/7</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Access to newest creations</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Free delivery</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="#" class="btn btn_ghost">Sign up now</a>
+                </div>
+              </div>
+            </div>
+            <div class="col span-1-of-3">
+              <div class="plan_box">
+                <div class="">
+                  <h3>Starter</h3>
+                  <p class="plan_price">19$<span>/ meal</span></p>
+                  <!-- Special character for an empty line, a simple space will
+                  not work, more special characters in the course e-book -->
+                  <p class="plan_price_meal">&nbsp;</p>
+                </div>
+                <div>
+                  <ul>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>1 meal</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Order from 8 am to 12 pm</li>
+                    <li><i class="ion-ios-close-empty icon_small"></i>Access to newest creations</li>
+                    <li><i class="ion-ios-checkmark-empty icon_small"></i>Free delivery</li>
+                  </ul>
+                </div>
+                <div>
+                  <a href="#" class="btn btn_ghost">Sign up now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form_section">
+          <div class="row">
+            <h2>We're happy to hear from you</h2>
+          </div>
+          <div class="row">
+            <form class="contact_form" action="#" method="post">
+              <div class="row">
+                <!-- Make two columns but the second to have 2-in-1 cols so that its
+                twice as wide as the first as specified in the grid css file-->
+                <div class="col span-1-of-3">
+                  <label for="name">Name</label>
+                </div>
+                <div class="col span-2-of-3">
+                  <!-- type is the what info to enter, name will be used to send
+                  the data from the form, id is for linking a label to its input
+                  element, so when clicke the element is selected. Used via the
+                  'for' attribute in the label. Works only for text forms and
+                  selects only -->
+                  <input type="text" name="name" id="name" placeholder="Your name"
+                   required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col span-1-of-3">
+                  <label for="email">Email</label>
+                </div>
+                <div class="col span-2-of-3">
+                  <input type="email" name="email" id="email" placeholder="Your email"
+                   required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col span-1-of-3">
+                  <label for="find_us">How did you find us?</label>
+                </div>
+                <div class="col span-2-of-3">
+                  <!-- Select is for a drop down box options to choose from-->
+                  <select class="" name="find_us" id="find_us">
+                    <option value="friends" selected>Friends</option>
+                    <option value="search">Search Engine</option>
+                    <option value="ad">Advertisement</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col span-1-of-3">
+                  <label>Newsletter</label>
+                </div>
+                <div class="col span-2-of-3">
+                  <input type="checkbox" name="news" id="news" checked> Yes, please
+                </div>
+              </div>
+              <div class="row">
+                <div class="col span-1-of-3">
+                  <label>Drop us a line</label>
+                </div>
+                <div class="col span-2-of-3">
+                  <textarea name="message" placeholder="our message"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col span-1-of-3">
+                  <label>&nbsp;</label>
+                </div>
+                <div class="col span-2-of-3">
+                  <input type="submit" value="Send it!">
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
     </body>
 </html>
