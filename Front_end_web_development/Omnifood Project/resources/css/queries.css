@@ -3,20 +3,33 @@
 /* Inside each of the below breakpoints, we shall fix any elements that are out
 of place at that screen width */
 
-@@media only screen and (max-width:1200px) {
-/* widths smaller than the 1140px width we set for the page */
-    
+@media only screen and (max-width:1200px) {
+    /* 1023 - 1200px */
+    .hero_textbox {
+        width: 100%;
+        padding: 0 2%;
+    }
+
+    .row { padding: 0 2% }
+}
+
+@media only screen and (max-width:1023px) {
+    /* 768 - 1023px */
+    body { font-size: 18px; }
+    section { padding: 60px 0; }
+
+    .long-copy {
+        width: 80%;
+        margin-left: 10%;
+    }
+}
+
+@media only screen and (max-width:767px) {
+    /* 481 - 767px */
 
 }
 
-@@media only screen and (max-width:1023px) {
-
-}
-
-@@media only screen and (max-width:767px) {
-
-}
-
-@@media only screen and (max-width:480px) {
+@media only screen and (max-width:480px) {
+    /* 0 - 480px */
 
 }
