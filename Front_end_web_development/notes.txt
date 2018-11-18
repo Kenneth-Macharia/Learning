@@ -125,3 +125,14 @@ RESPONSIVE WEB DESIGN:
     2.Using flexible images: images are also sized in relative units
     3.Using media queries: which allow us to specify different CSS style rules
     for different browser widths.
+-Setting media query breakpoints for responsive webpages:
+    1.When starting out use known screen width for various breakpoints e.g.
+    iPhone, iPad etc.
+    2.As you get more experienced, define custom breakpoints based on the design
+    of the website i.e they will be determined by the look of the site at different
+    screen sizes.
+    3.A starter guide can be:
+     a) 0 - 480px: old iPhone screen width
+     b) 480px - 768px: iPad screen width in portrait mode
+     c) 768Px - 1024px: iPad screen in landscape model
+     d) 1024px - 1280px: old Macbook
