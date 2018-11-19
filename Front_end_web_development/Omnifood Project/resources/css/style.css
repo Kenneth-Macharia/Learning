@@ -10,7 +10,7 @@
     border: 0.5px solid rgb(110, 181, 232)  */
 }
 
-html {
+html body {
     /* not neccessary as white is the default */
     background-color: #fff;
     color:#555;
@@ -21,6 +21,7 @@ html {
     font-weight: 300;
     font-size: 20px;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
 }
 
 .clearfix {zoom: 1}
@@ -516,7 +517,7 @@ cite img {
 }
 
 .plan_price span {
-  /* This a a child of plan_price, which has a % font-size that take care when
+  /* This a child of plan_price, which has a % font-size that take care when
   setting a % font-size here as well */
   font-size:30%;
   font-weight: 300;  /* Override the parent font weight to return it to the

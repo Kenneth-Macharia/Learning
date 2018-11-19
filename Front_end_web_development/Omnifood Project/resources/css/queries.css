@@ -22,14 +22,80 @@ of place at that screen width */
         width: 80%;
         margin-left: 10%;
     }
+
+    .step_box { margin-top: 10px; }
+    .step_box:last-child {margin-top: 10px; }
+    .works_step { margin-bottom: 40px; }
+    .works_step:last-of-type { margin-bottom: 60px; }
+
+    .app_screen { width: 50%; }
+    .btn_app img {
+      height: 40px;
+      width: auto;
+      margin-right: 0;
+    }
+
+    .icon_small {
+      font-size: 17px;
+      margin-right: 5px;
+    }
+
+    .city_feature { font-size: 90%; }
+
+    .plan_box {
+      width: 100%;
+      margin-left: 0;
+     }
+
+     .plan_box ul li {
+       padding
+       font-size: 15px;
+     }
+
+     .plan_price { font-size: 250%; }
+     .contact_form {width: 80%; }
+
 }
 
 @media only screen and (max-width:767px) {
     /* 481 - 767px */
+      body { font-size: 16px; }
+      section { padding: 30px 0; }
 
+      .row,
+      .hero_textbox { padding: 0 4%; }
+
+      .col {
+        /* columns will now be stacked as opposed to being side by side */
+        width: 100%;
+        /* From the grid css all col have a small margin which we should ammend */
+        margin: 0 0 4% 0;
+      }
+
+      .main_nav {display: none;}
+
+      h1 { font-size: 180%; }
+      h2 { font-size: 150%; }
+
+      .long-copy {width: 100%; }
+
+      .works_step div {
+        height: 40px;
+        width: 40px;
+        margin-right: 15px;
+        padding: 4px;
+        font-size: 120%;
+      }
+
+      .works_step { margin-bottom: 20px; }
+      .works_step:last-of-type { margin-bottom: 20px; }
+
+      .step_box:first-child {text-align: center; }
+      .app_screen  {width: 40%; }
 }
 
 @media only screen and (max-width:480px) {
     /* 0 - 480px */
-
+    section { padding: 25px 0; }
+    .contact_form { width: 100%; }
 }
