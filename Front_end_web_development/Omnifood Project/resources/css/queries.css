@@ -23,12 +23,15 @@ of place at that screen width */
         margin-left: 10%;
     }
 
-    .step_box { margin-top: 10px; }
-    .step_box:last-child {margin-top: 10px; }
+    .step_box {
+        margin-top: 10px;
+    }
+
+    .step_box:last-child {margin-top: 80px; }
     .works_step { margin-bottom: 40px; }
     .works_step:last-of-type { margin-bottom: 60px; }
 
-    .app_screen { width: 50%; }
+    .app_screen { width: 45%; }
     .btn_app img {
       height: 40px;
       width: auto;
@@ -59,43 +62,90 @@ of place at that screen width */
 
 @media only screen and (max-width:767px) {
     /* 481 - 767px */
-      body { font-size: 16px; }
-      section { padding: 30px 0; }
+    body { font-size: 16px; }
+    section { padding: 30px 0; }
 
-      .row,
-      .hero_textbox { padding: 0 4%; }
+    .row,
+    .hero_textbox { padding: 0 4%; }
 
-      .col {
+    .col {
         /* columns will now be stacked as opposed to being side by side */
         width: 100%;
         /* From the grid css all col have a small margin which we should ammend */
         margin: 0 0 4% 0;
-      }
+    }
 
-      .main_nav {display: none;}
+    .main_nav {display: none;}
 
-      h1 { font-size: 180%; }
-      h2 { font-size: 150%; }
+    h1 { font-size: 180%; }
+    h2 { font-size: 150%; }
 
-      .long-copy {width: 100%; }
+    .long-copy {
+        width: 100%;
+        margin-left: 0;
+    }
 
-      .works_step div {
+    .works_step div {
         height: 40px;
         width: 40px;
         margin-right: 15px;
         padding: 4px;
         font-size: 120%;
-      }
+    }
 
-      .works_step { margin-bottom: 20px; }
-      .works_step:last-of-type { margin-bottom: 20px; }
+    .works_step { margin-bottom: 20px 0; }
+    .works_step:last-of-type { margin-bottom: 20px; }
+    .works_step p { padding-top: 8px; }
 
-      .step_box:first-child {text-align: center; }
-      .app_screen  {width: 40%; }
+    .step_box {
+        margin-top: 0;
+        font-size: 90%;
+    }
+
+    .step_box:first-child {text-align: center; }
+    .app_screen  {width: 25%; }
+
+    .btn_app img { margin: 5% 0 0 20%; }
+
+    .box img {
+        width: 40%;
+        height: auto;
+    }
+
+    .plan_price { font-size: 200%; }
+
+    footer { font-size: 70%; }
+    .footer_nav { padding-left: 20%; }
+    .socal_links { padding-right: 43%; }
+    footer p { padding-right: 12%; }
+
 }
 
 @media only screen and (max-width:480px) {
     /* 0 - 480px */
     section { padding: 25px 0; }
+
+    .plan_price { font-size: 150%; }
+
+    .btn_app img {
+        width:35%;
+        height: auto;
+    }
+
+    .step_box { margin: 0;}
+
+    .works_step p { font-size: 16px;}
+
     .contact_form { width: 100%; }
+
+    .footer_nav,
+    .socal_links,
+    footer p {
+        padding: 0;
+        font-size: 80%;
+    }
+
+    .socal_links { margin-right: 40%;}
+    footer p { margin-right: 13%;}
+
 }
