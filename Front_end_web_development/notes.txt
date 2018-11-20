@@ -136,3 +136,46 @@ RESPONSIVE WEB DESIGN:
      b) 480px - 768px: iPad screen width in portrait mode
      c) 768Px - 1024px: iPad screen in landscape model
      d) 1024px - 1280px: old Macbook
+
+CSS BROWSER PREFIXES:
+-These ensure that css3 works the same across all browsers.
+-They enable browser makers to add support support for new css features for a certain
+  period.
+-The various browser prefixes are:
+  1.Android: -webkit-
+  2.Chrome: -webkit-
+  3.Firefox: -moz-
+  4.IE: -ms-
+  5.iOS: -o-
+  6.Safari: -webkit-
+-Implementation example of the css 'border-radius' property that ensures it works
+  even on the various older browsers which usually cause the biggest css problems:
+   -webkit-border-radius: 25px;
+   -moz-border-radius: 25px;
+   -o-border-radius: 25px;
+   border-radius: 25px;
+-To prefix all required css properties, use the 'autoprefixer' package to auto
+ the required lines in your css file.
+-In atom:
+  1.Select all the code in a css file
+  2.Run autoprefixer (from the command palette - Ctrl-Shift-P > Autoprefixer)
+-The very old browsers are still not immune to new css defination but we can use
+  some JavaScript code to enable functionality of these new feature in the older
+  browsers. Navigate to jsdelivr.com, search for the desire script, click
+  'integration' then copy adn paste the code after the <body> section in HTML. 
+
+
+  INTRODUCTION TO JQUERY:
+  -The most popular JavaScript library.
+  -Used to select and manipulate HTMl elements, create animations and develop
+   Ajax applications ( )
+  -Some JQuery plugins:
+    1.Magnific popup - for page pop ups
+    2.Tooltipster - for tooltips
+    3.Maplace.js - for embedding maps & markers
+    4.Typer.js - that types
+    5.OnPageScroll - enable whole section scrolling, with sections filling the
+      the entire viewport.
+  -Including JQuery in a project and create a new js file:
+    1.Navigate to the google hosted libraries distributed networks.
+    2.
