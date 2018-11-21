@@ -18,7 +18,9 @@
     <body>
 
         <header>
-            <nav class="sticky_nav">
+          <!-- We will include the 'sticky_nav' class for this nav section via JQuery
+          code for the sticky_nav -->
+            <nav>
                 <div class="row">
                     <img src="resources/img/logo-white.png" alt="Omnifood logo"
                     class="logo">
@@ -27,10 +29,10 @@
                     <!-- navigation is usually by an unordered list (bullet list),
                     and each of the list elements will be a link -->
                     <ul class="main_nav">
-                        <li><a href="#">Food delivery</a></li>
-                        <li><a href="#">How it works</a></li>
-                        <li><a href="#">Our cities</a></li>
-                        <li><a href="#">Sign up</a></li>
+                        <li><a href="#features">Food delivery</a></li>
+                        <li><a href="#works">How it works</a></li>
+                        <li><a href="#cities">Our cities</a></li>
+                        <li><a href="#plans">Sign up</a></li>
                     </ul>
                 </div>
             </nav>
@@ -43,12 +45,15 @@
                 <h1>Goodbye junk food.<br>Hello super healthy meals.</h1>
                 <!-- declare two classes for the btns, one for common styles and
                 the other for specific styles -->
-                <a class="btn btn_full" href="#">I’m hungry</a>
-                <a class="btn btn_ghost" href="#">Show me more</a>
+                <a class="btn btn_full js_scroll_to_plan" href="#">I’m hungry</a>
+                <a class="btn btn_ghost js_scroll_to_start" href="#">Show me more</a>
             </div>
         </header>
-
-        <section class="section-features">
+        <!-- We want the sticky_nav to kick in when we scroll to this scetion.
+        We will define a second class name ('js-section-features') for use in
+        JQuery, away from the name used in css ('section-features'). This is good
+        programming practise to keep code clean, esecially in large projects -->
+        <section class="section-features js_section_features" id="features">
             <div class="row">
                 <!-- the div for the section header -->
                 <!-- use html entities / special characters &..... -->
@@ -165,7 +170,7 @@
             </ul>
         </section>
 
-        <section class="section_steps">
+        <section class="section_steps" id="works">
           <div class="row">
             <h2>How it works &mdash; Simple as 1, 2, 3</h2>
           </div>
@@ -198,7 +203,7 @@
           </div>
         </section>
 
-        <section class="section_cities">
+        <section class="section_cities" id="cities">
           <div class="row">
             <h2>We're currently in these cities</h2>
           </div>
@@ -308,7 +313,7 @@
             </div>
         </section>
 
-        <section class="plans_section">
+        <section class="plans_section js_plans_section" id="plans">
           <div class="row">
             <h2>Start eating healthy today</h2>
           </div>
@@ -481,9 +486,20 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Includes the JQuery library and enable it's fucntionalities -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Enables the browser to id and execute media queries for responsive site -->
+        <script src="vendors/js/respond.min.js"></script>
+        <!-- Enables the use & styling of HTML5 elements in old browers -->
+        <script src="vendors/js/html5shiv.min.js"></script>
+        <!-- Enables the use of css3 pseudo classes in older IE browsers (v6-8) -->
+        <script src="vendors/js/selectivizr.js"></script>
+        <!-- Triggers a function when we scroll to a HTML element. This weill be
+        for the 'sticky_nav' fucntionality -->
+        <script src="vendors/js/jquery.waypoints.min.js"></script>
+        <!-- Includes our custom js scripts file, which come last -->
+        <script src="resources/js/scripts.js"></script>
+
     </body>
-
-    <!-- Enables the browser to id and execute media queries for responsive site  -->
-
-
 </html>

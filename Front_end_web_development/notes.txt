@@ -137,7 +137,7 @@ RESPONSIVE WEB DESIGN:
      c) 768Px - 1024px: iPad screen in landscape model
      d) 1024px - 1280px: old Macbook
 
-CSS BROWSER PREFIXES:
+CSS BROWSER PREFIXES & OLD BROWSER SUPPORT:
 -These ensure that css3 works the same across all browsers.
 -They enable browser makers to add support support for new css features for a certain
   period.
@@ -161,21 +161,27 @@ CSS BROWSER PREFIXES:
   2.Run autoprefixer (from the command palette - Ctrl-Shift-P > Autoprefixer)
 -The very old browsers are still not immune to new css defination but we can use
   some JavaScript code to enable functionality of these new feature in the older
-  browsers. Navigate to jsdelivr.com, search for the desire script, click
-  'integration' then copy adn paste the code after the <body> section in HTML. 
+  browsers:
+  1.Navigate to jsdelivr.com, search for the desired js script.
+  2.Downlownd the zip file containing the script file and save it in the appropriate
+    project folder.
+  3.Include a <script> tag link to the js file in the HTML code as the last items
+    in the <body> section, so that the are called after the entire webpage is loaded.
+-You can use 'caniuse.com' to check whether a specific css property is supoorted
+ on various browsers or not and whether to include css prefixes depending on the
+ browser of interest.
 
-
-  INTRODUCTION TO JQUERY:
+  INTRODUCTION TO JQUERY: (Add atom-ternjs package for js)
   -The most popular JavaScript library.
   -Used to select and manipulate HTMl elements, create animations and develop
-   Ajax applications ( )
-  -Some JQuery plugins:
-    1.Magnific popup - for page pop ups
-    2.Tooltipster - for tooltips
+   Ajax applications { }
+  -Some JQuery plugins (more in the course e-book):
+    1.Magnific popup - for page pop ups e.g. videos, modal dialogs, images etc
+    2.Tooltipster - for tooltips on hover over elements
     3.Maplace.js - for embedding maps & markers
-    4.Typer.js - that types
+    4.Typer.js - that types. Can show multiple content on a single line.
     5.OnPageScroll - enable whole section scrolling, with sections filling the
-      the entire viewport.
+      the entire viewport height.
   -Including JQuery in a project and create a new js file:
-    1.Navigate to the google hosted libraries distributed networks.
-    2.
+    1.Navigate to the google hosted libraries distributed network.
+    2.Under JQuery, copy anf paste the <script> in the HTML file.
