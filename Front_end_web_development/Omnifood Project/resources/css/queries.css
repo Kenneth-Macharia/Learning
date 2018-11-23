@@ -75,7 +75,43 @@ of place at that screen width */
         margin: 0 0 4% 0;
     }
 
-    .main_nav {display: none;}
+    /* Style the mobile nav */
+    .main_nav { display: none; }
+    .mobile_nav_icon { display: inline-block; }
+
+    .main_nav {
+      float: left;
+      margin-top: 10px;
+      margin-left: 25px;
+    }
+
+    .main_nav li {
+      /* blocks force line breaks so that they are stacked om top of each other */
+      display: block;
+    }
+
+    .main_nav li a:link,
+    .main_nav li a:visited {
+      display: block;
+      border: 0;  /* no hover on a mobile display hence no need for a border */
+      padding: 5px 0;
+      font-size: 70%;
+    }
+
+    .sticky_nav {
+      height: auto;
+      padding-bottom: 5px;
+    }
+
+    .sticky_nav .main_nav li a:link,
+    .sticky_nav .main_nav li a:visited {
+      /* These only apply if inside the sticky_nav class */
+        padding: 5px 0;
+        font-size: 65%;
+    }
+
+    .sticky_nav .mobile_nav_icon { margin-top: 13px; }
+    .sticky_nav .mobile_nav_icon i { color: #555; }
 
     h1 { font-size: 180%; }
     h2 { font-size: 150%; }

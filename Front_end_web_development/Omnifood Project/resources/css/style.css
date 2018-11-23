@@ -310,8 +310,22 @@ header {
     font-size: 80%; /* desired font size/ base font size under 'html' */
 }
 
-/* ---------- STICKY NAV ---------- */
+/* --------- MOBILE NAV   --------- */
+/* Style how the mobile nav will look like */
+.mobile_nav_icon {
+  float: right;
+  margin-top: 22px;
+  cursor: pointer;
+  display: none;
+}
 
+.mobile_nav_icon i {
+  font-size: 150%;
+  color: #fff;
+}
+
+/* ---------- STICKY NAV  ---------- */
+/* Style hwo the stick nav will look like */
 .sticky_nav {
   position: fixed;
   top: 0;
@@ -706,4 +720,32 @@ footer p {
     color: #888;
     text-align: center;
     margin-top: 30px;
+}
+
+/* ---------------------------------
+ ANIMATION SECTION
+--------------------------------- */
+
+/* we need to hide the rows so that teh fadeIn can work */
+.js_wp_1,
+.js_wp_2,
+.js_wp_3 {
+  opacity: 0;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.js_wp_4 {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+/* Once the row has the the animate class (added via jQuery, when scrolled to),
+then return opacity back to 1 */
+/* .js_wp_1 .animated > means animate is inside .js_wp_1 */
+/* .js_wp_1.animated > means that both classes exist */
+.js_wp_1.animated
+.js_wp_2.animated
+.js_wp_3.animated {
+  opacity: 1;
 }

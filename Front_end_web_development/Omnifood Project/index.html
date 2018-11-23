@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="vendors/css/normalize.css">
         <link rel="stylesheet" type="text/css" href="vendors/css/Grid.css">
         <link rel="stylesheet" type="text/css" href="vendors/css/ionicons.min.css">
+        <link rel="stylesheet" type="text/css" href="vendors/css/animate.css">
         <link rel="stylesheet" type="text/css" href="resources/css/style.css">
         <link rel="stylesheet" type="text/css" href="resources/css/queries.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400"
@@ -28,12 +29,18 @@
                     class="logo_black">
                     <!-- navigation is usually by an unordered list (bullet list),
                     and each of the list elements will be a link -->
-                    <ul class="main_nav">
-                        <li><a href="#features">Food delivery</a></li>
+                    <ul class="main_nav js_main_nav">
                         <li><a href="#works">How it works</a></li>
                         <li><a href="#cities">Our cities</a></li>
-                        <li><a href="#plans">Sign up</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#feedback">Feedback?</a></li>
                     </ul>
+                    <!-- Add a icon link to open and close the nav bar in responsive
+                    mode at less than 768px -->
+                    <!-- If you don't specify the 'href' attribute, the hand pointer
+                    over a link does not appear on hover, a cursor type can be
+                    defined in css -->
+                    <a class="mobile_nav_icon js_nav_icon"><i class="ion-navicon-round"></i></a>
                 </div>
             </nav>
             <!-- this elemment is used just like a div but explicitly used for
@@ -65,7 +72,9 @@
                 </p>
             </div>
             <!-- div for the section columns -->
-            <div class="row">
+            <!-- Animate this section with the fade-in effect, using the 'js-wp-1'
+            class -->
+            <div class="row js_wp_1">
                 <!-- div for each col and use styled classes from normialize.css -->
                 <div class="col span-1-of-4 box">
                     <!-- add icon fonts from ionicons.com, download the icon files
@@ -177,7 +186,7 @@
           <div class="row">
             <div class="col span-1-of-2 step_box">
               <img src="resources/img/app-iPhone.png" alt="Omnifood iphnone app
-              screen" class="app_screen">
+              screen" class="app_screen js_wp_2">
             </div>
             <div class="col span-1-of-2 step_box">
               <div class="works_step">
@@ -207,7 +216,7 @@
           <div class="row">
             <h2>We're currently in these cities</h2>
           </div>
-          <div class="row">
+          <div class="row js_wp_3">
             <div class="col span-1-of-4 box">
               <img src="resources/img/lisbon-3.jpg" alt="Lisbon City">
               <h3>Lisbon</h3>
@@ -275,7 +284,7 @@
           </div>
         </section>
 
-        <section class="customer_testimonial">
+        <section class="customer_testimonial" id="testimonials">
             <div class="row">
                 <h2>Our customers can't live without us</h2>
             </div>
@@ -313,7 +322,7 @@
             </div>
         </section>
 
-        <section class="plans_section js_plans_section" id="plans">
+        <section class="plans_section js_plans_section">
           <div class="row">
             <h2>Start eating healthy today</h2>
           </div>
@@ -321,7 +330,7 @@
             <div class="col span-1-of-3">
               <!-- div necessary so that to set its width and back color separate
               from the col box -->
-              <div class="plan_box">
+              <div class="plan_box js_wp_4">
                 <div>
                   <h3>Premium</h3>
                   <!-- span styles a section of a paragraph differnt from the rest -->
@@ -386,7 +395,7 @@
           </div>
         </section>
 
-        <section class="form_section">
+        <section class="form_section"  id="feedback">
           <div class="row">
             <h2>We're happy to hear from you</h2>
           </div>
@@ -491,14 +500,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Enables the browser to id and execute media queries for responsive site -->
         <script src="vendors/js/respond.min.js"></script>
-        <!-- Enables the use & styling of HTML5 elements in old browers -->
+        <!-- Enables the use and styling of HTML5 elements in old browers -->
         <script src="vendors/js/html5shiv.min.js"></script>
         <!-- Enables the use of css3 pseudo classes in older IE browsers (v6-8) -->
         <script src="vendors/js/selectivizr.js"></script>
         <!-- Triggers a function when we scroll to a HTML element. This weill be
         for the 'sticky_nav' fucntionality -->
         <script src="vendors/js/jquery.waypoints.min.js"></script>
-        <!-- Includes our custom js scripts file, which come last -->
+        <!-- Includes our custom js scripts file, which comes last -->
         <script src="resources/js/scripts.js"></script>
 
     </body>
