@@ -184,4 +184,4 @@ CSS BROWSER PREFIXES & OLD BROWSER SUPPORT:
       the entire viewport height.
   -Including JQuery in a project and create a new js file:
     1.Navigate to the google hosted libraries distributed network.
-    2.Under JQuery, copy anf paste the <script> in the HTML file.
+    2.Under JQuery, copy and paste the <script> in the HTML file.
