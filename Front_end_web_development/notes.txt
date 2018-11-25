@@ -185,3 +185,45 @@ CSS BROWSER PREFIXES & OLD BROWSER SUPPORT:
   -Including JQuery in a project and create a new js file:
     1.Navigate to the google hosted libraries distributed network.
     2.Under JQuery, copy and paste the <script> in the HTML file.
+
+WEBSITE OPTIMIZATION & LAUNCH:
+-Favicons are important for site identity purposes. Create one for your site
+ using 'realfavicongenerator.net':
+    1.choose an image atleast 260*260px
+    2.Upload to realfavicongenerator.
+    3.Tweek the resulting images for the various platforms.
+    4.Indicate the path where you will store the icons in your project for the
+      <link> code to be generated.
+    5.Copy the HTMl code generated to your HTML file.
+    6.Download and save the icon package in the location specified in 4 above.
+-Optimize page load speeds by:
+    1.Reducing image sizes to twice the width of their largest display size as
+     shown in the browser developer tool. On mac you can use 'preview'
+    2.Use 'optimizilla.com' to compress, huge important images e.g header images.
+    3.Minify CSS and JavaScript code by removing unnecessary spaces, comments
+     using, links to tool for this in the course e-book. This however make code
+     very hard to read and would only be necessary when we have very large code
+     files.
+-Search Engine Optimization (SEO): increases search engine ranking of you site
+ by search engines thereby increasing the overall potential traffic to your
+ site. This can be accomplished via:
+    1.Including a well crafted 'description' <meta>
+    2.Validate your HTML code, valid HTML is preferred by search engines like
+     Google as its follows HTML best practices, is not buggy and will more likely
+     work on a variety of browsers. Use 'https://validator.w3.org/' for this.
+    3.Content is King, ensure quality and up-to-date content always.
+    4.Keywords: use these strategically, as users find information online using
+     them. Use them in your headers, meta tags, title and links but don't over use.
+    5.Backlinks: links that link back to your site and act as recommendations. Get
+     other site to link to yours.
+    6.Other SEO resources in the course e-book.
+-Use 'remote-sync' atom package to upload and download files to a web hosting
+ server, to launch you site.
+-Site maintenance: use 'google analytics' to monitor your website and get stats
+ that can help you know were to improve the site:
+    1.Create a google analytics account
+    2.Specify the website to track and get stats on.
+    3.Generate tracking ID in form of a JavaScript script
+    4.Add this script to the each of the pages of your site.
+    5.Re-upload changes made.
+    6.You can then view the site stats.

@@ -144,7 +144,7 @@ of place at that screen width */
     .btn_app img { margin: 5% 0 0 20%; }
 
     .box img {
-        width: 40%;
+        width: 50%;
         height: auto;
     }
 
@@ -164,7 +164,12 @@ of place at that screen width */
     .plan_price { font-size: 150%; }
 
     .btn_app img {
-        width:35%;
+        width: 35%;
+        height: auto;
+    }
+
+    .box img {
+        width: 100%;
         height: auto;
     }
 

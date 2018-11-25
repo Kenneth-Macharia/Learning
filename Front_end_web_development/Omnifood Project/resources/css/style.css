@@ -232,9 +232,9 @@ input[type='submit'] {
 header {
     /* include the img via 'url' and make its darker using the liner-gradient */
     background-image: -webkit-gradient(linear,left top, left bottom,from(rgba(0, 0, 0, 0.7)),to(rgba(0, 0, 0, 0.7))),
-    url(img/hero.jpg);
+    url(img/hero-min.jpg);
     background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
-    url(img/hero.jpg);
+    url(img/hero-min.jpg);
     /* Ensure background image remains fixed when scrolling */
     background-attachment: fixed;
     /* ensure we can view the entire background image, not zoomed */
@@ -496,10 +496,10 @@ TESTIMONIALS SECTION
 --------------------------------- */
 
 .customer_testimonial {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0 , 0, 0, 0.8)), to(rgba(0, 0, 0, 0.8))),
-  url(img/back-customers.jpg);
-  background-image: linear-gradient(rgba(0 , 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-  url(img/back-customers.jpg);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0 , 0, 0, 0.75)), to(rgba(0, 0, 0, 0.75))),
+  url(img/back-customers-min.jpg);
+  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+  url(img/back-customers-min.jpg);
   background-size: cover;
   color:#fff;
   background-attachment: fixed;
