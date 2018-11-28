@@ -185,6 +185,14 @@ CSS BROWSER PREFIXES & OLD BROWSER SUPPORT:
   -Including JQuery in a project and create a new js file:
     1.Navigate to the google hosted libraries distributed network.
     2.Under JQuery, copy and paste the <script> in the HTML file.
+-Adding a map using the 'gmaps.js JQuery pluggin':
+    1.Download it at 'hpneo.github.oi/gmaps'
+    2.Add the file to HTML
+    3.Get the basic jQuery code from the examples section of the above site and
+     include in scripts.js
+    4.Add a div in HMTL to display the map and style it in css.
+    5.Add the google maps API js link from https://github.com/hpneo/gmaps to HTML
+
 
 WEBSITE OPTIMIZATION & LAUNCH:
 -Favicons are important for site identity purposes. Create one for your site
