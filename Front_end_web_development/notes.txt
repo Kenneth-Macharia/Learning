@@ -238,6 +238,8 @@ WEBSITE OPTIMIZATION & LAUNCH:
   and change it's access permission from the 'root' user to 'other_user' e.g.'ken'.
   2.Use Atom's FTP sync package 'remote-sync' to sync the project files onto the
    remote server folder:
-      a)Create a .remote-sync.json file in the project directory in atom
-      b)Populate it with the deisred FTP configs (See setting for remote-sync)
-      
+      a)Open the project folder in atom
+      b)Right-click on it and select 'remote-sync > configure' (creates a '.remote-
+       sync.json' config file for the project)
+      c)Enter the required FTP configs (See setting for remote-sync)
+      d)Save, right click on project folder > Upload folder

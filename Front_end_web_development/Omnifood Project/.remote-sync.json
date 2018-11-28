@@ -1,18 +1,23 @@
 {
+  "logger": {
+    "title": "Remote Sync"
+  },
   "transport": "ftp",
-  "hostname": "139.59.24.204",
-  "port": 21,
-  "username": "ken",
-  "password": "macharia77",
+  "uploadOnSave": false,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "http://139.59.24.204",
+  "port": "21",
   "target": "/var/www/html/omnifood",
   "ignore": [
     ".remote-sync.json",
     ".git/**"
   ],
-  "watch":[
+  "username": "ken",
+  "password": "macharia77",
+  "watch": [
     "/index.html",
     "/resources/css/style.css",
-    "/resources/queries.css",
-    "resources/js/scripts.js"
+    "/resources/js/scripts.js"
   ]
 }
