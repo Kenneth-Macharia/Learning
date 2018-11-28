@@ -96,7 +96,7 @@ CONFIGURE NGINX:
  e.g. uwsgi (2)
 -If for some reason we are unable to do any of the above follow the error handlers
  endpoints (3)
--See the 'items-rest.conf' file.
+-See the 'items-rest.conf' file
 -After creating the above file, enable it by creating a soft link between the config
  file and the nginx config source folder:
   #sudo ln -s /etc/nginx/sites-available/items-rest.conf /etc/nginx/sites-enabled/
