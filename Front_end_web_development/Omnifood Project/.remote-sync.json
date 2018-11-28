@@ -1,0 +1,18 @@
+{
+  "transport": "ftp",
+  "hostname": "139.59.24.204",
+  "port": 21,
+  "username": "ken",
+  "password": "macharia77",
+  "target": "/var/www/html/omnifood",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "watch":[
+    "/index.html",
+    "/resources/css/style.css",
+    "/resources/queries.css",
+    "resources/js/scripts.js"
+  ]
+}

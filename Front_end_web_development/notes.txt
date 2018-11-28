@@ -225,8 +225,6 @@ WEBSITE OPTIMIZATION & LAUNCH:
     5.Backlinks: links that link back to your site and act as recommendations. Get
      other site to link to yours.
     6.Other SEO resources in the course e-book.
--Use 'remote-sync' atom package to upload and download files to a web hosting
- server, to launch you site.
 -Site maintenance: use 'google analytics' to monitor your website and get stats
  that can help you know were to improve the site:
     1.Create a google analytics account
@@ -235,3 +233,11 @@ WEBSITE OPTIMIZATION & LAUNCH:
     4.Add this script to the each of the pages of your site.
     5.Re-upload changes made.
     6.You can then view the site stats.
+-Hosting the webpage on an ngix linux server:
+  1.On the server create a directory to hold the webpage file e.g. /var/www/html/omnifood
+  and change it's access permission from the 'root' user to 'other_user' e.g.'ken'.
+  2.Use Atom's FTP sync package 'remote-sync' to sync the project files onto the
+   remote server folder:
+      a)Create a .remote-sync.json file in the project directory in atom
+      b)Populate it with the deisred FTP configs (See setting for remote-sync)
+      
