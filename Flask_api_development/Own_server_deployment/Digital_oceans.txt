@@ -70,9 +70,11 @@ INSTALLING NGINX:
 -Check that Nginx is running using the ubuntu system controller:
     #systemctl status nginx (also start nginx, stop nginx , restart nginx)
 
-CONFIGURE NGINX:
--Access the ngix config file to enable interaction with the app:
-    #sudo vi /etc/nginx/sites-available/items-rest.conf (creates the config file)
+CONFIGURE NGINX: CREATING SERVER BLOCKS (www.digitalocean.com/community/tutorials/
+how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts)
+
+-Create the ngix config file for the server block which will host the app:
+    #sudo vi /etc/nginx/sites-available/items-rest.conf
 -Insert the following configurations:
  1.Server:specify's the app is a server and will listen for incoming requests
  and action them:
