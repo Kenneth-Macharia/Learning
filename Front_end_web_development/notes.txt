@@ -235,6 +235,7 @@ WEBSITE OPTIMIZATION & LAUNCH:
 
 CREATING MULTIPLE SERVER BLOCKS (www.digitalocean.com/community/tutorials/
     how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts)
+    (https://www.robinwieruch.de/deploy-applications-digital-ocean/)
 -Multiple server blocks (Ngix) can be created on a single server to host different
  resources simultaneously.
 -On our digital oceans droplet we have a server block hosting the python RESTful
