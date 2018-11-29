@@ -193,7 +193,6 @@ CSS BROWSER PREFIXES & OLD BROWSER SUPPORT:
     4.Add a div in HMTL to display the map and style it in css.
     5.Add the google maps API js link from https://github.com/hpneo/gmaps to HTML
 
-
 WEBSITE OPTIMIZATION & LAUNCH:
 -Favicons are important for site identity purposes. Create one for your site
  using 'realfavicongenerator.net':
@@ -233,13 +232,21 @@ WEBSITE OPTIMIZATION & LAUNCH:
     4.Add this script to the each of the pages of your site.
     5.Re-upload changes made.
     6.You can then view the site stats.
--Hosting the webpage on an ngix linux server:
+
+CREATING MULTIPLE SERVER BLOCKS (www.digitalocean.com/community/tutorials/
+    how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts)
+-Multiple server blocks (Ngix) can be created on a single server to host different
+ resources simultaneously.
+-On our digital oceans droplet we have a server block hosting the python RESTful
+ API, we thus need t configure a new server block to host our webpage.
+ -To sync the website project files onto the new server block we will use Atom's
+  FTP sync package 'remote-sync' to sync the project files onto the remote server:
+    a)Open the project folder in atom
+    b)Right-click on it and select 'remote-sync > configure' (creates a '.remote-
+     sync.json' config file for the project)
+    c)Enter the required FTP server configs (See setting for remote-sync)
+    d)Save, right click on project folder > Upload folder
+-Hosting the webpage on an ngix server block:
   1.On the server create a directory to hold the webpage file e.g. /var/www/html/omnifood
   and change it's access permission from the 'root' user to 'other_user' e.g.'ken'.
-  2.Use Atom's FTP sync package 'remote-sync' to sync the project files onto the
-   remote server folder:
-      a)Open the project folder in atom
-      b)Right-click on it and select 'remote-sync > configure' (creates a '.remote-
-       sync.json' config file for the project)
-      c)Enter the required FTP configs (See setting for remote-sync)
-      d)Save, right click on project folder > Upload folder
+  2.

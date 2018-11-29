@@ -70,9 +70,7 @@ INSTALLING NGINX:
 -Check that Nginx is running using the ubuntu system controller:
     #systemctl status nginx (also start nginx, stop nginx , restart nginx)
 
-CONFIGURE NGINX: CREATING SERVER BLOCKS (www.digitalocean.com/community/tutorials/
-how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-14-04-lts)
-
+CONFIGURE NGINX SERVER BLOCK:
 -Create the ngix config file for the server block which will host the app:
     #sudo vi /etc/nginx/sites-available/items-rest.conf
 -Insert the following configurations:
