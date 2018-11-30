@@ -1,0 +1,9 @@
+GETTING STARTED:
+JavasScripts is a scripting language that allows the craftign of small programs
+ that run on the browser to change the HTML and CSS of the current HTML document
+ upon a user interaction or triggerred event.
+JavaScript terminology:
+  1.
+Atom-live-server:An atom package for updating the browser automatically when a
+file is changed. It aslso simulates the written JavaScript, as if it's being served
+from a real server. It achieves this by spinnig up a small web server in atom.
