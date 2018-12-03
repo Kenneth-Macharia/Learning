@@ -1,12 +1,97 @@
 GETTING STARTED:
-JavasScripts is a scripting language that allows the craftign of small programs
+-JavaScript is a scripting language that allows the crafting of small programs
  that run on the browser to change the HTML and CSS of the current HTML document
- upon a user interaction or triggerred event.
-JavaScript terminology:
-  1.ECMAScrip
-Atom-live-server:An atom package for updating the browser automatically when a
-file is changed. It aslso simulates the written JavaScript, as if it's being served
-from a real server. It achieves this by spinnig up a small web server in atom.
--Use Ctr+Alt+l to launch the server on the project folder. Navigate to a folder
- with a file to test i.e index.html within the browser window it opens.
--Ctrl+Alt+q to quit.
+ upon a user interaction or triggered event.
+-JavaScript terminology:
+  1.ECMAScript:the evolving coding conformity standard for scripting languages
+   like JavaScript. Browsers use it to interpret JavaScript, thus browsers must
+   also evolve alongside, however this is not the case:
+        a)Currently (Early 2017), ECMAScript 5.1 (2011) is the version fully
+         supported but outdated.
+        b)ECMAScript 2015 (ES6) is the emerging standard but not fully supported
+         and needs a transpiler e.g Babel to translate it to old JavaScript so as
+         to work on some browsers.
+        c)ECMAScript 2016 (ES7) is in development and has no real support.
+    2.jQuery is a library of JavaScript functions which simplifies the use of
+     JavaScript in websites. Its an abstraction of the core JavaScript language.
+    3.AngularJS, React and Vue.js are JavaScript are front end application
+     frameworks used to simplify the building of advanced interactive web apps.
+     These frameworks run on the front end and just pull the data required from
+     the back unlike technologies like PHP which generate the pages in the server
+     then push them to the browsers.
+    4.Node.js allows the use of JavaScript as a server side programming language.
+
+TOOLS FOR DEVELOPING IN JAVASCRIPT:
+-A text editor e.g. Atom
+-Atom-live-server: An atom package for updating the browser automatically when a
+ file is changed. It also simulates the written JavaScript, as if it's being served
+ from a real server. It achieves this by spinning up a small web server in atom.
+-A modern browser with developer tools e.g. Chrome. In the developer tools we use
+ the 'console' tab to run JavaScript on the fly to test out this on a HTML doc. This
+ is similar to the 'elements' tab used to view HTML & CSS elements of a doc and
+ experiments with them. Changes made to these tabs are not saved to the doc or
+ the actual document code.
+
+WORKING WITH JAVASCRIPT:
+-JavaScript render blocking: where a browser halts page loading to download and
+ execute any JavaScript it encounters in the HTML document. This has the impact
+ of slowing page rendering. Thus where to place JavaScript scripts (either in the
+ <header> or after the <body> is key to site performance). To solve this JavaScript
+ references would be placed after the <body>, whether or not they were to run
+ before or after the page renders.
+-HTML/2 the emerging web protocol partially solves this problem by allowing the
+ the page and JavaScript files to be downloaded asynchronously and only halts
+ page rendering to execute the JavaScript before continuing the page render.
+-After HTML/2 we have 3 options:
+    1.Load JavaScript right away: <script src="script.js"></script>, default render
+     blocking.
+    2.Asynchronously: <script src="script.js" async></script>, partial render
+     blocking as above.
+    3.Deferred: <script src="script.js" defer></script>, JavaScript execution
+     only happens when everything has been downloaded and rendered.
+-Rules for writing GOOD JavaScript:
+    1.JavaScript is caps-sensitive.
+    2.Naming convention is camelCase.
+    3.variable names start with a lowercase
+    4.Object and Class names start with an uppercase
+    5.CONSTANTS are all caps.
+    6.White spaces don't matter to JavaScript but they do for human readable code.
+    7.Add semicolons at the end of each statements, though not enforced by JavaScript,
+     to enhance code readability.
+    8.Single line comments us // and multi-line comments use /* */
+-Always declare a variable using the 'var' keyword, if not the variable gets a
+ global scope automatically. Determine the type of data to be held by assigning a
+ value in the created variable. Use \"quote\" to quote some string within a string.
+-Other data types are 'boolean', 'null' and 'undefined' - variable created but no
+ set to anything.
+-Use 'typeof'to find out the type of a variable.
+-Arithmetic operators in JavaScript: + - * / =(assignment)
+-Allowed operations: += -= *= /+
+ -Unary operations: i.e: a = a + 1; > a++; also a--; which adds one to a, if used
+  in console.log() then the original value of a gets printed. To add the one and
+  print out the updated value use ++a; Also: --a;
+-(NB) NaN > 'not a number' appears in console when you try to use an operator,
+ other than '+' on operands that are not of type 'number'.
+-Conditional statements: if statements:
+    if (condition) {
+      do something
+    } else {
+      do something else
+    }
+  -Conditional operators: == (equal), === (strict equality test for contents
+   including type), < <= => >, != (not equal), !== (strict no eqaulity test)
+  -Boolean conditions:
+    1.True: ie. if (a == false) {} or if (a) {}
+    2.False: ie. if (a != true) {} or if (!a) {}
+  -Logical operators: use to evaluate two logical conditions ie.:
+    1.AND > && eg. if (a==b && c==d){} Both conditions MUST be TRUE for the entire
+     expression to evaluate to TRUE.
+    2.OR > || eg. if (a==b || c==d){} Either the 1st or the 2nd or both MUST be
+      TRUE for the condition to evalute to TRUE.
+    3.XOR (Does not exist in Javascript) Either the 1st or the 2nd ONLY must be
+     TRUE for the expressin to evaluate to TRUE. eg. if((a==b || c==d) && (a==b
+     != c==d))
+  -Ternary Operator: condition ? true action : false action eg. a==b ? console.log
+   ('Match') : console.log('No match'). Ensure it' use is readale to humans and
+   where it's not obvious use comments.
+-Array: variable type that can hold many items at the same time, of different types.
