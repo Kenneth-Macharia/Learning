@@ -26,6 +26,9 @@ TOOLS FOR DEVELOPING IN JAVASCRIPT:
 -Atom-live-server: An atom package for updating the browser automatically when a
  file is changed. It also simulates the written JavaScript, as if it's being served
  from a real server. It achieves this by spinning up a small web server in atom.
+ Start the server using 'Ctrl+alt+l' > it will open a browser window on localhost
+ port 3000 and track and display code outputs (console) from the project opened in atom.
+ Stop the server using 'Ctrl+alt+q'
 -A modern browser with developer tools e.g. Chrome. In the developer tools we use
  the 'console' tab to run JavaScript on the fly to test out this on a HTML doc. This
  is similar to the 'elements' tab used to view HTML & CSS elements of a doc and
@@ -95,3 +98,9 @@ WORKING WITH JAVASCRIPT:
    ('Match') : console.log('No match'). Ensure it' use is readale to humans and
    where it's not obvious use comments.
 -Array: variable type that can hold many items at the same time, of different types.
+-Functions: mini programs used to segment code blocks and enhance code re-usability.
+    -Types:
+        1.Named - run when called by name.
+        2.Anonymous - run when triggered by an event.
+        3.Immediately invoked functions - run when encountered by the browser.
+    -See code examples for illustrations.
