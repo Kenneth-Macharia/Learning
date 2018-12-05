@@ -63,13 +63,18 @@ WORKING WITH JAVASCRIPT:
      to enhance code readability.
     8.Single line comments us // and multi-line comments use /* */
 -Always declare a variable using the 'var' keyword, if not the variable gets a
- global scope automatically. Determine the type of data to be held by assigning a
- value in the created variable. Use \"quote\" to quote some string within a string.
--Other data types are 'boolean', 'null' and 'undefined' - variable created but no
+ global scope automatically. You can also use other keywords to define variables:
+  a)Const - declares a constant
+  b)Let - declares block scope variable, so as not to confuse these with other
+   'var' declared variables that are locally e.g a variable to be used only
+    within an 'if' statement, local to function.
+-Determine the type of data to be held by assigning a value in the created
+ variable. Use \"quote\" to quote some string within a string.
+-Other data types are 'boolean', 'null' and 'undefined' - variable created but not
  set to anything.
 -Use 'typeof'to find out the type of a variable.
 -Arithmetic operators in JavaScript: + - * / =(assignment)
--Allowed operations: += -= *= /+
+-Other allowed operations: += -= *= /+
  -Unary operations: i.e: a = a + 1; > a++; also a--; which adds one to a, if used
   in console.log() then the original value of a gets printed. To add the one and
   print out the updated value use ++a; Also: --a;
@@ -104,3 +109,5 @@ WORKING WITH JAVASCRIPT:
         2.Anonymous - run when triggered by an event.
         3.Immediately invoked functions - run when encountered by the browser.
     -See code examples for illustrations.
+-OOP in JavaScript:
+  -
