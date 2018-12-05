@@ -110,4 +110,33 @@ WORKING WITH JAVASCRIPT:
         3.Immediately invoked functions - run when encountered by the browser.
     -See code examples for illustrations.
 -OOP in JavaScript:
-  -
+  -Dot notation ie. course.title can be used to access an objects properties,
+   normally.
+  -Bracket notation ie. course["title"] can also be used normally as the dot
+   notation but is of more use when properties are not named conventionally eg.
+   course["WP:image"] where the dot notation would not work.
+  -Closures: when functions have been invoked and are done running, they are closed
+   down and everything inside discarded, meaning trying to access them eg. local
+   local variable will result in a reference error because we are outside the
+   function scope, where any local to it does not exist, except the returned value,
+   if any.
+    -Closures are functions inside other functions that rely on variables defined
+     in the parent functions to work. See code examples for implementation and
+     further reading on https://developer.mozilla.org/en/docs/Web/JavaScript/Closures
+
+THE D.O.M (DOCUMENT OBJECT MODEL):
+-The browser window is an object and the document and it displays is an object as well.
+-The window, the document displayed (together with its components) are modeled by
+ the B.O.M (browser object model).
+-Because all these are object you can interact wit them as you would any other
+ object eg. to get the viewport width: window.innerWidth, to open a new tab:
+ window.open(). Window is the top level object in the BOM. A list of properties
+ of what it displays are available at https://developer.mozilla.org/en/docs/Web/JavaScript/Reference
+-The most widely accessed object in the BOM is the document object which contains
+ the current document displayed in window. This can be access via window.document
+ or directly as #document in the console, since JavaScript lives inside the current
+ displayed document. It has its own model called the DOM.
+-DOM has all elements in the HTML document as objects and when a document is loaded
+ by a browser, a Node tree is created for each of the elements in the HTML document
+ arranged in a hierarchical order, depending on how they are nested in the HTML
+ document.
