@@ -133,10 +133,68 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
  window.open(). Window is the top level object in the BOM. A list of properties
  of what it displays are available at https://developer.mozilla.org/en/docs/Web/JavaScript/Reference
 -The most widely accessed object in the BOM is the document object which contains
- the current document displayed in window. This can be access via window.document
+ the current document displayed in the window. This can be access via window.document
  or directly as #document in the console, since JavaScript lives inside the current
  displayed document. It has its own model called the DOM.
 -DOM has all elements in the HTML document as objects and when a document is loaded
  by a browser, a Node tree is created for each of the elements in the HTML document
  arranged in a hierarchical order, depending on how they are nested in the HTML
  document.
+ -Targeting elements in the DOM:
+    1.Some elements in the document such as body, title & URL can be accessed
+     directly e.g document.body or document.title or document.URL.
+    2.To get to a node or group of nodes inside the body, we use methods eg.
+      a)document.getElementById("ID"); //get element with specific ID
+      b)document.getElementByClassName("claasname"); //elements by classname as an array
+      c)document.getElementByTagName("HTML tag"); //elements by tag name as an array
+    3.To get access nested elements, the above would not be the moest efficient. To
+      access those we use queryselector method which use CSS selectors i.e
+      a)document.querySelector(".main-nav a");  //get the 1st occurring archor
+       links nested in the .main-nav class element.
+      b)document.querySelectorAll(".post-content p")  //get all elements matching
+       the sepcified CSS selector(s).
+      c)Other usage examples:
+        (i)document.querySelector(".menu .has-children a");
+        (ii)document.querySelectorAll(".social-nav a[href*='linkedin.com']");
+        (iii)document.querySelectorAll(".menu li a, .social-nav li a"); //all a elements
+         inside either the .menu li or .social-nav li
+      d)More on these methods at https://developer.mozilla.org/en-US/docs/Web/API/document
+ -Working with targetted element properties & methods: this is the whole point of
+  using JavaScript in making a static HTML/CSS webpage interactive, by having the
+  ability to change various elements at will.
+    1)A full list of DOM element properties can be viewed at https://developer.mozilla.org/en-US/docs/Web/API/Element
+    2)Examples of how to access the element properties:
+      a)document.queryselector(".main-title").innerHTML  //returns the contents of
+       element with the specified class name.
+      b)document.queryselector(".main-title").outerHTML  //returns the entire HTMl
+       tag + its contents.
+    3)Changing various elements via their properties examples:
+      a)Change an elements value i.e document.queryselector(".main-title").innerHTML = "A different heading"
+      b)Change an elements id i.e document.queryselector("#showcase").id = "slideshow"
+      c)Change class identifiers:
+        (i)ClassName:returns the classname of the element referenced and if more than
+         one, returns the a space-separated string of all the class names i.e
+         document.querySelector(".masthead").className
+        (ii)ClassList:returns all the names of an element in an array so as to access them
+          individually i.e document.querySelector(".masthead").classList then access
+          each classname i.e document.querySelector(".masthead").className[1]
+        NB)Some of these properties e.g classLists are READ-ONLY (see documentation),
+          thus cannot be changed as above. To change these, we must use methods.
+      d)Changing READ ONLY elements: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+       For classList, we have a couple of methods:
+        (i)Add a new class: document.querySelector(".masthead").classList.add("new-class")
+        (ii)Remove a class: document.querySelector(".masthead").classList.remove("new-class")
+        (iii)Toggle a class on & off: document.querySelector(".masthead").classList.toggle("new-class")
+         switches the class off and the element with that classname is removed from the viewport,
+         running the script again switches the class on and the element re-appears in the viewport.
+         (iv)Checks if a class name exists: document.querySelector(".masthead").classList.contains("new-class")
+       For attributes e.g "href", we have methods to access the attribute names and
+       values separately as they come in pairs: https://developer.mozilla.org/en-US/docs/Web/API/Element
+       Code examples 05_attributes highlights how to work with attributes.
+    4)Adding DOM elements can be done via innerHTML & outerHTML elements but a better
+     way is to break up he invidual elements and add them to the DOM tre e.g to a caption
+     to an image: See code exercise 05_
+      a)Create the element to add : .createElement()
+      b)Create the text node that goes inside the element: .createTextNode()
+      c)Add the text node to the created element: .appendChild()
+      d)Add the element to the DOM tree
