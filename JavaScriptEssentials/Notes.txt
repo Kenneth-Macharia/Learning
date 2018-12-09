@@ -140,6 +140,7 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
  by a browser, a Node tree is created for each of the elements in the HTML document
  arranged in a hierarchical order, depending on how they are nested in the HTML
  document.
+
  -Targeting elements in the DOM:
     1.Some elements in the document such as body, title & URL can be accessed
      directly e.g document.body or document.title or document.URL.
@@ -159,6 +160,7 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
         (iii)document.querySelectorAll(".menu li a, .social-nav li a"); //all a elements
          inside either the .menu li or .social-nav li
       d)More on these methods at https://developer.mozilla.org/en-US/docs/Web/API/document
+
  -Working with targeted element properties & methods: this is the whole point of
   using JavaScript in making a static HTML/CSS webpage interactive, by having the
   ability to change various elements at will.
@@ -198,3 +200,45 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
       b)Create the text node that goes inside the element: .createTextNode()
       c)Add the text node to the created element: .appendChild()
       d)Add the element to the DOM tree.
+    5)Adding inline CSS to elements:
+      a)Use JavaScript to access/add CSS inline properties/styles to an element
+       via the 'style' attribute in the DOM.
+      b)Using the 'style' attribute:https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/styles
+       e.g document.querySelector(".cta a").style; > check the inline styles
+        that can be applied and applied to the specified element.
+     NB)The 'style' attribute cannot access styles applied by external sources
+      e.g separate style files or internal styles in the <header>
+      c)Adding styles: document.querySelector(".cta a").style.color = "green";
+      Changes the color of the selected element to "green" and add this inline
+      style to the element.
+     NB)Use camel case for the CSS properties instead of the '-' e.g.
+      background-color will be backGround in JavaScript code.
+     NB)Properties already applied to an element will not be overwritten by adding
+      new style. To change the older style use a new statement to change the old style.
+     -Use the 'cssText' attribute to apply multiple css styles at once, using the
+      std CSS syntax e.g.
+      document.querySelector(".someClass").style.cssText = "padding: 1px; color:
+      white; background-color:red"
+     NB)Because 'style' is an attribute like any other e.g 'alt', we can then use
+     the methods to interact with it:
+        (i).hasAttribute('style', 'style/list of styles');
+        (ii).getAttribute('style', 'style/list of styles');
+        (iii).setAttribute('style', 'style/list of styles');
+        (iv).removeAttribute('style', 'style/list of styles');
+
+ -Working with DOM events: All actions in the browser are events, from opening a
+  a window, clicking, looking up a URL etc. We work with event by event handling:
+    1.ID the DOM node the interactive behaviour will be attached to e.g button
+    2.ID the event the to attach to the DOM node e.g click
+    3.Create the function that will run when the event occurs.
+ -Event are categorized into two, and all are available via JavaScript:
+    1.Browser-level events e.g load, window resize
+    2.DOM-level events e.g click, focus, submit
+    Full list of events: https://developer.mozilla.org/en-US/docs/Web/Events
+ -Events are managed by either:
+    1.Event handlers e.g node/element.onclick = DoSomething; whereby the event
+     of interest is click and the node/element can be a button. This method
+     however is not effective when we have more than one events.
+    2.Event listeners effective when tying functions to browser-level events,
+     tying an event to multiple functions and vice versa. It listens to a
+     specified event and passes it over to the specified function.
