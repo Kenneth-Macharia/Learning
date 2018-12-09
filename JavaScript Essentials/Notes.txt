@@ -72,7 +72,7 @@ WORKING WITH JAVASCRIPT:
  variable. Use \"quote\" to quote some string within a string.
 -Other data types are 'boolean', 'null' and 'undefined' - variable created but not
  set to anything.
--Use 'typeof'to find out the type of a variable.
+-Use 'typeof' to find out the type of a variable.
 -Arithmetic operators in JavaScript: + - * / =(assignment)
 -Other allowed operations: += -= *= /+
  -Unary operations: i.e: a = a + 1; > a++; also a--; which adds one to a, if used
@@ -87,7 +87,7 @@ WORKING WITH JAVASCRIPT:
       do something else
     }
   -Conditional operators: == (equal), === (strict equality test for contents
-   including type), < <= => >, != (not equal), !== (strict no eqaulity test)
+   including type), < <= => >, != (not equal), !== (strict no equality test)
   -Boolean conditions:
     1.True: ie. if (a == false) {} or if (a) {}
     2.False: ie. if (a != true) {} or if (!a) {}
@@ -95,12 +95,12 @@ WORKING WITH JAVASCRIPT:
     1.AND > && eg. if (a==b && c==d){} Both conditions MUST be TRUE for the entire
      expression to evaluate to TRUE.
     2.OR > || eg. if (a==b || c==d){} Either the 1st or the 2nd or both MUST be
-      TRUE for the condition to evalute to TRUE.
+      TRUE for the condition to evaluate to TRUE.
     3.XOR (Does not exist in Javascript) Either the 1st or the 2nd ONLY must be
-     TRUE for the expressin to evaluate to TRUE. eg. if((a==b || c==d) && (a==b
+     TRUE for the expressing to evaluate to TRUE. eg. if((a==b || c==d) && (a==b
      != c==d))
   -Ternary Operator: condition ? true action : false action eg. a==b ? console.log
-   ('Match') : console.log('No match'). Ensure it' use is readale to humans and
+   ('Match') : console.log('No match'). Ensure it' use is readable to humans and
    where it's not obvious use comments.
 -Array: variable type that can hold many items at the same time, of different types.
 -Functions: mini programs used to segment code blocks and enhance code re-usability.
@@ -145,32 +145,32 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
      directly e.g document.body or document.title or document.URL.
     2.To get to a node or group of nodes inside the body, we use methods eg.
       a)document.getElementById("ID"); //get element with specific ID
-      b)document.getElementByClassName("claasname"); //elements by classname as an array
+      b)document.getElementByClassName("classname"); //elements by classname as an array
       c)document.getElementByTagName("HTML tag"); //elements by tag name as an array
-    3.To get access nested elements, the above would not be the moest efficient. To
-      access those we use queryselector method which use CSS selectors i.e
-      a)document.querySelector(".main-nav a");  //get the 1st occurring archor
+    3.To get access nested elements, the above would not be the most efficient. To
+      access those we use querySelector method which use CSS selectors i.e
+      a)document.querySelector(".main-nav a");  //get the 1st occurring anchor
        links nested in the .main-nav class element.
       b)document.querySelectorAll(".post-content p")  //get all elements matching
-       the sepcified CSS selector(s).
+       the specified CSS selector(s).
       c)Other usage examples:
         (i)document.querySelector(".menu .has-children a");
         (ii)document.querySelectorAll(".social-nav a[href*='linkedin.com']");
         (iii)document.querySelectorAll(".menu li a, .social-nav li a"); //all a elements
          inside either the .menu li or .social-nav li
       d)More on these methods at https://developer.mozilla.org/en-US/docs/Web/API/document
- -Working with targetted element properties & methods: this is the whole point of
+ -Working with targeted element properties & methods: this is the whole point of
   using JavaScript in making a static HTML/CSS webpage interactive, by having the
   ability to change various elements at will.
     1)A full list of DOM element properties can be viewed at https://developer.mozilla.org/en-US/docs/Web/API/Element
     2)Examples of how to access the element properties:
-      a)document.queryselector(".main-title").innerHTML  //returns the contents of
+      a)document.querySelector(".main-title").innerHTML  //returns the contents of
        element with the specified class name.
-      b)document.queryselector(".main-title").outerHTML  //returns the entire HTMl
+      b)document.querySelector(".main-title").outerHTML  //returns the entire HTMl
        tag + its contents.
     3)Changing various elements via their properties examples:
-      a)Change an elements value i.e document.queryselector(".main-title").innerHTML = "A different heading"
-      b)Change an elements id i.e document.queryselector("#showcase").id = "slideshow"
+      a)Change an elements value i.e document.querySelector(".main-title").innerHTML = "A different heading"
+      b)Change an elements id i.e document.querySelector("#showcase").id = "slideshow"
       c)Change class identifiers:
         (i)ClassName:returns the classname of the element referenced and if more than
          one, returns the a space-separated string of all the class names i.e
@@ -192,9 +192,9 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
        values separately as they come in pairs: https://developer.mozilla.org/en-US/docs/Web/API/Element
        Code examples 05_attributes highlights how to work with attributes.
     4)Adding DOM elements can be done via innerHTML & outerHTML elements but a better
-     way is to break up he invidual elements and add them to the DOM tre e.g to a caption
+     way is to break up he individual elements and add them to the DOM tree e.g to a caption
      to an image: See code exercise 05_
       a)Create the element to add : .createElement()
       b)Create the text node that goes inside the element: .createTextNode()
       c)Add the text node to the created element: .appendChild()
-      d)Add the element to the DOM tree
+      d)Add the element to the DOM tree.
