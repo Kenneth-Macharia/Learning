@@ -1,5 +1,6 @@
 const AREA = document.body;
 const CIRCLE = document.querySelector('.circle');
+const CIRCLE2 = document.querySelector('.circle2');
 
 var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
@@ -12,9 +13,15 @@ function mouseCoordinates(e) {
     var horizontalPosition = windowWidth - e.clientX - 26;
     var verticalPosition= windowHeight - e.clientY - 26;
 
+    var horizontalPosition2 = e.clientX;
+    var verticalPosition2 = e.clientY;
+
     // Set horizontal and vertical position.
     CIRCLE.style.left = horizontalPosition + 'px';
     CIRCLE.style.top = verticalPosition + 'px';
+
+    CIRCLE2.style.left = horizontalPosition2 + 'px';
+    CIRCLE2.style.top = verticalPosition2 + 'px';
 }
 
 function changeColorOnTouch() {

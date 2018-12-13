@@ -242,3 +242,20 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
     2.Event listeners effective when tying functions to browser-level events,
      tying an event to multiple functions and vice versa. It listens to a
      specified event and passes it over to the specified function.
+ -Passing arguments to an event listener function is a bit tricky because we cannot
+  call the function the old fashion way with brackets at the end of its name, because
+  this would cause the function to run when read by the browser and not when the
+  target event happens. To solve this we can nest the function in an Anonymous
+  function and then pass the arguments to the Anonymous function then to the event
+  function. See 07_events for illustration.
+-Loops are of three types:
+    1)For loops when you know how the number of iterations required;
+        Syntax: for (var i = 0; i<10; i++) {do stuff;}
+    2)While loop when you don't know the number of iterations required and some
+     external condition determines loop termination;
+        Syntax: var i = 0; while (i<10) {do stuff; i++}
+    3)Do while loop similar to while loop but important when the loop must iterate
+     at least once before the condition is checked;
+        Syntax: var i = 0; do {do stuff; i++;} while (i < 10);
+ -Break: terminates the current loop and jumps to the next statement in the script.
+ -Continue: jumps the current iteration and proceeds to the next iteration.

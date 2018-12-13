@@ -23,5 +23,22 @@ function reveal(e) {
                         //function does not run on page load */
 
 //Refactoring the above code for event listeners
-CTA.addEventListener("click", reveal, false);  //event 1
-CTA.addEventListener("click", function() {console.log("Button clicked");}, false); //event 2
+//CTA.addEventListener("click", reveal, false);  //event 1
+//CTA.addEventListener("click", function() {console.log("Button clicked");}, false); //event 2
+
+//Passing arguments to an event function
+//Function refactored to accept arguments
+function reveal2(e, clickedObject) {
+    e.preventDefault(); /* cancel the button follow link action via the 'e' event
+                        object attirbute, passed as an argument in to the function */
+    /* Use a ternary operator to check the link text. If is reads "book now" change it
+    to 'Ooops!' and vice versa, on click */
+    /* We shall pass in the clicked object as an argument and check it's innerHTML
+    attribute and ammend it as above. */
+    clickedObject.innerHTML == "Book Now" ? CTA.innerHTML = "Oooops!" : CTA.innerHTML = "Book Now";
+}
+
+/* Refactored event listener. We will also pass in the 'e' event object to prevent
+ the linsk default behaviour of trying to navigate to a source, as well as 'this'
+ which is the clicked object, the button link CTA */
+CTA.addEventListener("click", function(e) { reveal2(e, this);}, false);
