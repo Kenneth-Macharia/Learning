@@ -123,6 +123,17 @@ WORKING WITH JAVASCRIPT:
     -Closures are functions inside other functions that rely on variables defined
      in the parent functions to work. See code examples for implementation and
      further reading on https://developer.mozilla.org/en/docs/Web/JavaScript/Closures
+-Loops are of three types:
+   1)For loops when you know how the number of iterations required;
+       Syntax: for (var i = 0; i<10; i++) {do stuff;}
+   2)While loop when you don't know the number of iterations required and some
+    external condition determines loop termination;
+       Syntax: var i = 0; while (i<10) {do stuff; i++}
+   3)Do while loop similar to while loop but important when the loop must iterate
+    at least once before the condition is checked;
+       Syntax: var i = 0; do {do stuff; i++;} while (i < 10);
+-Break: terminates the current loop and jumps to the next statement in the script.
+-Continue: jumps the current iteration and proceeds to the next iteration.
 
 THE D.O.M (DOCUMENT OBJECT MODEL):
 -The browser window is an object and the document and it displays is an object as well.
@@ -248,14 +259,38 @@ THE D.O.M (DOCUMENT OBJECT MODEL):
   target event happens. To solve this we can nest the function in an Anonymous
   function and then pass the arguments to the Anonymous function then to the event
   function. See 07_events for illustration.
--Loops are of three types:
-    1)For loops when you know how the number of iterations required;
-        Syntax: for (var i = 0; i<10; i++) {do stuff;}
-    2)While loop when you don't know the number of iterations required and some
-     external condition determines loop termination;
-        Syntax: var i = 0; while (i<10) {do stuff; i++}
-    3)Do while loop similar to while loop but important when the loop must iterate
-     at least once before the condition is checked;
-        Syntax: var i = 0; do {do stuff; i++;} while (i < 10);
- -Break: terminates the current loop and jumps to the next statement in the script.
- -Continue: jumps the current iteration and proceeds to the next iteration.
+
+TROUBLESHOOTING, VALIDATING AND MINIFYING JAVASCRIPT:
+-The console is the primary tool use to troubleshoot and debug Javascript. It will
+ highlight all syntax errors and via the console.log() method be used to debug other
+ types of errors e.g. logic errors.
+-Resource for console : https://developer.mozilla.org/en-US/docs/Web/API/Console
+-The MDM page give a host of console functions to use to assist in debugging JavaScript
+ code.
+-The developer tools also has the 'sources' tab used to inspect code execution
+ line-by-line, includes breakpoints, step-into and other debugging functionalities.
+-Online JavaScript linting tools:
+  1.JSLint: http://jslint.com, the gold std tool for JavaScript code qaulity, however
+  will pick up even the smallest irrelevant issues e.g non-use of white spaces,
+  which will most likely be minified out before deploying the code.
+  2.JShint: http://jshint.com, a more lenient tool and focuses on actual problems. To
+   use just like jslint, ensure ES6 is enabled.
+-Automating script linting via 'eslint' package for atom, but set up in conjuction
+ with npm (node package manager).
+-Minification meaning removing whitespaces and comments make the code easier to
+ download and run for the browser. This makes the code unreadabel to humans though,
+ thus you would minify to a different file e.g. 'script-min.js' and then reference
+ that file in index.html instead of the full version.
+NB)When viewing the minified JS version in developer tools, 'source' tab, you can
+ you can temporarily unminify the file by clicking on 'pretty print {}' icon at the
+ bottom.
+-Online minifying tool: http://www.minifier.org.
+-Automated minification via 'uglify js', again set up is via npm.
+
+MORE ON JAVASCRIPT:
+-Full documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+-Bookmark feature links from the above website.
+-Other courses to look at:
+  1.jQuery essentials {Joe Marini}
+  2.React.js essnetial training {Eve Porcello}
+  3.Angular 2 essential training {Justin Schwartzenberger}
