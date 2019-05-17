@@ -1,0 +1,7 @@
+# FRONT END
+
+## HTML Refresher
+ - <strong> is the new bolding tag convention, previously (<b>)
+ - <em> is the new italics tag convention (emphasis), previously (<i>)
+ - Lists, both ordered and unordered can be nested inside each other.
+  - alt <img> attribute can also take an alternative link, not just text.
