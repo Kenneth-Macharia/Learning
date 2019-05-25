@@ -1,7 +1,37 @@
-FRONT END
+FRONT-END DEVELOPMENT REFRESHER
 
-HTML Refresher
+1. HTML
  - <strong> is the new bolding tag convention, previously (<b>)
  - <em> is the new italics tag convention (emphasis), previously (<i>)
  - Lists, both ordered and unordered can be nested inside each other.
-  - alt <img> attribute can also take an alternative link, not just text.
+ - alt <img> attribute can also take an alternative link, not just text.
+ - <iinputs>, either text, buttons, radio, textareas should go inside forms <form>
+ - Drop down menu: Use the <select> tag and its values use the <option> tag
+ - Data collected from the above components is sent to the back in the url upon clicking a submit
+   in form of name=value pairs i.e what is on an element's "name" attribute and "value" attirbute.
+   Using these we dipslay different values on the front end and have it represented differently on the back-end for analysis for example.
+- Lorem.... test latin test text, can be auto filled by tying lo.. then tab
+
+2. CSS
+- * selector for selecting all elements on a page does not override ids (#).
+- You can concatenate selections for elements that are next to each other via + e.g:
+  h3 + ul { color: blue;} would turn all uls immediately after a h3 to blue. (Adjascent siblings)
+- Sentence selector e.g. li a { color:red; }
+- Selecting elements with certain attributes e.g li a[href="www.something.com"] { color:red; }
+- Pseudo classes e.g :hover are used to styke elements based on their states.
+- Specificity: Hierarchy of CSS styles: i.d, *, class, tag. READ MORE!
+- FONTS:
+  - Achieved via the 'font-family property.
+  - Not all fonts are available on all OSs, better to include in your website via a CDN.
+  - Font sizes should not be set in px for individual elements. The solution is to use 'em' values,
+    are a dynamic font metric. It equal to the font size of the element's parent, if the base font
+    size has not been set anywhere.
+    - Best practice is to set a base font size in the body in px, then use em for all other         elements.
+  - The browser default font size is 16px which is equal to 1em.
+- https://www.cssfontstack.com/ will show what fonts are on what OS.
+- Download fonts from:
+  - Google fonts
+  - Font library
+
+- COLORS:
+  Choosing color palette: coolors.com

@@ -1,0 +1,30 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    background-color: rgb(1, 1, 46);
+    border: 2em solid aqua;
+    border-top: 0;
+    text-align: center;
+    color: aliceblue;
+    font-size: 17px;
+}
+
+p {
+    font-size: 1.3em;
+    padding: 1em 13em 1em 13em;
+}
+
+input {
+    width:27em;
+    height: 3em;
+    margin:0.5em;
+}
+
+#sub {
+    width: 7.5em;
+    height: 3em;
+    border-radius: 1em;
+    font-size: 1.5em;
+    background-color: goldenrod;
+    margin-bottom: 1em;
+}

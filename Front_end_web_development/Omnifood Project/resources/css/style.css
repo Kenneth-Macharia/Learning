@@ -14,7 +14,7 @@
 html body {
     /* not neccessary as white is the default */
     background-color: #fff;
-    color:#555;
+    color:#555555;
     /* to include the google font, use the font name as below
      and also specify other local fonts incase importing the
      google font fails */

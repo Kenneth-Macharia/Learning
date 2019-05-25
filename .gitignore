@@ -4,3 +4,4 @@ venv
 *.pyc
 *.db
 .remote-sync.json
+.vscode
