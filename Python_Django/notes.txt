@@ -35,3 +35,10 @@ FRONT-END DEVELOPMENT REFRESHER
 
 - COLORS:
   Choosing color palette: coolors.com
+
+3. BOOTSTRAP
+- A front-end framework. A framework:
+  - Defines the rules to be followed when manupilating the code
+  - Has defualt non-modifiable behaviour
+  - Is extensible
+- Get bootstrap.com

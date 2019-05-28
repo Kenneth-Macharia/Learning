@@ -1,0 +1,56 @@
+SETTING UP ANDROID STUDIO
+1. Change themes and fonts
+2. Enable auto import: Preferences>Editor>General>Auto import (All & unambiguous imports)
+3. Auto generate boiler plate code & setting up naming conventions: Preferences>Editor>Code style>Java>code generation:(Field:m, Static:s)
+4. Check SDK platforms available for building the versions of Android apps of interest.
+5. Setup Emulator, if not connected an actual physical phone (Actual phone preferred, as emulators take up a lot of computer resources). Ensure to         pick the emulator for your computer's processor.
+
+WORKING WITH ANDROID STUDIO
+1. Gradle is a project setup & build tool, that generates an apk file for app deployment. Ensure it finishes building when starting Android Studio.
+2. Main components of a project:
+	- .java file which has the java code powering the activities
+	- .xml file which has the layouts as viewed on the sample screen displayed. This has two modes, the graphical mode (Design tab & text mode 	which shows the xml code responsible for the current displayed layouts. Changing the code in this file changes the current project layouts.
+3.Start of working on a project by choosing an app theme (determines the overall look & feel)
+	- Via design view: Select from 'App Theme': On top of the layout view screen. (Note these these are separate from the layout files)
+	- Via xml: App>res>values>styles.xml
+4. Component tree: displays the layout type for the project and under it, all the visible components on the layout e.g textView, which displays text
+	- Selecting a component displays it properties in the attributes window.
+	- sp unit of measure (scalable pixel), density-independent pixels (dp)
+5. Errors and warnings appear under the orange exclamation sign under the layout view.
+6. All strings in the project just like the layouts and styles should also be in a separate file as resources and not hard coded i.e via the 		attributes window. To add an @string resource for this purpose:
+	- Open the strings.xml file and add it, going it a title and actual string.
+	- The in the attributes window under a component's /text/ field, link it to the resource by selecting it from the resource picker next to the 	attribute.
+7. Graphics like strings, styles, colours and layouts are app resources and are stored under res(resources) folder, and in this case, the drawable 	folder. To add an image, save an image in the above folder, then in AS, pick an imageView component from the palette drop it in the layout.
+	The property 'srcCompat' has the link to the saved image.
+8. XML(extensible markup language): a tree structured meta notation, a set of rule to follow like punctuation. Used to create tag sets and use them 	to describe data. 	
+	- The vocabulary of the tags differs in various application but the structure of the tags are the same i.e syntax and punctuation.
+	- Applications of XML include: HTML, RSS, SVG.
+9. AndroidManifest XML file is the file that holds information about the app, included resources it has and what the app is allowed to do etc. In 	here we can tell the app which launcher icon to use instead of the default, if we have included our customs ones. (Include different res 	images for the app launcher to accommodate different screen resolutions. The phone using the app will choose the launcher to use.
+10. An Android project (collection of files that make up the intended result) has four main elements:
+	- A manifest file: 
+	- Java files: Programming logic of the app
+	- Resources: Design of the app (colours, strings, images, dimensions, layouts etc)
+	- Gradle files: App builder, collates all the required files, runs tests on the files and if passing produces an apk file that is used to 	instal the app.
+11. Visit flatuicolors.com for hex values for different colours.
+12. To create launcher icons of different sizes, right-click on the res folder and select image assets, select launcher	icons and pick a master image 	that is at least 512*512 pixels and this tool will generate an icon pack for all sizes required. (Largest icon as per google - 192*192. If we 	create the files manually, add them to their respective mipmap folders, then update the AndroidManifest.xml file with the new file names.
+	- Create both square and round ones.
+
+LAYOUTS (CONTAINERS FOR ARRANGING COMPONENTS ON THE SCREEN)
+1. Relative layout: Allows positioning components relative to each others position.
+2. Linear layout: Allows arranging of components vertically (on top of each other) or horizontally (side-by-side).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
