@@ -2,7 +2,7 @@ package mainpackagedemo;
 
 /* 
     Classes, the foundation of OOP, are instructions or blueprints for how object of specific
-    types will be created.
+    types will be created. Public classes must be defined in their own files.
 
     Objects are self-contained components consisiting of charateristics (properties) and
     actions (methods) to make a particular type of data useful.
@@ -143,9 +143,56 @@ package mainpackagedemo;
             }
         }
 
-    Abstraction: is hidding unecessary and often complex details of a system away from the user and allowing exposing only what the user needs to implement it. In OOP, this means a user of a clas only need to know how to use a class but what the components of the class are. This is usually enforced by inheritance and in Java, class abstraction is implemeted by declaring a class with an 'abstract modifier' thus only allowind use of the class by inheriting it and not vy instantiating it.
+    Abstraction: is hidding unecessary and often complex details of a system away from the user and allowing exposing only what the user needs to implement it. In OOP, this means a user of a clas only need to know how to use a class but what the components of the class are. This is usually enforced by inheritance and in Java, class abstraction is implemeted by declaring a class with an 'abstract modifier' thus only allowind use of the class by inheriting it and not by instantiating it.
+
+    Interfaces are abstract classes (only have have abstract declaration of methods which are public by default and static constants). They exist to enable multiple inheritance since in Java, extending more than one classes is not allowed but implementing more than one interfaces to get functionality from both is allowed. A class can extend a class and implement many interfaces at the same time.
+
+    public class Animal {
+        *its attributes
+        *its methods (NOT abstract, already have functionality) i.e.
+        void makeSound () {
+            // some fucntionality to make a sound
+        }
+        *its constructor(s)
+    }
+
+    public interface Pet {
+        abstract methods i.e. NOT defined functionality just declararation
+        void keepCompany () {}
+    }
+
+    public class Dog extends Animal implements Pet {
+        // Will get all fuctionality from both the Animal class and the Pet interface.
+    }
+
+    Enumarators (Enums in Java) are object types of the Java Enum class, that are used to represent a group of named constants that all possible values for them are known at compile time e.g days of the week, gender, menus for the day etc. They are useful in validating data and preventing illegal inputs. Theri implemetation is very elaborate: https://www.geeksforgeeks.org/enum-in-java/. Simple Demo below:
+
+    Casting: involves converting a variable type to another comaptible variable type so as tomuch effectively work with the covnerted type especially in downcasting where a type is covnerted from a more abstract type to a more specific type e.g from a super class to a sub class. Note however upcasting is also legal. Java will handle casting automatically if a type cast4ed to is bigger than the orign type e.g int to double else explicit casting is required e.g.
+        double = (double) int
+    
 
 */  
+
+// Enums Demo
+enum Gender {
+    Male,
+    Female
+}
+
+class Student {
+    String name;
+    Gender studentGender;
+
+    Student (String name, Gender studentGender) {
+        this.name = name;
+        this.studentGender = studentGender;
+    }
+
+    public static void main(String [] args) {
+        Student newStudent = new Student("Ken", Gender.Male);
+        System.out.println("My name is " + newStudent.name + " and gender is " + newStudent.studentGender);
+    }
+}
 
 class Truck extends Car {
     boolean trailer;
@@ -247,6 +294,7 @@ class Faculty {
     }
 }
 
+// Main class
 public class classes {
 
     public static void main(String [] args) {

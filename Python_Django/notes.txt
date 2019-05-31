@@ -41,4 +41,9 @@ FRONT-END DEVELOPMENT REFRESHER
   - Defines the rules to be followed when manupilating the code
   - Has defualt non-modifiable behaviour
   - Is extensible
-- Get bootstrap.com
+  - Uses set classes to implement functionality by making calls to those classes in HTML.
+  - You can add you own classes for further customization.
+- Get bootstrap.com (For ideas on implementing different elements including grids (row & col))
+
+4. JAVASCRIPT
+- 

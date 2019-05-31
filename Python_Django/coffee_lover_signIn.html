@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        h3 {
+            font-weight: 200;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                <a href="#" class="navbar-brand">Welcome</a>
+
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="coffee_lover.html">Landing Page</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Log In</h1>
+            <h3>Enter your email and password below to log in to Coffee Lover</h3>
+        </div>
+
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label for="mail">Email address</label>
+                    <input type="email" class="form-control" id="mail" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                    <input type="password" class="form-control" id="pass" placeholder="Password">
+                </div>
+                <div class="checkbox">
+                    <label>
+                    <input type="checkbox">Keep me logged in
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>             
+        </div>
+    </div>
+    
+</body>
+</html>

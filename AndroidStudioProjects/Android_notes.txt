@@ -39,6 +39,11 @@ LAYOUTS (CONTAINERS FOR ARRANGING COMPONENTS ON THE SCREEN)
 1. Relative layout: Allows positioning components relative to each others position.
 2. Linear layout: Allows arranging of components vertically (on top of each other) or horizontally (side-by-side).
 
+LINKING COMPONENTS TO JAVA ACTIVITIES
+1. Create a variable to hold a layout element
+2. Retrieve the element and store it in the variable
+3. Use the element value stored in the variable to manipulate the element using Java code.
+
 
 
 
