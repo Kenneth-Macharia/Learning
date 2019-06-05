@@ -270,12 +270,12 @@ class Address {
 }
 
 // HAS-A relationship to Address
-class Student {
+class StudentHasA {
     int rollNum;
     String name;
     Address studentAdd;
 
-    Student (int rollNum, String name, Address studentAdd) {
+    StudentHasA (int rollNum, String name, Address studentAdd) {
         this. rollNum = rollNum;
         this.name = name;
         this.studentAdd = studentAdd;
@@ -334,7 +334,7 @@ public class classes {
 
         // Create a student instance
         Address student1_Address = new Address("Orange Street", "LA", "California", "USA");
-        Student student1 = new Student(302, "Kenneth", student1_Address);
+        StudentHasA student1 = new StudentHasA(302, "Kenneth", student1_Address);
         System.out.println(student1.name + " lives on " + student1.studentAdd.street_name);
 
         System.out.println("--------------------------");

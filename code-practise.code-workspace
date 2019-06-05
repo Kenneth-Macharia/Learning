@@ -5,6 +5,9 @@
 		}
 	],
 	"settings": {
-		"files.autoSave": "afterDelay"
+		"files.autoSave": "afterDelay",
+		"java.dependency.packagePresentation": "flat",
+		"java.dependency.syncWithFolderExplorer": false,
+		"liveServer.settings.multiRootWorkspaceName": "Code-practise"
 	}
 }
