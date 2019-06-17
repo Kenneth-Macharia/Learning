@@ -46,4 +46,45 @@ FRONT-END DEVELOPMENT REFRESHER
 - Get bootstrap.com (For ideas on implementing different elements including grids (row & col))
 
 4. JAVASCRIPT
-- 
+- For ... of ... Loop e.g For (letter of array) {}
+- forEach() ideal for passing elements of an array to a function.
+- Arrays (lists) & Objects (dicttionaries), check MDN for documentation.
+- Demo code:
+
+function AddAwesome (item) {
+  console.log(item + " is awesome!");
+}
+
+var items = ["python", "django", "science"]
+
+items.forEach(AddAwesome);
+
+Result:
+python is awesome!
+django is awesome!
+science is awesome!
+
+- objects are JavaScript key value-pair data unordered structures:
+
+var carInfo = {make:Toyota, year:1990, model:"Camry"}
+
+- Access items: carInfo["make"]
+
+- View large object in browser: console.dir(objectName)
+- Looping in objects: for (key in carInfo) { // Do stuff }
+- Object methods: 
+
+var myObj = {
+  property:"Hello",
+  myObjMethod: function () {
+    console.log(this.property);
+  }
+}
+
+Object property read: myObj.property; > "Hello"
+Object method call: myObj.myObjMethod(); > "Hello"
+
+5. DOM
+- DOM is a representation of all website elements as JS objects in Hierarchical order, from the root element (document).
+- To see a site's DOM as HTML, type 'document' in the console, for the actual objects, type console.dir(document)
+- You can retrieve a bunch of document attributes e.g document.URL, document.body etc. In console, typing document. brings up a pop-up with a list of these attributes and methods=

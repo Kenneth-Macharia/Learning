@@ -63,7 +63,7 @@ and be the color purple.*/
 Finally, make the elements with the class label "exit" have
 a background of blue and a 4px dashed yellow border.*/
 .exit {
-    background-color: blue;
+    background-color: #0000ff;
     border: 4px dashed yellow;
 }
 

@@ -44,8 +44,20 @@ LINKING COMPONENTS TO JAVA ACTIVITIES
 2. Retrieve the element and store it in the variable
 3. Use the element value stored in the variable to manipulate the element using Java code.
 
+ACTIVITIES
+- The entry point for a user's interaction with the app as well as navigation within the app, functionality for which is provided but the ACTIVITY class, by invoking an instance of the class.
+- The rationale for activities is because user interaction on a mobile platform does not always start from the same point like on a desktop platform i.e you can launch an app from theme screen or it can be launched from within another app. The calling app then invokes an activity in the other app rather than the app as a whole.
+- App activities as implemented by subclassing the Activity class.
+- Activities provide the window for am apps GUI which may fill the screen or not. An app may have multiple activities implementing different screens and some at the same time to display on different sections of the screen.
+- There is always a main activity which is implements the first screen on app launch, which then starts other activities.
+- Activities are strictly dependant on each other, hence the ability for cross-app activity invocation.
+- To use an activity in an app, it must be registered in the app's manifest and it's life cycle must be managed appropriately.
 
-
+DESIGN PATTERN
+- A proven blueprint/template for solving a problem in software engineering.
+- MVC is a way for devs to organise files & structure code. Each resource is maintained in a specific file and these file are organised in a specific way to reduce the complexity of the app, improves standardisation for app building, enforces modularisation and enhances concurrent development of all the app section.
+- The app code should also be organised in this way so that different code file do specific things an organised properly.
+- MVC: Models manages data between the app and the database, Views managed the UI and controllers handles the communications between the models and views.
 
 
 
