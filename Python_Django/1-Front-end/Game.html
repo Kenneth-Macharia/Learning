@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <style>
+        td {
+            border: 3px solid black;
+            height: 1.5em;
+            width: 1.5em;
+            text-align: center;
+            font-size: 6em;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Welcome to Tic Tac Toe!</h1><br>
+            <button id="btn" class="btn btn-primary btn-lg">Restart</button>
+        </div>
+        
+        <table align="center">
+            <tr>
+                <td>X</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script>
+        // Restart game button
+        var restart = document.querySelector('#btn');
+
+        // Grab all the squares
+        var squares = document.querySelectorAll('td');
+        var noOfCells = squares.length;
+
+        // Clear all the squares
+        restart.addEventListener('click', () => {
+            for (var i = 0; i < noOfCells; i++) {
+                squares[i].textContent = "";
+            }
+        });
+
+        // Check the square markers
+        function checkMarkers () {
+            if (this.textContent === '') {
+                this.textContent = 'X';
+            } else if (this.textContent === 'X') {
+                this.textContent = 'O';
+            } else if (this.textContent === 'O') {
+                this.textContent = '';
+            }
+        }
+
+        // For loop to add event listeners to all squares
+        for (var i = 0; i < noOfCells; i++) {
+                squares[i].addEventListener('click', checkMarkers);
+        }
+
+    </script>
+
+</body>
+</html>

@@ -59,12 +59,76 @@ DESIGN PATTERN
 - The app code should also be organised in this way so that different code file do specific things an organised properly.
 - MVC: Models manages data between the app and the database, Views managed the UI and controllers handles the communications between the models and views.
 
+APP OVERVIEW
+- An app is made up of various part that communicate with each other to achieve a goal. These could be components e.g buttons which send messages like click an Android activity which then determines what should be done when such a message is received.
+- These parts are visible and invisible, one should learn how each of these part communicate.
+- When an app is launched, the onCreate() message is sent by the OS to the app's MainActivity to load up everything needed to display the app.
+- Apps are 'Event-driven' i.e work on the backdrop of events happening.
 
+ACTIVITY LIFECYCLE (Messages the app receives from the OS)
+- The lifecycle begins with when the app is launched, then it become visible to the user, then when the user switches to another app, it recedes into the background and if the user does not revert to it, it gets killed and system resources it was utilising get reclaimed for use by other apps.
+- The OS notifies the app of its state in each stage of it's life cycle , thus devs is make their apps respond to these messages.
+- Stages of an Android	app / Activity lift cycle are:
+	
+	1. Non-existent - app is not launched yet
+	2. Stopped - app is running in the background
+	3. Paused - app is active but not the currently main focus app
+	4. Running - app is fully in the foreground and the user is interacting with it
 
+NB) Only one activity across the entire Android system can be running at any one time, if another is becoming fully active, the current one will be paused.
 
+- OS messages to the app to notify it of its changing states:
 
+	1. OnCreate() - changes activity from non-existent to stopped: Loading up all resources into memory in preparation for display
+	2. OnStart() - changes activity from stopped to pause: activity is now visible.
+	3. OnResume() - changes activity from paused to running: activity is now in the foreground and the user can interact with it.
+	4. OnPause() - changes activity from running to paused: when the user  presses the power button or the screen has timed out. No user 				interaction, though app may be visible or partially visible. (You can continue with UI updates but saving user changes and data should be done here.
+	5. OnStop() - changes activity from paused to stopped: when the user presses the home button or launches another full screen app. App is running in the 	background. Prepare stopping UI updates e.g videos playing, stop camera etc.
+	6. OnDestroy() - changes activity from stopped to non-existent: activity is about to be shut done, thus close and clean up including closing remote 		server connections etc.
 
+- Activity life cyle with screen rotation: the app is killed then re-lauched with the new screen configs and goes through all the stages above, with an additional callback right after OnPause() called onSaveInstanceState(), where state data can be saved to ensure the app's current state continue right where it was left off e.g. game scores.
 
+CONSTRAINT LAYOUTS
+- Nested view hierarchies, layouts inside other layout then components in the nested layouts.
+- Hard layout values should be avoided, rather setting rules such as match_parent, wrap_content making the app adapt to the screen on which it is running.
+- As developers, do some research as to which devices we should support, since we can't support all the screen sizes, types and orientations.
+- Developer.android.com documentations & dashboard > Multiple screen offers stats on what screen are most popular, int terms of size and resolution.
+- Flat-view hierarchy, no nesting of layouts or components.
+- Constraint layout require dependancies in the grade file, thus converting from a nested hierarchy layout (with relative and linear layouts) to a flat hierarchy                    layout (with constraint layout). Creating a new constraint layout project will add these xml dependancies auto.
+
+NB) MATERIALSPALLETE.COM > Color palettes suited for android design.
+NB) RESOURCE QUALIFIERS - by Android to distinguish resources to be used for various circumstance e.g. image sizes based on screen size, different layouts based on the phone orientation, different string values for different locales etc.
+
+GRADLE
+- Tool used to configure and build files.
+- build.gradle (Project:) - contains info about the whole project (all modules)
+- build.gradle (Module.app) - info about a specific app/module within the project:
+	
+	1. minSdkVersion: tells the OS and play store the minimum android version the app can run on. Set based on the minimum sdk version you want to support
+	2. targetSdkVersion: tells the OS how to treat the app e.g look and feel by knowing which features are supported by the app. Usually better to set to the latest sdk 	version to support new features.
+	3. compileSdkvesion: tells gradle what sdk version to use to compile the app under development. Should be equal to the target sdk version, so as to enable the newest
+	android features in the app.
+
+- Dependancy Mgt: a dependancy is a library (code written by someone else to do something, mostly to enable the use of some features). If for example you want to include a cool feature in your app enabled by some library e.g .jar file (combination of java executable class files):
+
+	1. Change project view to 'project view'
+	2. Add a directory under your app folder and call it 'libs'
+	3. Download the .jar file and place it in the lib folder created
+	4. Ensure in build.gradle(Module.app) under 'dependancies' that the 'libs' folder is included {(for v3) implementation fileTree('dir: 'libs', include: ['*.jar'])} 	to ensure gradle includes the new file(s) when compiling the project. Then sync the project.
+
+- The above manual process is both tedious and does not update the libraries automatically to incorporate new features and bug fixes.
+- To automate the processes of adding dependancies in, use REPOS. The most common ones for android dependancies are JCenter and Maven Central. JCentre is included in build.gradle(Project: automatically for all projects and is the biggest java and android repo.
+- Include in the build.module(App) file the specific library URL from the specified repo to include under dependancies e.g. (for v3)implementation 'com.loopj.android:android-async-http:1.4.9' then sync the project for gradle to download and include the library.
+
+- To know which library to include google if it exists for a feature you would like to incorporate in your project, instead of having to re-create the feature.
+
+ANDROID MANIFEST FILE
+- This file contains details about the app and the permissions it has e.g what resource on the host OS and device it has access to.
+
+INTENT
+- Is an android component that handles intercommunication between apps and activities by holding and availing information about the task/job to done. The are used to navigate between activities and are also used to request for job handles for which no activity or app has been specified to handle, thus the OS will avail the activities and apps that are capable of handling the job request. They can also specify which particular activity should handle the job.
+- Intent filter are used by the OS to match activities to actions e.g the activity to start first when the app launches e.g MAIN. They also have categories to narrow down which components can handle and action. Android docs has many more category that can be used.
+- Extras are passed along in intents containing data that will passed across activities or apps.
 
 
 
