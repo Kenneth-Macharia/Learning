@@ -1,0 +1,64 @@
+- Is a python web development framework.
+- It is used to map a user requested url to code that is meant to handle it, then using templates, cresate the requested html dynamically, then fetch requested data from a database and inject it to the generated html to dipslay to the user. It is thus an interface between the front and back end.
+- Developed in 2003 by web dev at the Lawrence Journal-World newspaper, when they started using python for their dev work. Because of its writer influenced origin, good documentation is key to django and it has elaborate documentations to reference.
+- Using a virtual env with django apps is improtant so us to not break compatibility with the current web app, when testing out updated python packages the web app relies on.
+- By using a venv, you isolate packages for a specific app away from the those of another app.
+- Create a venv using conda or pip (see for flask projects), for conda run:
+
+	conda create --name venv_name django. # Meaning create a venv called venv_name and initialize it as a django package.
+
+(NB) The above command may try to install python 2 by default, so instead create the venv as a python 3 package first instead (check what will be installed first)
+
+	conda create --name venv_name python=3.7 # View the packages to be installed and confirm the correct version, the proceed with init.
+
+
+(NB) Run conda info --envs  # To view all venv present
+
+- Django provides a command line tool called django-admin to easily manage django projects e.g
+
+	# To create a new django project run: 
+
+		django-admin startproject project_name 
+
+	Which initializes a new project folder with some files in them:
+
+		1. __init__.py :tells python that this folder is a python package and can be imported.
+		2. settings.py :all settings for the project
+		3. urls.py :stores all url patterns of the project i.e the various pages for the web app
+		4. wsgi.py :web server gateway interface used during the app deployment
+		5. manage.py :Associated with alot of the commands used during the building of the web app
+
+- A Django project is a collection of applications and configurations that wehn combined, make up the full web application ie. site + logic
+- A django application is created to perform a specific function for the website. These are re-useable by us or by other people.
+
+- To create an app run: 
+
+	python manage.py startapp app_name
+
+- This creates a django app folder with some files and folders:
+
+	1. __init__.py
+	2. admin.py :used to register models to be used with django's admin interface
+	3. apps.py :application specific configs
+	4. models.py : applications data models
+	5. tests.py :test functions for the app
+	6. views.py :functions that handle requests and return responses
+	7. Migrations :database info relating to the models
+
+- Django uses the ModelViewTemplate architecture design pattern (MVT).
+
+- NEXT: 
+
+	1. Specify that this new app exists by adding it to the project settings.py file
+	2. Create a view and map it to a url
+
+
+
+
+
+
+
+
+
+
+ 

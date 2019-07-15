@@ -73,6 +73,8 @@ https://code.tutsplus.com/tutorials/what-are-python-namespaces-and-why-are-they-
 
     3. Method 3: import module, the safest and recommend module import method allowing prefixing of imported names with then imported module name to prevent conflict with the local module namespace e.g math.random()
 
+- Locals() internal function returns a dict of all local scope variables and globals() returns all globals scope variables.
+
 8. OOP
 - Everything in python is an object, thus inherits from the object class.
 - Check the type or which class an object belongs to by using the 'type()' method.
@@ -166,3 +168,55 @@ Illustrations:
     Means that some_funtion will specify run first, when the current file is directly run by the interpreter.
 
 - The above two also mean that if the current file/module is imported, then the main () code or some_funtion will not run automatically, until when specifically invoked in then importing module.
+
+14. DECORATORS
+- Are functions that modify the functionality of other functions, thereby making your code shorter and more pythonic.
+
+(NB) You can assign labels/ variables to functions e.g: 
+    
+    def hello(name='Ken'):
+        print ("Hello , name) 
+
+    someV = hello  # Assign function inside a variable
+    print(someV())  # Call the variable as a function
+
+(NB) You can also nest funcions:
+
+    def hello(name='Ken'):
+        print ("Hello , name)
+
+        def greet():
+            return some_vaue
+
+            def welcome():
+                return some_value2
+
+    # Posiible calls:
+    greet()
+    welcome()
+
+# greet() and welcome() cant be called here as they are not in this scope.
+# Possible calls:
+hello()
+- You can also pass in functions as arguments to other functions using the 'func' keyword.
+
+- The purpose of decorators is to ease the process of modifying a functions behaviour by assigning it to another function that does the modification and and returns the modified function.
+
+- To create a decorator:
+
+    1. Define the decorator function that takes a functions as an argument
+    2. Inside the decorator, define a wrap_func which executes some code plus calls the function that needs modifying.
+    3. Return the wrap_func inside the decorator functions (NOT run it)
+
+- The deocrator can be use in two ways:
+    
+    1. Run the decorator and assign the function needing modifying to it
+    2. The pythonic way: add an @decorator_function ontop of the function needing modifying, then run the function the normal way.
+
+- Demo in decorator.py
+
+
+
+
+
+
