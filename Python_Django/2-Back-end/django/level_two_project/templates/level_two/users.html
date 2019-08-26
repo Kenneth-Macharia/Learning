@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>Users List</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<h1>Here are your users</h1>
+	
+	{% if page_records %}
+
+		<ol>
+			{% for row in page_records %}
+			
+			<li>User Info</li>
+
+				<ul>
+					<li>First Name: {{row.First_name}}</li>
+					<li>Last Name: {{row.Last_name}}</li>
+					<li>Email: {{row.Email}}</li>
+				</ul>
+
+			{% endfor %}
+
+		</ol>	
+
+	{% else %}
+
+	<p>NO USERS FOUND!</p>
+
+	{% endif %}
+
+</body>
+</html>

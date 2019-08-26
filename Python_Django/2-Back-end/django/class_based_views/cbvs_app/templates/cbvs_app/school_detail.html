@@ -1,0 +1,27 @@
+{% extends "cbvs_app/base.html" %}
+
+{% block body_block %}
+
+	<div class='jumbotron'>
+		
+		<h1>Welcome to the school details page</h1><br>
+		<h2>School Detail:</h2>
+		<p>Name: {{school_detail.name}}</p>
+		<p>Principal: {{school_detail.principal}}</p>
+		<p>Location: {{school_detail.location}}</p>
+		<h3>Sudents:</h3><br>
+
+		<!-- students is the related name linking the students to the school in models -->
+		{% for student in school_detail.students.all %}
+			<p>{{student.name}} who is {{student.age}} years old</p>
+		{% endfor %}
+
+	</div>
+
+	<div class='container'>
+		<p><a class='btn btn-warning' href="{% url 'cbvs_app:update' pk=school_detail.pk %}">Update
+		</a></p>
+		
+	</div>
+
+{% endblock %}

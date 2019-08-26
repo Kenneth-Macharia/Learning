@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<!-- Always load up custom filters here -->
+
+{% load my_filters %}
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Welcome to index</h1>
+	<h3>{{ text|cut:'world'}}</h3>
+	<h3>{{ number|add:"100"}}</h3>
+</body>
+</html>

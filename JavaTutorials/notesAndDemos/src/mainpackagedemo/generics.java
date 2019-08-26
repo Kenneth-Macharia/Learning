@@ -1,14 +1,21 @@
 package mainpackagedemo;
 
 /* 
-    - Generic methods and classes allow working  with multiple type using the same code block i.e the method or class.
-    - BY specifying a generic return type for a method, it can accept non-speciific types and return the non-specific type as well, instead of declaring different methods to handle each type.
+    - Generic methods and classes allow working  with multiple types using the same code block i.e the method or class.
+    - By specifying a generic return type for a method, it can accept non-speciific types and return the non-specific type as well, instead of declaring different methods to handle each type.
     - Rules for generic methods:
 
         1. All generic method declarations have a type parameter section delimited by angle brackets (< and >) that precedes the method's return type.
         2. Each type parameter section contains one or more type parameters separated by commas. A type parameter, also known as a type variable, is an identifier that specifies a generic type name.
         3. The type parameters can be used to declare the return type and act as placeholders for the types of the arguments passed to the generic method, which are known as actual type arguments.
         4. A generic method's body is declared like that of any other method. Note that type parameters can represent only reference types, not primitive types (like int, double and char)
+        5. For code readability the letters used for type variables should be:
+            - E - element
+            - K - key
+            - V - value
+            - N - Number
+            - T - Type
+            - S,U,V - for consequtive types when T is already in use
 
     - Demo below:
 

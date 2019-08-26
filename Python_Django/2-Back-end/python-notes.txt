@@ -5,7 +5,7 @@
 https://stackoverflow.com/questions/20563433/difference-between-static-and-dynamic-programming-languages
 
 2. STRINGS
-- Negative indexing: string[-1] # returns the last char, and goes on till index 0 to get the          corresponding letter.
+- Negative indexing: string[-1] # returns the last char, and goes on till index 0 to get the corresponding letter.
 - String slicing: string[2:] # returns all chars from index 2 to the end, string[:3] # returns all chars from index 0 to index 2, string[2:5] # returns all chars from index 2 upto index 4, string[::] / string[:] # returns all character, string[::3] # skips 3 three letters at a time, string[::-1] # returns the string reversed.
 - Strings are IMMUTABLE, no re-assignment once created, thus even l = l + 'p' creates a new string   object, rather than appending to the original object.
 - STRING INTERPOLATION: the process of substituting string within a string with other string,       including arithmetic computation. 
@@ -19,7 +19,7 @@ https://stackoverflow.com/questions/20563433/difference-between-static-and-dynam
 
 4. BOOLEANS - True (1), False (0)
 5. TUPLES - Immutable list-like structure but declared () unlike [] for lists. # TUPLE UNPACKING
-6. SETS - UNORDERED collection of UNIQUE elements. Declare using set(), then use methods to            manipulate e.g set.add(element). # unique_list = set([1,2,3,2,1,4,3,4,2,5,5]) # returns set(1,2,    3,4,5)
+6. SETS - UNORDERED collection of UNIQUE elements. Declare using set(), then use methods to            manipulate e.g set.add(element). # unique_list = set([1,2,3,2,1,4,3,4,2,5,5]) # returns set(1,2,3,4,5)
 
 5. RANGE
 - Can be used to generate numbers between a range e.g. list(range(0, 5)), returns a list of items between 0 and 4, list(range(0, 20, 2)) will generate a list of even numbers between 0 and 19 (2 is a step argument).

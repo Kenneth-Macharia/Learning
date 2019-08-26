@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+	<title>First app: Records</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/my_style.css' %}">
+
+</head>
+<body>
+	<h2>Welcome to Django level two, here are the database retrieved records: </h2>
+
+	<div>
+		<!-- Inject table of webpage list using html tags -->
+
+		{% if page_records %}
+		<table>
+
+			<thead>
+				<th>SITE NAME</th>
+				<th>DATE ACCESSED</th>
+			</thead>
+
+			{% for row in page_records %}	
+			<tr>
+				<td>{{ row.page_accessed_name }}</td>
+				<td>{{ row.page_accessed_date }}</td>
+			</tr>		
+			{% endfor %}
+
+		</table>
+
+		{% else %}
+		<p>NO RECORDS FOUND!</p>
+
+		{% endif %}
+
+	</div>
+</body>
+</html>
