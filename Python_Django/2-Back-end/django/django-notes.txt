@@ -257,6 +257,7 @@ USER AUTHENTICATION
 - Django has an inbuilt auth model called User by default (refrain from calling any custom models 'User'), which already has details for users of the website (see doc for fields). User model class and adding the extra fields there. User objects also have attrs by default e.g is_active etc
 - You can add more user fields by creating another model that indireclty (OneToOne) inherits from the default User class e.g images for user profiles.
 (NB) To work with images in Django the 'pillow' lib needs to be installed.
+(NB) To use auth with CBVs, instead of auth decorators, use mixins, which are auth classes that the CVBs can inherit from, to automatically get the auth functionality.
 
 DEPLOYMENT
 - Links to guide for deploying to some services are in the links section e.g AWS, Heroku, PythonAnywhere, Digital Oceans.
@@ -290,8 +291,6 @@ CLASS BASED VIEWS (CBVs)
 	- Django has generic classes to handle models and model data e.g ListView and DetailView
 	- Rather than having the template in a project level dir, its common practice to have that inside the app folder, when working with CBVs.
 	- The two django classes above simplify the work of listing model data and details rather than us having to do it manually, since these oeprations are very common.
-
-(NB)
 
 CRUD
 - Djanog provides CBVs to perform crud operations. The ListView and DetailView CBVs are used for retrieving resources while the CreateView, UpdateView and DeleteView classes are used to perform create, update and delete operations respectively.

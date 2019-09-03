@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+	<h1 class='posttitle loader'>{{post.title}}</h1>
+	<!-- if post has a published date -->
+	{% if post.published_date %}
+		<div class='date postdate'>
+			<!-- Show it -->
+			{{ post.published_date }}
+		</div>
+	{% else %}
+	<!-- Display buttons to publish it -->
+		<a href="{% url 'post_publish' pk=post.pk %}" class='btn btn-default'>Publish</a>
+	{% endif %}
+	
+	<!-- safe: present text affected by the medium lib as intended rather than its HTML equivalent -->
+	<p class='postcontent'>{{ post.text|safe }}</p>
+	
+	<!-- display buttons to editing or deleting a post if user is authenticated -->
+	{% if user.is_authenticated %}
+		<a class='btn btn-primary' href="{% url 'post_edit' pk=post.pk %}"><span class='glyphicon glyphicon-pencil'></span>
+		</a>
+		<a class='btn btn-primary' href="{% url 'post_remove' pk=post.pk %}"><span class='glyphicon glyphicon-remove'></span>
+		</a>
+		
+	{% endif %}
+	<!-- horizontal break -->
+	<hr>
+	<!-- Link on a post to allow a user to comment on it -->
+	<a href="{% url 'add_comment_to_post' pk=post.pk %}" class='btn btn-primary btn-comment'>Add Comment</a>
+	
+	<div class='container'>
+		<!-- For all comments of a post -->
+		{% for comment in post.comments.all %}
+		<br>
+		<!-- If a user is authenticated or comment is approved by post owner.. -->
+			{% if user.is_authenticated or comment.approved_comment %}
+			<!-- Display comments -->
+				{{ comment.create_date }}
+					{% if not comment.approved_comment %}
+					<!-- If comment is not approved by post owner, display buttons to approve or remove -->
+						<a class='btn btn-default' href="{% url 'comment_remove' pk=comment.pk %}"><span class='glyphicon glyphicon-remove'></span>
+						</a>
+						<a class='btn btn-default' href="{% url 'comment_approve' pk=comment.pk %}"><span class='glyphicon glyphicon-ok'></span>
+						</a>
+					{% endif %}
+				
+				<!-- displayed comment data -->
+				<p>{{ comment.text|safe|linebreaks }}</p>
+				<p>Posted By: {{ comment.author }}</p>
+
+			{% endif %}
+			<!-- if not comments display the following -->
+			{% empty %}
+			<p>No Comments!</p>
+		{% endfor %}
+		
+	</div>
+
+{% endblock %}

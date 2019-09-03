@@ -7,7 +7,7 @@ patterns = ['term1', 'term2', 'term3', 'term']
 text = 'This is a string with term1, and not the other term'
 
 # for pattern in patterns:
-#     print('I am searching for: {}'.format(pattern)) # code to execute each tiem a match is found
+#     print('I am searching for: {}'.format(pattern)) # code to execute each time a match is found
 
 # Using re module functionality to perform the search 
 for pattern in patterns:
