@@ -294,3 +294,67 @@ CLASS BASED VIEWS (CBVs)
 
 CRUD
 - Djanog provides CBVs to perform crud operations. The ListView and DetailView CBVs are used for retrieving resources while the CreateView, UpdateView and DeleteView classes are used to perform create, update and delete operations respectively.
+
+DJANGO DEBUG TOOLBAR (See level_two_project)
+- Is a package that is usefeul in debugging django projects.
+- Ideal for large projects.
+- To use the debug toolbar:
+
+	- Install the package: pip install django-debug-toolbar
+	- Add the debug app after the 'staticfiles' in the 'installed apps' list: 'debug_toolbar'
+	- Add the toolbar to middleware in the settings.py:
+
+		'debug_toolbar.middleware.DebugToolbarMiddleware'
+
+	- Add to settings.py (at the bottom) the localhost IP addres to ensure the debug toolbar is only visible if the server is running locally, incase the debug property is left to TRUE:
+		
+		INTERNAL_IPS = ['127.0.0.1']
+
+	- Add a url in the projects url file to link to the debug toolbar and view it:
+
+		from django.conf import settings
+
+		# Under the main urlpatterns list add:
+
+		if settings.DEBUG:  # If true
+			import debug_toolbar
+			urlpatterns = [ url(r'^__debug__', include(debug_toolbar.urls)) ] + urlpatterns
+
+- When running the django server, the debug_toolbar will appear on the RHS of the screen.
+
+CUSTOMIZING THE ADMIN PAGE (DEMO EDI_ADMIN_PAGE PROJECT)
+
+# Look and Feel
+- For projects where osme users will have access to the admin page, its look can be customized by overwriting the html file associated with the admin page.
+- Under the project's folder, add the usual 'templates' folder and an 'admin' under that.
+- Visit django's github page and locate the admin html files:
+
+	/django/contrib/admin/templates
+
+- Id the file of interest and copy and paste it into your admin folder in your project.
+- EDIT the copied file, then add the templates url in your settings.py
+
+(NB)To make massive changes to the enter admin section, overwrite the 'base.html' file as all other template extend it.
+
+# Field Ordering
+- By default the admin page display the model fields in the order they were define, this order can be changed in the admin.py file:
+		
+	- Create a 'MyModelAdmin' class in admin.py
+	- Add a fields list of your models fields in the order you want them displayed
+	- Register the new class alongside the model it relates to.
+
+# Adding Search Fields
+- Achieved by adding a 'search_fields' list attr.
+- See videos admin.py
+
+# Adding Filters
+- Filters can be added to the views for the models and will appear on the right hand side of the view and will auto filter depending on the data type.
+- These wil look like the filter in the admin auth section.
+- This is achieved by adding a 'list_filter' list attr.
+
+# Adding more model fields to the model list view, such that you can view all the fields on a single row in a table-style format.
+- This achieved by adding a 'list_display' list attr and the field names to display, in the required order. The first field name will have the link to the model detail view.
+
+# Edits in List model view
+- To aid the bulk editing, some if the fields displayed in the list view can edited without having to enter the detail view.
+- This achieved by adding the 'list_editable' attr.
