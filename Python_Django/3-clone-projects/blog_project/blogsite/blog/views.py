@@ -114,7 +114,7 @@ def comment_remove(request, pk):
 
 	return redirect('post_detail', pk=post_pk)
 
-login_required
+@login_required
 def post_publish(request, pk):
 	''' Allows a user to publish a new post '''
 

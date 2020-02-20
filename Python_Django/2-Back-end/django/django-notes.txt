@@ -290,17 +290,17 @@ CLASS BASED VIEWS (CBVs)
 
 	- Django has generic classes to handle models and model data e.g ListView and DetailView
 	- Rather than having the template in a project level dir, its common practice to have that inside the app folder, when working with CBVs.
-	- The two django classes above simplify the work of listing model data and details rather than us having to do it manually, since these oeprations are very common.
+	- The two Django classes above simplify the work of listing model data and details rather than us having to do it manually, since these operations are very common.
 
 CRUD
-- Djanog provides CBVs to perform crud operations. The ListView and DetailView CBVs are used for retrieving resources while the CreateView, UpdateView and DeleteView classes are used to perform create, update and delete operations respectively.
+- Django provides CBVs to perform crud operations. The ListView and DetailView CBVs are used for retrieving resources while the CreateView, UpdateView and DeleteView classes are used to perform create, update and delete operations respectively.
 
 DJANGO DEBUG TOOLBAR (See level_two_project)
-- Is a package that is usefeul in debugging django projects.
+- Is a package that is useful in debugging Django projects.
 - Ideal for large projects.
 - To use the debug toolbar:
 
-	- Install the package: pip install django-debug-toolbar
+	- Install the package: pip install Django-debug-toolbar
 	- Add the debug app after the 'staticfiles' in the 'installed apps' list: 'debug_toolbar'
 	- Add the toolbar to middleware in the settings.py:
 
@@ -312,7 +312,7 @@ DJANGO DEBUG TOOLBAR (See level_two_project)
 
 	- Add a url in the projects url file to link to the debug toolbar and view it:
 
-		from django.conf import settings
+		from Django.conf import settings
 
 		# Under the main urlpatterns list add:
 

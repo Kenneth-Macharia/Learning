@@ -1,168 +1,168 @@
 /* ---------------------------------
-   BASIC SETUP SECTION
-   --------------------------------- */
+	 BASIC SETUP SECTION
+	 --------------------------------- */
 * {
-    /* Always the first page styling */
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    /* for developments to visually see the elements on the page
-    border: 0.5px solid rgb(110, 181, 232)  */
+		/* Always the first page styling */
+		margin: 0;
+		padding: 0;
+		-webkit-box-sizing: border-box;
+						box-sizing: border-box;
+		/* for developments to visually see the elements on the page
+		border: 0.5px solid rgb(110, 181, 232)  */
 }
 
 html body {
-    /* not neccessary as white is the default */
-    background-color: #fff;
-    color:#555555;
-    /* to include the google font, use the font name as below
-     and also specify other local fonts incase importing the
-     google font fails */
-    font-family: 'Lato', 'Arial', 'sans-serif';
-    font-weight: 300;
-    font-size: 20px;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+		/* not neccessary as white is the default */
+		background-color: #fff;
+		color:#555555;
+		/* to include the google font, use the font name as below
+		 and also specify other local fonts incase importing the
+		 google font fails */
+		font-family: 'Lato', 'Arial', 'sans-serif';
+		font-weight: 300;
+		font-size: 20px;
+		text-rendering: optimizeLegibility;
+		overflow-x: hidden;
 }
 
 .clearfix {zoom: 1}
 .clearfix:after {
-  /* clears floats after each element that declares them */
-  /* this class is used in each parent section where a child class declares floats */
-  content: '.';
-  clear: both;
-  display: block;
-  height: 0;
-  visibility: hidden;
+	/* clears floats after each element that declares them */
+	/* this class is used in each parent section where a child class declares floats */
+	content: '.';
+	clear: both;
+	display: block;
+	height: 0;
+	visibility: hidden;
 }
 
 /* ---------------------------------
-   RE-USABLE COMPONENTS SECTION
-   --------------------------------- */
+	 RE-USABLE COMPONENTS SECTION
+	 --------------------------------- */
 
 .row {
-    /* Only absolute dimension, all others will be relative. This is the entire
-    width of the page */
-    max-width: 1140px;
-    /* Center all the rows on the page, set left ad right to auto and top and
-    bottom to 0 */
-    margin: 0 auto;
+		/* Only absolute dimension, all others will be relative. This is the entire
+		width of the page */
+		max-width: 1140px;
+		/* Center all the rows on the page, set left ad right to auto and top and
+		bottom to 0 */
+		margin: 0 auto;
 }
 
 section {
-    /* Add white spaces for each sections. Usually you use margins but padding
-    for this case */
-    padding: 80px 0;
+		/* Add white spaces for each sections. Usually you use margins but padding
+		for this case */
+		padding: 80px 0;
 }
 
 .box {
-    padding: 1%;
+		padding: 1%;
 }
 
 /* ---------- HEADINGS ---------- */
 
 h1, h2, h3 {
-    /* h1 by default are bold, so reduce the weight */
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+		/* h1 by default are bold, so reduce the weight */
+		font-weight: 300;
+		text-transform: uppercase;
+		letter-spacing: 1px;
 }
 
 h1 {
-    /* removes the header margins top  and bottom so there are not white spaces
-    around it */
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #fff;
-    font-size: 200%;
-    word-spacing: 4px;
+		/* removes the header margins top  and bottom so there are not white spaces
+		around it */
+		margin-top: 0;
+		margin-bottom: 20px;
+		color: #fff;
+		font-size: 200%;
+		word-spacing: 4px;
 }
 
 h2 {
-    font-size: 150%;
-    word-spacing: 2px;
-    text-align: center;
-    margin-bottom: 30px;
+		font-size: 150%;
+		word-spacing: 2px;
+		text-align: center;
+		margin-bottom: 30px;
 }
 
 h2:after {
-    /* Diplays the orange underline */
-    display: block;
-    height: 2px;
-    background-color: #e67e22;
-    /* Contents must be specified anytime we use an :after, in this case no words
-    just a space */
-    content: " ";
-    width: 110px;
-    margin: 0 auto;
-    margin-top: 30px;
+		/* Diplays the orange underline */
+		display: block;
+		height: 2px;
+		background-color: #e67e22;
+		/* Contents must be specified anytime we use an :after, in this case no words
+		just a space */
+		content: " ";
+		width: 110px;
+		margin: 0 auto;
+		margin-top: 30px;
 }
 
 h3 {
-    font-size: 100%;
-    margin-bottom: 15px;
+		font-size: 100%;
+		margin-bottom: 15px;
 }
 
 /* ---------- PARAGRAPHS ---------- */
 
 .long-copy {
-    line-height: 135%;
-    /* Typograhy rules make this make too long, so it can be shortened and
-    re-cntered as below */
-    width:70%;
-     /* total lenght is 100%, paragraphs length is 70%, leaving 30%, distributed
-     on each side */
-    margin-left: 15%;
-    margin-bottom: 30px;
+		line-height: 135%;
+		/* Typograhy rules make this make too long, so it can be shortened and
+		re-cntered as below */
+		width:70%;
+		 /* total lenght is 100%, paragraphs length is 70%, leaving 30%, distributed
+		 on each side */
+		margin-left: 15%;
+		margin-bottom: 30px;
 }
 
 .box p {
-    font-size: 90%;
-    line-height: 145%;
+		font-size: 90%;
+		line-height: 145%;
 }
 
 /* ---------- ICONS ---------- */
 
 .icon-big {
-    font-size: 300%;
-    display: block;
-    color: #e67e22;
-    margin-bottom: 10px;
-    text-align: center;
+		font-size: 300%;
+		display: block;
+		color: #e67e22;
+		margin-bottom: 10px;
+		text-align: center;
 
 }
 
 .icon_small {
-    /* Set the icons as inline blocks so that we can assign width to them */
-    display: inline-block;
-    width: 30px;
-    /* Centering them inside the in line block is now possible */
-    text-align: center;
-    color: #e67e22;
-    font-size: 120%;
-    margin-right: 10px;
-    /* Aligning icon fonts to text */
-    line-height: 120%;
-    vertical-align: middle;
-    margin-top: -5px;
+		/* Set the icons as inline blocks so that we can assign width to them */
+		display: inline-block;
+		width: 30px;
+		/* Centering them inside the in line block is now possible */
+		text-align: center;
+		color: #e67e22;
+		font-size: 120%;
+		margin-right: 10px;
+		/* Aligning icon fonts to text */
+		line-height: 120%;
+		vertical-align: middle;
+		margin-top: -5px;
 }
 
 /* ---------- LINKS ---------- */
 
 a:link,
 a:visited {
-    color: #e67e22;
-    text-decoration: none;
-    padding-bottom: 2px;
-    border-bottom: 1px solid #e67e22;
-    -webkit-transition: border-bottom 0.2s;
-    transition: border-bottom 0.2s; color:0.2s
+		color: #e67e22;
+		text-decoration: none;
+		padding-bottom: 2px;
+		border-bottom: 1px solid #e67e22;
+		-webkit-transition: border-bottom 0.2s;
+		transition: border-bottom 0.2s; color:0.2s
 }
 
 a:hover,
 a:active {
-    color: #555;
-    border-bottom: 1px solid transparent;
+		color: #555;
+		border-bottom: 1px solid transparent;
 }
 
 /* ---------- BUTTONS ---------- */
@@ -170,174 +170,174 @@ a:active {
 .btn:link,
 .btn:visited,
 input[type='submit'] {
-    /* pseudo classes:css states for buttons: link >normal unclicked state,
-    visited >look after it has been clicked, hover >look When
-    pointed at, active > when clicked. Specify the state styling as below */
+		/* pseudo classes:css states for buttons: link >normal unclicked state,
+		visited >look after it has been clicked, hover >look When
+		pointed at, active > when clicked. Specify the state styling as below */
 
-    /* inline-blocks can have padding and margin and does not enforce breaks,
-    unlike an in-line element e.g. buttons, so use this inline block to make
-    inline elements, in-line blocks */
-    display: inline-block;
-    padding: 5px 20px;
-    font-size: 90%;
-    font-weight: 300;
-    text-decoration: none;
-    border-radius: 100px;
-    /* transition the link to hover colors in 0.2 seconds instead of instantenouesly */
-    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
-    transition: background-color 0.2s, border 0.2s, color 0.2s;
+		/* inline-blocks can have padding and margin and does not enforce breaks,
+		unlike an in-line element e.g. buttons, so use this inline block to make
+		inline elements, in-line blocks */
+		display: inline-block;
+		padding: 5px 20px;
+		font-size: 90%;
+		font-weight: 300;
+		text-decoration: none;
+		border-radius: 100px;
+		/* transition the link to hover colors in 0.2 seconds instead of instantenouesly */
+		-webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+		transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
 .btn_full:link,
 .btn_full:visited,
 input[type='submit'] {
-    /* Use flatuicolors.com to get nice flat colors of the buttons */
-    background-color: #e67e22;
-    border: 1px solid #e67e22;
-    color: #fff;
-    margin-right: 15px;
+		/* Use flatuicolors.com to get nice flat colors of the buttons */
+		background-color: #e67e22;
+		border: 1px solid #e67e22;
+		color: #fff;
+		margin-right: 15px;
 }
 
 .btn_ghost:link,
 .btn_ghost:visited {
-    border: 1px solid #e67e22;
-    color: #e67e22;
+		border: 1px solid #e67e22;
+		color: #e67e22;
 }
 
 .btn:hover,
 .btn:active,
 input[type='submit']:hover,
 input[type='submit']:active {
-    /* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
-    your color code and paste in the site to get various shades of your color */
-    background-color: #cf6d17;
+		/* Make the buttons to have a darker tone of orange. Use 0to255.com, pick
+		your color code and paste in the site to get various shades of your color */
+		background-color: #cf6d17;
 }
 
 .btn_full:hover,
 .btn_full:active,
 input[type='submit'] {
-    background-color: #cf6d17;
+		background-color: #cf6d17;
 }
 
 .btn_ghost:hover,
 .btn_ghost:active {
-    border: 1px solid #cf6d17;
-    color: #fff;
+		border: 1px solid #cf6d17;
+		color: #fff;
 }
 
 /* ---------------------------------
-   HEADER SECTION
-   --------------------------------- */
+	 HEADER SECTION
+	 --------------------------------- */
 
 header {
-    /* include the img via 'url' and make its darker using the liner-gradient */
-    background-image: -webkit-gradient(linear,left top, left bottom,from(rgba(0, 0, 0, 0.7)),to(rgba(0, 0, 0, 0.7))),
-    url(img/hero-min.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
-    url(img/hero-min.jpg);
-    /* Ensure background image remains fixed when scrolling */
-    background-attachment: fixed;
-    /* ensure we can view the entire background image, not zoomed */
-    background-size: cover;
-    background-position: center;
-    /* set the header to fiil the page viewport i.e entire page size so that header
-    image fills the page as well */
-    height: 100vh;
+		/* include the img via 'url' and make its darker using the liner-gradient */
+		background-image: -webkit-gradient(linear,left top, left bottom,from(rgba(0, 0, 0, 0.7)),to(rgba(0, 0, 0, 0.7))),
+		url(img/hero-min.jpg);
+		background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),
+		url(img/hero-min.jpg);
+		/* Ensure background image remains fixed when scrolling */
+		background-attachment: fixed;
+		/* ensure we can view the entire background image, not zoomed */
+		background-size: cover;
+		background-position: center;
+		/* set the header to fiil the page viewport i.e entire page size so that header
+		image fills the page as well */
+		height: 100vh;
 }
 
 .hero_textbox {
-    /* this will be an absolutely positined box so that we can horizontalt &
-    vertically centre it */
-    position: absolute;
-    width: 1140px;
-    top: 50%;
-    left: 50%;
-    /* transltes 50% of the element's width & length, up & left */
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+		/* this will be an absolutely positined box so that we can horizontalt &
+		vertically centre it */
+		position: absolute;
+		width: 1140px;
+		top: 50%;
+		left: 50%;
+		/* transltes 50% of the element's width & length, up & left */
+		-webkit-transform: translate(-50%, -50%);
+						transform: translate(-50%, -50%);
 }
 
 .logo {
-    height: 100px;
-    width: auto;
-    float: left;
-    margin-top: 20px;
+		height: 100px;
+		width: auto;
+		float: left;
+		margin-top: 20px;
 }
 
 .logo_black {
-  display: none;
-  height: 50px;
-  width: auto;
-  float: left;
-  margin-top: 5px 0;
+	display: none;
+	height: 50px;
+	width: auto;
+	float: left;
+	margin-top: 5px 0;
 }
 
 /* ---------- MAIN NAV ---------- */
 
 .main_nav {
-    float: right;
-    list-style: none;  /* removes the bullets */
-    margin-top: 30px;
+		float: right;
+		list-style: none;  /* removes the bullets */
+		margin-top: 30px;
 
 }
 
 .main_nav li {
-    /* style all li elements inside the main nav bar */
-    /* Change the li elements from block to in-line blocks */
-    display: inline-block;
-    margin: 20px;
+		/* style all li elements inside the main nav bar */
+		/* Change the li elements from block to in-line blocks */
+		display: inline-block;
+		margin: 20px;
 
 }
 
 .main_nav li a:link,
 .main_nav li a:visited {
-    padding: 8px 0;
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 80%; /* desired font size/ base font size under 'html' */
-    border-bottom: 2px solid transparent;
-    -webkit-transition: border-bottom 0.2s;
-    transition: border-bottom 0.2s;
+		padding: 8px 0;
+		color: #fff;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 80%; /* desired font size/ base font size under 'html' */
+		border-bottom: 2px solid transparent;
+		-webkit-transition: border-bottom 0.2s;
+		transition: border-bottom 0.2s;
 }
 
 .main_nav li a:hover,
 .main_nav li a:active {
-    border-bottom: 2px solid #e67e22;
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 80%; /* desired font size/ base font size under 'html' */
+		border-bottom: 2px solid #e67e22;
+		color: #fff;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 80%; /* desired font size/ base font size under 'html' */
 }
 
 /* --------- MOBILE NAV   --------- */
 /* Style how the mobile nav will look like */
 .mobile_nav_icon {
-  float: right;
-  margin-top: 22px;
-  cursor: pointer;
-  display: none;
+	float: right;
+	margin-top: 22px;
+	cursor: pointer;
+	display: none;
 }
 
 .mobile_nav_icon i {
-  font-size: 150%;
-  color: #fff;
+	font-size: 150%;
+	color: #fff;
 }
 
 /* ---------- STICKY NAV  ---------- */
 /* Style hwo the stick nav will look like */
 .sticky_nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 58px;
-  background-color: rgba(255, 255, 255, 0.98 /* Near zero opacity */);
-  -webkit-box-shadow: 0 2px 2px #efefef;
-          box-shadow: 0 2px 2px #efefef;
-  /* Spcifys the vertical stacking of element from 0-9999, with the latter being
-  the higest allowed, thus will be the top-most element */
-  z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 58px;
+	background-color: rgba(255, 255, 255, 0.98 /* Near zero opacity */);
+	-webkit-box-shadow: 0 2px 2px #efefef;
+					box-shadow: 0 2px 2px #efefef;
+	/* Spcifys the vertical stacking of element from 0-9999, with the latter being
+	the higest allowed, thus will be the top-most element */
+	z-index: 9999;
 
 }
 
@@ -345,67 +345,67 @@ header {
 
 .sticky_nav .main_nav li a:link,
 .sticky_nav .main_nav li a:visited {
-  /* These only apply if inside the sticky_nav class */
-    padding: 16px 0;
-    color: #555;
+	/* These only apply if inside the sticky_nav class */
+		padding: 16px 0;
+		color: #555;
 }
 
 /* If the logo's are inside the sticky_nav, do the below */
 .sticky_nav .logo { display: none; }
 .sticky_nav .logo_black {
-  display: block;
-  margin-top: 5px;
+	display: block;
+	margin-top: 5px;
 }
 
 /* ---------------------------------
-   MEALS SECTION
-   --------------------------------- */
+	 MEALS SECTION
+	 --------------------------------- */
 
 .section-meals {
-    padding:0;
+		padding:0;
 }
 
 .meals-showcase {
-    list-style: none;
-    width: 100%;
+		list-style: none;
+		width: 100%;
 
 }
 
 .meals-showcase li {
-    display: block;
-    width: 25%;
-    float: left;
+		display: block;
+		width: 25%;
+		float: left;
 }
 
 .meal-photo {
-    width: 100%;
-    margin: 0;
-    /* zoomed img overflow below, hidden */
-    overflow: hidden;
-    /* Set the img backgorund to black to make it darker*/
-    background-color: #000;
+		width: 100%;
+		margin: 0;
+		/* zoomed img overflow below, hidden */
+		overflow: hidden;
+		/* Set the img backgorund to black to make it darker*/
+		background-color: #000;
 }
 
 .meal-photo img {
-    /* Set the img transparency to 70% to make it even darker */
-    opacity: 0.7;
-    width: 100%;
-    height: auto;
-    /* img zoomed so at to effect the zoom out effect on hover */
-    -webkit-transform: scale(1.15);
-            transform: scale(1.15);
-    /* creates a delayed/smooth animation effect on hover */
-    -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
-    transition: opacity 0.5s, -webkit-transform 0.5s;
-    transition: transform 0.5s, opacity 0.5s;
-    transition: transform 0.5s, opacity 0.5s, -webkit-transform 0.5s;
+		/* Set the img transparency to 70% to make it even darker */
+		opacity: 0.7;
+		width: 100%;
+		height: auto;
+		/* img zoomed so at to effect the zoom out effect on hover */
+		-webkit-transform: scale(1.15);
+						transform: scale(1.15);
+		/* creates a delayed/smooth animation effect on hover */
+		-webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+		transition: opacity 0.5s, -webkit-transform 0.5s;
+		transition: transform 0.5s, opacity 0.5s;
+		transition: transform 0.5s, opacity 0.5s, -webkit-transform 0.5s;
 }
 
 .meal-photo img:hover {
-    /* Don't scale back to 1 as a white line will show at the bottom of the img */
-    opacity: 1;
-    -webkit-transform: scale(1.04);
-            transform: scale(1.04);
+		/* Don't scale back to 1 as a white line will show at the bottom of the img */
+		opacity: 1;
+		-webkit-transform: scale(1.04);
+						transform: scale(1.04);
 }
 
 /* ---------------------------------
@@ -413,62 +413,62 @@ HOW IT WORKS SECTION
 --------------------------------- */
 
 .section_steps {
-  background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 .step_box:first-child {
-  /* Select the first step box - on the left */
-  /* text-align works for all in-line blocks including images */
-  /* Course resource book has more pseudo classes availble fo rus in CSS */
-  text-align: right;
-  padding-right: 3%;
-  margin-top: 30px;
+	/* Select the first step box - on the left */
+	/* text-align works for all in-line blocks including images */
+	/* Course resource book has more pseudo classes availble fo rus in CSS */
+	text-align: right;
+	padding-right: 3%;
+	margin-top: 30px;
 }
 
 .step_box:last-child {
-  /* Select the first step box - on the right */
-  padding-right: 3%;
-  margin-top: 70px;
+	/* Select the first step box - on the right */
+	padding-right: 3%;
+	margin-top: 70px;
 }
 
 .app_screen {
-  width: 40%;
+	width: 40%;
 }
 
 .works_step {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 
 }
 
 .works_step:last-of-type {
-  /* Similar to last child */
-  margin-bottom: 80px;
+	/* Similar to last child */
+	margin-bottom: 80px;
 }
 
 .works_step div {
-  color:  #e67e22;
-  border: 2px solid  #e67e22;
-  display: inline-block;
-  border-radius: 50%;
-  height: 55px;
-  width: 55px;
-  text-align: center;
-  padding: 5px;
-  float: left;
-  font-size: 150%;
-  margin-right: 25px;
+	color:  #e67e22;
+	border: 2px solid  #e67e22;
+	display: inline-block;
+	border-radius: 50%;
+	height: 55px;
+	width: 55px;
+	text-align: center;
+	padding: 5px;
+	float: left;
+	font-size: 150%;
+	margin-right: 25px;
 
 }
 
 .btn_app:link,
 .btn_app:visited {
-    border-bottom: 0;
+		border-bottom: 0;
 }
 
 .btn_app img {
-  height: 50px;
-  width: auto;
-  margin-right: 10px;
+	height: 50px;
+	width: auto;
+	margin-right: 10px;
 
 }
 
@@ -477,18 +477,18 @@ CITIES SECTION
 --------------------------------- */
 
 .box img {
-    /* We can use our box class from before because it did not contain images
-    before, if it did ans we wanted to stlye these differently from the images
-    before, we would have to create a separate class for the latter */
-    /* We want the images to fill the boxes completely */
-    width: 100%;
-    height: auto;
-    /* Add some margin between the image boxes and the h3 titles */
-    margin-bottom: 15px;
+		/* We can use our box class from before because it did not contain images
+		before, if it did ans we wanted to stlye these differently from the images
+		before, we would have to create a separate class for the latter */
+		/* We want the images to fill the boxes completely */
+		width: 100%;
+		height: auto;
+		/* Add some margin between the image boxes and the h3 titles */
+		margin-bottom: 15px;
 }
 
 .city_feature {
-    margin-bottom: 5px;
+		margin-bottom: 5px;
 }
 
 /* ---------------------------------
@@ -496,51 +496,51 @@ TESTIMONIALS SECTION
 --------------------------------- */
 
 .customer_testimonial {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0 , 0, 0, 0.75)), to(rgba(0, 0, 0, 0.75))),
-  url(img/back-customers-min.jpg);
-  background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-  url(img/back-customers-min.jpg);
-  background-size: cover;
-  color:#fff;
-  background-attachment: fixed;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0 , 0, 0, 0.75)), to(rgba(0, 0, 0, 0.75))),
+	url(img/back-customers-min.jpg);
+	background-image: linear-gradient(rgba(0 , 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+	url(img/back-customers-min.jpg);
+	background-size: cover;
+	color:#fff;
+	background-attachment: fixed;
 }
 
 blockquote {
-  padding: 2%;
-  /* quotes are usually in italics */
-  font-style: italic;
-  line-height: 145%;
-  position: relative;
-  margin-top: 40px;
+	padding: 2%;
+	/* quotes are usually in italics */
+	font-style: italic;
+	line-height: 145%;
+	position: relative;
+	margin-top: 40px;
 }
 
 cite {
-  font-size: 90%;
-  margin-top: 25px;
-  /* Move the cite element under the blockquote */
-  display: block;
+	font-size: 90%;
+	margin-top: 25px;
+	/* Move the cite element under the blockquote */
+	display: block;
 }
 
 blockquote:before {
-  /* Inserting text using css use 'content attribute' */
-  /* We need to use isospecial characters to insert signs such as quote marks
-  in css - Link in course e-book */
-  content: "\201C";
-  font-size:500%;
-  /* Position it on its own line */
-  display: block;
-  /* Whenever we give an element an absolute position, we need to give its parent
-  a relative position */
-  position: absolute;
-  top:-5px;
-  left:-5px;
+	/* Inserting text using css use 'content attribute' */
+	/* We need to use isospecial characters to insert signs such as quote marks
+	in css - Link in course e-book */
+	content: "\201C";
+	font-size:500%;
+	/* Position it on its own line */
+	display: block;
+	/* Whenever we give an element an absolute position, we need to give its parent
+	a relative position */
+	position: absolute;
+	top:-5px;
+	left:-5px;
 }
 
 cite img {
-  height: 45px;
-  border-radius: 50%;
-  margin-right: 10px;
-  vertical-align: middle;
+	height: 45px;
+	border-radius: 50%;
+	margin-right: 10px;
+	vertical-align: middle;
 
 }
 
@@ -549,65 +549,65 @@ cite img {
 --------------------------------- */
 
 .plans_section {
-  background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 .plan_box {
-  background-color:#fff;
-  border-radius: 5px;
-  width: 90%;  /* of the parent width */
-  margin-left: 5%;  /* center - 10px/2 remainder width in the parent width */
-  /* Add a box shadow - (x value offset, y value offset, blur value, color value*/
-  -webkit-box-shadow: 0 2px 2px #efefef;
-          box-shadow: 0 2px 2px #efefef;
+	background-color:#fff;
+	border-radius: 5px;
+	width: 90%;  /* of the parent width */
+	margin-left: 5%;  /* center - 10px/2 remainder width in the parent width */
+	/* Add a box shadow - (x value offset, y value offset, blur value, color value*/
+	-webkit-box-shadow: 0 2px 2px #efefef;
+					box-shadow: 0 2px 2px #efefef;
 
-  -webkit-box-shadow:;
+	-webkit-box-shadow:;
 
-          box-shadow:
+					box-shadow:
 }
 
 .plan_box div {
-  /* style the 3 child divs all together */
-  padding: 15px;
-  border-bottom: 1px solid #e8e8e8;
+	/* style the 3 child divs all together */
+	padding: 15px;
+	border-bottom: 1px solid #e8e8e8;
 }
 
 .plan_box div:first-child {
-  background-color: #fcfcfc;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+	background-color: #fcfcfc;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 .plan_box div:last-child {
-  text-align: center;
-  border: none;
+	text-align: center;
+	border: none;
 }
 
 .plan_price {
-  font-size: 300%;
-  margin-bottom: 10px;
-  font-weight: 100;
-  color: #e67e22;
+	font-size: 300%;
+	margin-bottom: 10px;
+	font-weight: 100;
+	color: #e67e22;
 }
 
 .plan_price span {
-  /* This a child of plan_price, which has a % font-size that take care when
-  setting a % font-size here as well */
-  font-size:30%;
-  font-weight: 300;  /* Override the parent font weight to return it to the
-  normal */
+	/* This a child of plan_price, which has a % font-size that take care when
+	setting a % font-size here as well */
+	font-size:30%;
+	font-weight: 300;  /* Override the parent font weight to return it to the
+	normal */
 }
 
 .plan_price_meal {
-  font-size: 80%;
+	font-size: 80%;
 }
 
 .plan_box ul {
-  list-style: none;
+	list-style: none;
 }
 
 .plan_box ul li {
-  padding: 5Px 0;
+	padding: 5Px 0;
 }
 
 /* ---------------------------------
@@ -615,26 +615,26 @@ cite img {
 --------------------------------- */
 
 .contact_form {
-    width: 90%;
-    /* Center the contact form inside its parent container */
-    margin:0 auto;
+		width: 90%;
+		/* Center the contact form inside its parent container */
+		margin:0 auto;
 }
 
 input[type='text'], input[type='email'],select, textarea {
-    /* Select only inputs with selected type */
-    width: 100%;
-    padding: 7px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
+		/* Select only inputs with selected type */
+		width: 100%;
+		padding: 7px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
 }
 
 textarea {
-    height: 100px;
+		height: 100px;
 }
 
 input[type='checkbox'] {
-    /* Add some margin around the checkbox */
-    margin: 10px 5px 10px 0;
+		/* Add some margin around the checkbox */
+		margin: 10px 5px 10px 0;
 }
 
 /* Removes the outline for all elements when selected */
@@ -645,81 +645,81 @@ input[type='checkbox'] {
 --------------------------------- */
 
 footer {
-    background-color: #333;
-    padding: 30px;
-    font-size: 80%
+		background-color: #333;
+		padding: 30px;
+		font-size: 80%
 }
 
 .footer_nav {
-    list-style: none;
-    float: left;
+		list-style: none;
+		float: left;
 }
 
 .socal_links {
-    list-style: none;
-    float: right;
+		list-style: none;
+		float: right;
 }
 
 .footer_nav li,
 .socal_links li {
-    display: inline-block;
-    margin-right: 20px;
+		display: inline-block;
+		margin-right: 20px;
 }
 
 .footer_nav li:last-child,
 .socal_links li:last-child {
-    margin-right: 0;
+		margin-right: 0;
 }
 
 .footer_nav li a:link,
 .footer_nav li a:visited,
 .socal_links li a:link,
 .socal_links li a:visited {
-    text-decoration: none;
-    border: 0;
-    color: #888;
-    -webkit-transition: color 0.2s;
-    transition: color 0.2s
+		text-decoration: none;
+		border: 0;
+		color: #888;
+		-webkit-transition: color 0.2s;
+		transition: color 0.2s
 }
 
 .footer_nav li a:hover,
 .footer_nav li a:active {
-    color: #ddd;
+		color: #ddd;
 }
 
 .socal_links li a:link,
 .socal_links li a:visited {
-    font-size: 140%;
+		font-size: 140%;
 }
 
 .ion-social-facebook,
 .ion-social-twitter,
 .ion-social-googleplus,
 .ion-social-instagram {
-    -webkit-transition: color 0.2s;
-    transition: color 0.2s
+		-webkit-transition: color 0.2s;
+		transition: color 0.2s
 }
 
 .ion-social-facebook:hover {
-    color: #3b5998;
+		color: #3b5998;
 }
 
 .ion-social-twitter:hover {
-    color: #00aced;
+		color: #00aced;
 }
 
 .ion-social-googleplus:hover {
-    color: #dd4b39;
+		color: #dd4b39;
 }
 
 .ion-social-instagram:hover {
-    color: #517fa4;
+		color: #517fa4;
 }
 
 footer p {
-    color: #888;
-    text-align: center;
-    margin-top: 30px;
+		color: #888;
+		text-align: center;
+		margin-top: 30px;
 }
 
 /* ---------------------------------
@@ -730,14 +730,14 @@ footer p {
 .js_wp_1,
 .js_wp_2,
 .js_wp_3 {
-  opacity: 0;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+	opacity: 0;
+	-webkit-animation-duration: 1s;
+					animation-duration: 1s;
 }
 
 .js_wp_4 {
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+	-webkit-animation-duration: 1s;
+					animation-duration: 1s;
 }
 
 /* Once the row has the the animate class (added via jQuery, when scrolled to),
@@ -747,5 +747,5 @@ then return opacity back to 1 */
 .js_wp_1.animated
 .js_wp_2.animated
 .js_wp_3.animated {
-  opacity: 1;
+	opacity: 1;
 }

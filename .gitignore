@@ -6,6 +6,7 @@ venv
 .remote-sync.json
 .vscode
 *.code-workspace
+.condaauto
 /JavaTutorials/TicTacToeGame/nbproject/private/
 /JavaTutorials/TicTacToeGame/dist/
 /JavaTutorials/TicTacToeGame/build/
