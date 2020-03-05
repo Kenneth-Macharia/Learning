@@ -17,3 +17,6 @@ venv
 /AndroidStudioProjects/javapractice/nbproject/private/
 /AndroidStudioProjects/javapractise/nbproject/private/
 /AndroidStudioProjects/javapractise/build/
+.*jpeg
+*.jpeg
+*.png
