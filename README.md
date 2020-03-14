@@ -1,2 +1,2 @@
-# Code Practise sessions
-This repo contains my tutorial code and notes as I learn various technologies.
+# Learning and Practice
+This repository contains my learning notes and exercises, as I learn various technologies.
