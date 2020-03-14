@@ -68,5 +68,3 @@ def decorated_func():
 	print('Ran decorated func')
 
 decorated_func()
-
-

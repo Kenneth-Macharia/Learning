@@ -1,5 +1,5 @@
 ''' Object in python '''
-class Student(object):
+class Students(object):
 
     def __init__(self, name, school):
         self.name = name
@@ -12,7 +12,7 @@ class Student(object):
     def going_to_school(self):
         print('I am going to {}.'.format(self.school))
 
-# anna = Student('Anna', 'MIT')
+# anna = Students('Anna', 'MIT')
 # anna.marks.append(56)
 # anna.marks.append(74)
 # anna.marks.append(78)
@@ -42,7 +42,7 @@ class Store(object):
     @staticmethod
     def store_details(store):
         return '{} store total stock is {}'.format(store, \
-        int(store2.stock_price()))
+        int(store.stock_price()))
 
 # store1 = Store('Tuskys')
 # store1.add_item('sugar',100)
