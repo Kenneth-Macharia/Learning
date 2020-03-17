@@ -3,10 +3,9 @@ A.LOCAL REPO:
   clone a remote repo locally and continue using it as a local (See section B)
 -If this repo will be pushed to Github, its recommended that it has a README.md, .gitignore
   and LICENSE.md files in it's root i.e master branch. The later allows you to choose the
-  license template you want on Github.
+  license template you want on Github.s
 -Create a file on mac > $touch <file name>
--Edit a README using a text editor or CLI editor (nano or vim) using markdown, in order to properly
-  display it on Github as a showcase for the project.
+-Edit a README using a text editor or CLI editor (nano or vim) using markdown, in order to properly display it on Github as a showcase for the project.
 -Guidelines to creating a README : https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 -Git creates a .git file in this folder that will host all details of the repo to use.
   Always run git commands from within the folder containing this file or its sub folders.

@@ -1,6 +1,6 @@
 package mainpackagedemo;
 
-/* 
+/*
     - Generic methods and classes allow working  with multiple types using the same code block i.e the method or class.
     - By specifying a generic return type for a method, it can accept non-speciific types and return the non-specific type as well, instead of declaring different methods to handle each type.
     - Rules for generic methods:
@@ -32,11 +32,11 @@ package mainpackagedemo;
 // Generic class
 class Box <T> {
     private T t;
- 
+
     public void add(T t) {
        this.t = t;
     }
- 
+
     public T get() {
        return t;
     }
@@ -69,7 +69,7 @@ class Generics {
         }
     }
 
-    /* By having a generic method, we can replace the 3  type sepcific methods with a generic one that takes a generic type T */
+    /* By having a generic method, we can replace the 3  type specific methods with a generic one that takes a generic type T */
     // Note the type must not be primitve, rather reference types (referring to objects)
 
     static Integer [] someIntsRef = {1, 2, 3};
@@ -85,19 +85,19 @@ class Generics {
 
     // Bounded types
     // determines the largest of three Comparable objects
-    
+
     static public <T extends Comparable <T> > T maximum(T x, T y, T z) {
         T max = x;   // assume x is initially the largest
-        
+
         if(y.compareTo(max) > 0) {
             max = y;   // y is the largest so far
         }
-        
+
         if(z.compareTo(max) > 0) {
-            max = z;   // z is the largest now                 
+            max = z;   // z is the largest now
         }
 
-        return max;   // returns the largest object   
+        return max;   // returns the largest object
     }
 
     public static void main(String [] args) {
@@ -112,19 +112,19 @@ class Generics {
         printAllTypes(someDblsRef);
 
         //Bounded types
-        System.out.printf("Max of %d, %d and %d is %d\n\n", 
+        System.out.printf("Max of %d, %d and %d is %d\n\n",
         3, 4, 5, maximum( 3, 4, 5 ));
-     
+
         System.out.printf("Max of %.1f,%.1f and %.1f is %.1f\n\n",
         6.6, 8.8, 7.7, maximum( 6.6, 8.8, 7.7 ));
-    
+
         System.out.printf("Max of %s, %s and %s is %s\n\n","pear",
         "apple", "orange", maximum("pear", "apple", "orange"));
-        
+
         // Using generic classes
         Box<Integer> integerBox = new Box<Integer>();
         Box<String> stringBox = new Box<String>();
-    
+
         integerBox.add(new Integer(10));
         stringBox.add(new String("Hello World"));
 
