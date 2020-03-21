@@ -1,9 +1,20 @@
+import io
+from contextlib import redirect_stdout
 from unittest import TestCase, main
 from exercises.andela import password_check, longer_string
 from exercises.abs_learning_tasks import valid_chess_board
 
 
 class UnitTests(TestCase):
+
+    @staticmethod
+    def longer_str_fetch_stdout(str1, str2):
+        f = io.StringIO()
+        with redirect_stdout(f):
+            longer_string.longer_str_compare(str1, str2)
+        capture = f.getvalue()
+        
+        return capture.strip()
 
     def test_password_check(self):
         self.assertEqual(password_check.password_checker('ABFETBJ'), '')
@@ -17,13 +28,12 @@ class UnitTests(TestCase):
             'ABd*234@1,a F1#,2w3E*,2We3345!'),'ABd*234@1,2We3345!')
 
     def test_longer_string(self):
-        self.assertEqual(longer_string.longer_str_compare('', ''), ['',''])
-        self.assertEqual(longer_string.longer_str_compare(1, 'test'), [''])
-        self.assertEqual(longer_string.longer_str_compare('other', 2), [''])
-        self.assertEqual(longer_string.longer_str_compare('test', 'other'), ['other'])
-        self.assertEqual(longer_string.longer_str_compare('that ', 'test'), ['that '])
-        self.assertEqual(longer_string.longer_str_compare(
-            'test', 'that'), ['test','that'])
+        self.assertEqual(self.longer_str_fetch_stdout('', ''), '')
+        self.assertEqual(self.longer_str_fetch_stdout(1, 'test'), '')
+        self.assertEqual(self.longer_str_fetch_stdout('other', 2), '')
+        self.assertEqual(self.longer_str_fetch_stdout('test', 'other'), 'other')
+        self.assertEqual(self.longer_str_fetch_stdout(
+            'test', 'that'), 'test that')
 
     def test_is_valid_chess_board(self):
         self.assertEqual(valid_chess_board.is_valid_chess_board({'1h': 'w-King', \

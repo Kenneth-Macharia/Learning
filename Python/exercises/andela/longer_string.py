@@ -12,4 +12,4 @@ def longer_str_compare(str1, str2):
     else:
         result.append('')
 
-    return result
+    print(' '.join(result))
