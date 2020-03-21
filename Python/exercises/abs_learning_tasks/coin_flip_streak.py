@@ -10,7 +10,7 @@ from random import randint
 def flip_streak():
     streaks = 0
 
-    for exp_num in range(10001):
+    for _ in range(10001):
         # Generate list of 100 coin flips
         flips = [randint(0,1) for _ in range(101)]
 

@@ -10,10 +10,11 @@ class UnitTests(TestCase):
     @staticmethod
     def longer_str_fetch_stdout(str1, str2):
         f = io.StringIO()
+
         with redirect_stdout(f):
             longer_string.longer_str_compare(str1, str2)
         capture = f.getvalue()
-        
+
         return capture.strip()
 
     def test_password_check(self):
@@ -32,6 +33,7 @@ class UnitTests(TestCase):
         self.assertEqual(self.longer_str_fetch_stdout(1, 'test'), '')
         self.assertEqual(self.longer_str_fetch_stdout('other', 2), '')
         self.assertEqual(self.longer_str_fetch_stdout('test', 'other'), 'other')
+        self.assertEqual(self.longer_str_fetch_stdout('other', 'test'), 'other')
         self.assertEqual(self.longer_str_fetch_stdout(
             'test', 'that'), 'test that')
 
