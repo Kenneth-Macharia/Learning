@@ -1,0 +1,1 @@
+pyperclip==1.7.0 # Copy-paste to clipboard functionality

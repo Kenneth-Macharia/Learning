@@ -1,7 +1,8 @@
 import io
 from contextlib import redirect_stdout
 from unittest import TestCase, main
-from exercises.andela import password_check, longer_string
+from exercises.andela import (password_check, longer_string, switch_reverser, pig_latin,
+                               check_question_marks)
 from exercises.abs_learning_tasks import valid_chess_board
 
 
@@ -57,6 +58,42 @@ class UnitTests(TestCase):
         self.assertEqual(valid_chess_board.is_valid_chess_board({'1h': 'w-King', \
             '6c': 'b-Queen', '2g': 'w-Bishop', '5h': 'b-Queen', '3e': 'w-King'}), True)
 
+    def test_switch_reverser(self):
+        self.assertEqual(switch_reverser.switcher(), None)
+        self.assertEqual(switch_reverser.switcher([]), [])
+        self.assertEqual(switch_reverser.switcher([1.1, 2]), [1.1, 2])
+        self.assertEqual(switch_reverser.switcher(['!', 2]), ['!', 2])
+        self.assertEqual(switch_reverser.switcher([2, 3, 1]), [1, 3, 2])
+        self.assertEqual(switch_reverser.switcher([' ']), [' '])
+        self.assertEqual(switch_reverser.switcher(['do', 3]), ['do', 3])
+        self.assertEqual(switch_reverser.switcher(['d', 'o']), ['d', 'o'])
+        self.assertEqual(switch_reverser.switcher(['do', 'that']), ['DO', 'THAT'])
+        self.assertEqual(switch_reverser.switcher(['22', 'that']), ['22', 'that'])
+
+    def test_pig_latin(self):
+        self.assertEqual(pig_latin.pig_latin_converter(' '), '')
+        self.assertEqual(pig_latin.pig_latin_converter('2will'), '')
+        self.assertEqual(pig_latin.pig_latin_converter('!will'), '')
+        self.assertEqual(pig_latin.pig_latin_converter('w$ill'), 'illw$ay')
+        self.assertEqual(pig_latin.pig_latin_converter('will'), 'illway')
+        self.assertEqual(pig_latin.pig_latin_converter('dog'), 'ogday')
+        self.assertEqual(pig_latin.pig_latin_converter('category'), 'ategorycay')
+        self.assertEqual(pig_latin.pig_latin_converter('chatter'), 'atterchay')
+        self.assertEqual(pig_latin.pig_latin_converter('trash'), 'ashtray')
+        self.assertEqual(pig_latin.pig_latin_converter('andela'), 'andelaway')
+        self.assertEqual(pig_latin.pig_latin_converter('electrician'), 'electricianway')
+
+    def test_q_mark_checker(self):
+        self.assertEqual(check_question_marks.q_mark_checker(''), False)
+        self.assertEqual(check_question_marks.q_mark_checker(
+            'arrb6???4xxbl5???eee5'), True)
+        self.assertEqual(check_question_marks.q_mark_checker(
+            'acc?7??sss?3rr1??????5'), True)
+        self.assertEqual(check_question_marks.q_mark_checker(
+            '5??aaaaaaaaaaaaaaaaaaa?5?5'), False)
+        self.assertEqual(check_question_marks.q_mark_checker(
+            '9???1???9???1???9'), True)
+        self.assertEqual(check_question_marks.q_mark_checker('aa6?9'), False)
 
 if __name__ == '__main__':
     main()
