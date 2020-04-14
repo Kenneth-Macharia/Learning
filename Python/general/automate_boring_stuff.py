@@ -33,7 +33,7 @@ print('\n------------- *** STRINGS *** --------------------------')
 # valid_str : "Bob's mum" or 'Bob\'s mum or 'Bob\n' mum'
 
 
-# RAW STRINGS: achieved by preceesing a string with 'r' then all escape charaters are ignored and trated as part of the string e.g:
+# RAW STRINGS: achieved by preceesing a string with 'r' then all escape charaters are ignored and treated as part of the string e.g:
 
 s1 = r'C:\root\folder>'
 print(s1) # C:\root\folder>
@@ -145,8 +145,8 @@ print(f'1st:{first_part}, 2nd:{second_part} 3rd:{last_part}')
 # Use the PIPE | symbol to match either or string, the first occurence of which, is returned to the search object.
 
 heroRegex = re.compile (r'Batman|Tina Fey')
-mo1 = heroRegex.search('Batman and Tina Fey')
-print(mo1.group())
+mo1 = heroRegex.search('Batma and Tina Fey')
+print(f'##### {mo1.group()}')
 
 # Optional matching with '?'. The (wo)? part of the regular expression means that the pattern wo is an optional group. The regex will match text that has zero instances or one instance of wo in it. This is why the regex matches both 'Batwoman' and 'Batman'.
 batRegex = re.compile(r'Bat(wo)?man')
@@ -197,7 +197,7 @@ greedyHaRegex = re.compile(r'(Ha){3,5}')
 mo1 = greedyHaRegex.search('HaHaHaHaHa')
 print(mo1.group())  # Matches the longest 'Ha'*5 though *3 & *4 are also valid matches.
 
-# Non-greedy matches are specified using the '?' (Note this is stil used for optinal matching, which are not related)
+# Non-greedy matches are specified using the '?' (Note this is stil used for optional matching, which are not related)
 nongreedyHaRegex = re.compile(r'(Ha){3,5}?')
 mo2 = nongreedyHaRegex.search('HaHaHaHaHa')
 print(mo2.group())  # Matches the least 'Ha'*3 and not the default 'Ha'*5
@@ -213,7 +213,20 @@ phone_number_regex_object_grp = re.compile(r'(\d{3})-(\d{3})-(\d{4})')
 findall_match = phone_number_regex_object_grp.findall('Call me at 415-555-1011 tomorrow. 415-555-9999 is my office.')
 print(f'Findall (groups): {findall_match}')
 
-# There are many Shorthand Character Classes such as \d standing for the regex ((0|1|2|3|4|5|6|7|8|9)) available (See Django notes + Python documentation). The character class [0-5] will match only the numbers 0 to 5; this is much shorter than typing (0|1|2|3|4|5).
+# There are many Shorthand Character Classes such as \d standing for the regex ((0|1|2|3|4|5|6|7|8|9)) available.
+
+'''
+    \d : Any numeric digit from 0 to 9.
+    \D : Any character that is not a numeric digit from 0 to 9.
+    \w : Any letter, numeric digit, or the underscore character. (Think of this
+        as matching “word” characters.)
+    \W : Any character that is not a letter, numeric digit, or the underscore character.
+    \s : Any space, tab, or newline character. (Think of this as matching
+        “space” characters.)
+    \S : Any character that is not a space, tab, or newline.
+'''
+
+# The character class [0-5] will match only the numbers 0 to 5; this is much shorter than typing (0|1|2|3|4|5).
 xmasRegex = re.compile(r'\w+')
 print(xmasRegex.findall('12 drummers, 11 pipers, 10 lords, 9 ladies, 8_maids, 7 \
 swans, 6 geese, 5 rings, 4 birds, 3 hens, 2 doves, 1 partridge'))
@@ -315,6 +328,193 @@ phoneRegex = re.compile(r'''(
     )''', re.VERBOSE)
 
 # Combining many arguments passed to re.compile using the pipe character '|' since re.compile only takes one second argument
-# SWhat if you want to use re.VERBOSE to write comments in your regular expression but also want to use re.IGNORECASE to ignore capitalization? Unfortunately, the re.compile() function takes only a single value as its second argument. You can get around this limitation by combining the re.IGNORECASE, re.DOTALL, and re.VERBOSE variables using the pipe character (|), which in this context is known as the bitwise or operator.
+# What if you want to use re.VERBOSE to write comments in your regular expression but also want to use re.IGNORECASE to ignore capitalization? Unfortunately, the re.compile() function takes only a single value as its second argument. You can get around this limitation by combining the re.IGNORECASE, re.DOTALL, and re.VERBOSE variables using the pipe character (|), which in this context is known as the bitwise or operator.
 someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL)
 someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL | re.VERBOSE)
+
+print('\n------------- *** INPUT VALIDATION *** --------------------------')
+# Input validation code checks that values entered by the user, such as text from the input() function, are formatted correctly. For example, if you want users to enter their ages, your code shouldn’t accept nonsensical answers such as negative numbers (which are outside the range of acceptable integers) or words (which are the wrong data type). Input validation can also prevent bugs or security vulnerabilities.
+
+# However, writing input validation code for every  call in your program quickly becomes tedious. Also, you may miss certain cases and allow invalid input to pass through your checks.
+
+# ROBUST input validation via the PyInputPlus Module: PyInputPlus contains functions similar to input() for several kinds of data: numbers, dates, email addresses, and more.
+
+# https://pypi.org/project/PyInputPlus/
+# https://pyinputplus.readthedocs.io/en/latest/
+
+# If the user ever enters invalid input, such as a badly formatted date or a number that is outside of an intended range, PyInputPlus will reprompt them for input just like our code in the previous section did. PyInputPlus also has other useful features like a limit for the number of times it reprompts users and a timeout if users are required to respond within a time limit.
+
+# Pip install pyinputplus to use it.
+
+import pyinputplus as pyip
+
+# response = pyip.inputInt(prompt='Enter an integer: ')
+# print(response)
+
+
+# The inputNum(), inputInt(), and inputFloat() functions, which accept int and float numbers, also OPTIONAL have min, max, greaterThan, and lessThan keyword arguments for specifying a range of valid values
+
+# response = pyip.inputNum('> ', min=4, lessThan=6)
+# print(response)
+
+
+# By default, blank input isn’t allowed unless the blank keyword argument is set to True.
+
+# response = pyip.inputNum('Enter num: ', blank=True)
+# print(response)
+
+# limit kwarg: raises exceptin after a certain number of tries
+# timeout kwarg: raise exception if input entered after a certain amount of time
+# default kwarg: when used alongise the above two, its value is taken as input, instead of an exeption being thrown.
+
+# print(pyip.inputNum(limit=2))
+
+# print(pyip.inputNum(timeout=5))
+
+# print(pyip.inputNum(limit=2, default='N/A'))
+
+
+# The allowRegexes and blockRegexes Keyword Arguments. You can also use regular expressions to specify whether an input is allowed or not. The allowRegexes and blockRegexes keyword arguments take a list of regular expression strings to determine what the PyInputPlus function will accept or reject as valid input.
+
+# For example, enter the following code into the interactive shell so that inputNum() will accept Roman numerals in addition to the usual number:
+
+# print(pyip.inputNum(allowRegexes=[r'(I|V|X|L|C|D|M)+'])) (1 more of either these chars)
+
+# Enter the following into the interactive shell so that inputNum() won’t accept even numbers:
+
+# print(pyip.inputNum(blockRegexes=[r'[02468]$']))  (numbers ending in either of these)
+
+# If you specify both an allowRegexes and blockRegexes argument, the allow list overrides the block list. For example, enter the following into the interactive shell, which allows 'caterpillar' and 'category' but blocks anything else that has the word 'cat' in it:
+
+# print(pyip.inputStr(allowRegexes=[r'caterpillar', 'category'],
+# blockRegexes=[r'cat']))
+
+# Custom validation fucntion passed to inputCustom().
+
+def addsUpToTen(numbers):
+    numbersList = list(numbers)
+    for i, digit in enumerate(numbersList):
+        numbersList[i] = int(digit)
+    if sum(numbersList) != 10:
+        raise Exception('The digits must add up to 10, not %s.' %(sum(numbersList)))
+    return int(numbers)
+
+# print(pyip.inputCustom(addsUpToTen))
+
+# NB: We are passing the addsUpToTen() function itself to inputCustom(), not calling addsUpToTen() and passing its return value, hence no parenthesis.
+# The inputCustom() function also supports the general PyInputPlus features, such as the blank, limit, timeout, default, allowRegexes, and blockRegexes keyword arguments
+
+print('\n------------- *** READING AND WRITING FILES *** --------------------------')
+# The C:\ part of the path is the root folder, which contains all other folders. On Windows, the root folder is named C:\ and is also called the C: drive. On macOS and Linux, the root folder is /. In this book, I’ll use the Windows-style root folder, C:\. If you are entering the interactive shell examples on macOS or Linux, enter / instead.
+
+# Additional volumes, such as a DVD drive or USB flash drive, will appear differently on different operating systems. On Windows, they appear as new, lettered root drives, such as D:\ or E:\. On macOS, they appear as new folders under the /Volumes folder. On Linux, they appear as new folders under the /mnt (“mount”) folder. Also note that while folder names and filenames are not case-sensitive on Windows and macOS, they are case-sensitive on Linux.
+
+# Back slashes are used to separate path folders on Windows and forward slashes on Unix-like systems. For pythin script to interact properly with either systems, the correct separator needs to be used.
+# The Path() function in the pathlib module will return the correct path (with the correct separator for the system it is run on) when su-plied with the folder names.
+
+from pathlib import Path
+print(Path('root', 'Users', 'kenneth', 'Documents'))
+
+# Path() returns a WindowsPath or PosixPath object (depending on the OS), that can be passed to other file-related fucnctions for further manupulation.
+
+myFiles = ['accounts.txt', 'details.csv', 'invite.docx']
+for filename in myFiles:
+    print(Path(rf'C:\Users\Al{filename}'))
+
+# (NB) '\' can't be used a part of folder or file names on Windows, but can on Unix-like systems and vice versa for '/'. Use '/' in Python in conjuction with Path(), which will sort all this out on every OS.
+# The / operator that we normally use for division can also combine Path objects and strings. This is helpful for modifying a Path object after you’ve already created it with the Path() function, which is safer than using join() or any other str concatenation method, BUT atleast one of the values must be a Path() object.
+
+print(Path('spam') / 'bacon' / 'eggs')
+print(Path('spam') / Path('bacon', 'eggs'))
+
+# print('spam' / 'bacon' / 'eggs')    Raises TypeError
+
+# Python evaluates the / operator from left to right and evaluates to a Path object, so either the first or second leftmost value must be a Path object for the entire expression to evaluate to a Path object. To fix the above, we need to add a Path() obj to the left of the above e.g
+
+print(Path()/ 'spam' / 'bacon' / 'eggs')
+print(Path('root')/ 'spam' / 'bacon' / 'eggs')
+
+# (NB) The non-robust way is to use str concatenation but check the OS (sys.platform) to decide which separator to use.
+
+# Every program that runs on your computer has a current working directory, or cwd. Any filenames or paths that do not begin with the root folder are assumed to be under the current working directory.
+
+# You can get the current working directory as a string value with the Path.cwd() function and change it using os.chdir()
+
+import os
+
+print(Path.cwd())
+
+os.chdir('/Users/kenneth/Documents/Code-practise/Python/')
+os.chdir('../../')
+
+print(Path.cwd())
+
+# The old way of getting the cwd
+print(os.getcwd())
+
+# All users have a folder for their own files on the computer called the home directory or home folder. You can get a Path object of the home folder by calling Path.home()
+
+print(Path.home())
+
+r''' The home directories are located in a set place depending on your operating system:
+
+        On Windows, home directories are under C:\Users.
+        On Mac, home directories are under /Users.
+        On Linux, home directories are often under /home.
+
+    Your scripts will almost certainly have permissions to read and write the files under your home directory, so it’s an ideal place to put the files that your Python programs will work with.
+'''
+
+# An absolute path, which always begins with the root folder while a relative path, which is relative to the program’s current working directory.
+# There are also the dot (.) and dot-dot (..) folders. These are not real folders but special names that can be used in a path. A single period (“dot”) for a folder name is shorthand for “this directory.” Two periods (“dot-dot”) means “the parent folder.” ie.
+# ./ > current directory & ../ > parent directory of the current directoy. The ./ is however optional.
+
+# Create new directories using the os.makedirs()
+print('-------')
+os.chdir('/Users/kenneth/Documents/Code-practise/Python/general')
+print(Path.cwd())
+os.makedirs(Path.cwd()/ 'test')
+os.chdir(Path.cwd()/ 'test')
+print(os.getcwd())
+os.chdir('/Users/kenneth/Documents/Code-practise/Python/general')
+print(os.getcwd())
+os.rmdir('test')
+print(os.getcwd())
+
+# (NB) makedirs create all folder on the specified path, even if they dont exist to ensure the full path exists e.g os.makedirs('C:\\delicious\\walnut\\waffles')
+
+# To make a directory from a Path object, call the mkdir() method, but it can only make one directory at a time; it won’t make several subdirectories at once like os.makedirs()
+
+# The pathlib module provides methods for checking whether a given path is an absolute path and returning the absolute path of a relative path.
+# Calling the is_absolute() method on a Path object will return True if it represents an absolute path or False if it represents a relative path.
+
+print(Path.cwd().is_absolute())
+print(Path('/Users/kenneth/').is_absolute())
+print(Path('Code-practise/Python/general').is_absolute())
+
+# To get an absolute path from a relative path, you can put Path.cwd() / in front of the relative Path object. After all, when we say “relative path,” we almost always mean a path that is relative to the current working directory. This also works for paths other than the cwd.
+
+abs_path = Path.cwd()/Path('Code-practise/Python/general')
+print(abs_path.is_absolute())
+
+'''
+The os.path module also has some useful functions related to absolute and relative paths:
+
+    Calling os.path.abspath(path) will return a string of the absolute path of the argument. This is an easy way to convert a relative path into an absolute one.
+
+    Calling os.path.isabs(path) will return True if the argument is an absolute path and False if it is a relative path.
+
+    Calling os.path.relpath(path, start) will return a string of a relative path from the start path to path. If start is not provided, the current working directory is used as the start path.
+'''
+
+print('*****')
+print(os.path.abspath('.'))
+print(os.path.abspath('..'))
+
+path = 'Code-practise/Python/general'
+print(os.path.abspath(path))
+print(os.path.isabs(path))
+
+start = 'kenneth/Documents/'
+print(os.path.relpath(path, start))
+print(os.path.relpath(path))

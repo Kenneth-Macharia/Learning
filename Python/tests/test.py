@@ -1,9 +1,9 @@
 import io
 from contextlib import redirect_stdout
 from unittest import TestCase, main
-from exercises.andela import (password_check, longer_string, switch_reverser, pig_latin,
+from challenges.andela import (password_check, longer_string, switch_reverser, pig_latin,
                                check_question_marks)
-from exercises.abs_learning_tasks import valid_chess_board
+from challenges.abs_learning_tasks import valid_chess_board
 
 
 class UnitTests(TestCase):
