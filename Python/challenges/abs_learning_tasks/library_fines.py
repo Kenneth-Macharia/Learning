@@ -1,5 +1,5 @@
 '''
-Determine the fine for a book returned late a library based on the following:
+Determine the fine for a book returned late to a library based on the following:
 1. If returned on or before the expected day, fine = 0
 2. If returned after expected day but within the expected month, fine = 15 * days late
 3. If returned after expected month but within expected year, fine = 30 * days late

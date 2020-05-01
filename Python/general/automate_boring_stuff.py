@@ -104,6 +104,10 @@ print(chr(unicoded))
 
 print(ord('C') > ord('c'))
 
+print('\n------------- *** METHODS *** --------------------------')
+# https://realpython.com/instance-class-and-static-methods-demystified/
+
+
 print('\n------------- *** REGEX *** --------------------------')
 # You may be familiar with searching for text by pressing CTRL-F and entering the words you’re looking for. Regular expressions go one step further: they allow you to specify a pattern of text to search for e.g:
 
@@ -518,3 +522,352 @@ print(os.path.isabs(path))
 start = 'kenneth/Documents/'
 print(os.path.relpath(path, start))
 print(os.path.relpath(path))
+
+# Given a Path object, you can extract the file path’s different parts as strings using several Path object attributes. These can be useful for constructing new file paths based on existing ones. Parts of a file path include:
+
+# Anchor: root of the file system e.g C:\ or /
+# Drive: on Windows the drive is physical hard drive letter e.g C:
+# Parent: the folder containing the file i.e the full path from the anchor to folder
+# Parents: evaluates to the ancestor folders of a Path object with an integer index
+# Name: file name made up of the stem/base_name and the suffix/extension
+
+#(NB) All attribtute above evaluate to a string when extracted from a Path objec, except the parent, which evaluates to anohter Path object
+
+p = Path('/Users/Al/spam.txt')
+print(p.anchor)
+print(p.parent)
+print(p.parents)
+print(p.stem)
+print(p.suffix, '*******')
+
+wp = Path('C:/Users/Al/spam.txt')
+print(wp.anchor)
+print(wp.drive)
+print(wp.parent)  # This is a POSIX Path object when run on a POSIX system
+print(wp.stem)
+print(wp.suffix, '##### \n')
+
+# The older os.path module also has similar functions for getting the different parts of a path written in a string value. Calling os.path.dirname(path) will return a string of everything that comes before the last slash in the path argument. Calling os.path.basename(path) will return a string of everything that comes after the last slash in the path argument.
+
+calcFilePath = '/Users/kenneth/Documents/Code-practise/Python/general'
+print(os.path.basename(calcFilePath))
+print(os.path.dirname(calcFilePath))
+print(os.path.split(calcFilePath))  # returns a tuple of the path split accordingly
+
+# Also, note that os.path.split() does not take a file path and return a list of strings of each folder. For that, use the split() string method and split on the string in os.sep. (Note that sep is in os, not os.path.) The os.sep variable is set to the correct folder-separating slash for the computer running the program, '\\' on Windows and '/' on macOS and Linux, and splitting on it will return a list of the individual folders.
+
+print(calcFilePath.split(os.sep))
+
+# Finding File Size and Folder Content: Once you have ways of handling file paths, you can then start gathering information about specific files and folders. The os.path module provides functions for finding the size of a file in bytes and the files and folders inside a given folder.
+
+p = '/Users/kenneth/Documents/Code-practise/Python/general'
+print(os.listdir(p))  # returns a list of all files in the path directory
+
+# Getting the total size of all file in a folder / folder size
+total_size = 0
+for file_name in os.listdir(p):
+    total_size += os.path.getsize(file_name)
+
+print(total_size)
+
+f = '/Users/kenneth/Documents/Code-practise/Python/general/regular_re.py'
+print(os.path.getsize(f))  # returns the file size in bytes
+
+# Glob patterns: If you want to work on specific files, the glob() method is simpler to use than listdir(). Path objects have a glob() method for listing the contents of a folder according to a glob pattern. Glob patterns are like a simplified form of regular expressions often used in command line commands. The glob() method returns a generator object that you’ll need to pass to list() to easily view its contents.
+
+# Use the '*' to match multiple character pattens of a file name
+path = Path('/Users/kenneth/Documents/Code-practise/Python/general')
+print(list(path.glob('*')))  # returns all file in folder
+print('\n', list(path.glob('*.txt')))  # return any file ending with .txt
+
+# list(path.glob('project?.docx')) will return all file that have the name 'project' + any other character e.g project2.docx but not project10.docx as '10' is two characters.
+
+# You can also combine the asterisk and question mark to create even more complex glob expressions e.g list(p.glob('*.?x?') will return files with any name and any three-character extension where the middle character is an 'x'.
+
+# Many Python functions will crash with an error if you supply them with a path that does not exist. Luckily, Path objects have methods to check whether a given path exists and whether it is a file or folder
+
+p = Path(Path('/Users/kenneth/Documents/Code-practise/Python/general'))
+print(p.exists())
+print(p.is_dir())
+print(p.is_file())
+
+# (NB) The older os.path module can accomplish the same task with the os.path.exists(path), os.path.isfile(path), and os.path.isdir(path) functions, which act just like their Path function counterparts.
+
+# READING AND WRITING: Plain text file e.g .txt or script files e.g .py can be read by python scripts and text editors. Their contents are treated as normal strings. Binary files are any other types of file e.g .doc, .pdf, .exe etc and if opened using text editors their contents are scrambled. This is because each bunary file must be handled in a specific way thus need dedicated programs to handle them.
+
+# The pathlib module’s read_text() method returns a string of the full contents of a text file. Its write_text() method creates a new text file (or overwrites an existing one) with the string passed to it.
+
+new_path = Path('spam.txt')
+print(new_path.write_text('Hello World'))  # returns the num of char written to a new file
+print(new_path.read_text())
+print(new_path.write_text('Text changed!'))
+print(new_path.read_text())
+
+'''
+Keep in mind that these Path object methods only provide basic interactions with files. The more common way of writing to a file involves using the open() function and file objects. There are three steps to reading or writing files in Python:
+
+    1. Call the open() function to return a File object.
+    2. Call the read() or write() method on the File object.
+    3. Close the file by calling the close() method on the File object.
+'''
+
+file_obj1 = open(Path.cwd()/'spam.txt')# open accepting a Path object
+print(file_obj1)
+
+# open accepting a string path
+file_obj2 = open('/Users/kenneth/Documents/Code-practise/Python/general/test.txt')
+
+# Both above commands open the file in read mode (no writing permitted) by default. Overrirde the default begaviour by adding a seconda argument to specify the mode.
+
+file_obj3 = open(Path.cwd()/'test.txt', 'r')
+
+# Use the file object's read() method to read all file contents line by line or readline() to get a list of lines
+
+# (NB) Except for the last line of the file, each of the string values ends with a newline character \n. A list of strings is often easier to work with than a single large string value.
+
+print(file_obj2.read())
+print('\n', file_obj3.readlines())
+
+# To write to a file, you have to open the file in write mode by passing the 'w' argument to open(). This will overrite the file contents with the new contents.
+# To add contents to an existing file, open it it append mode using the 'a' argument to open().
+
+# (NB) Both 'w' and 'a' will create a new file, if it does not exist. After reading or writing a file, call the close() method before opening the file again.
+print('\n')
+baconFile = open('bacon.txt', 'w')
+baconFile.write('Hello, world!\n')
+baconFile.close()
+
+baconFile = open('bacon.txt', 'a')
+baconFile.write('Bacon is not a vegetable.')
+baconFile.close()
+
+baconFile = open('bacon.txt')
+content = baconFile.read()
+baconFile.close()
+
+print(content)
+
+# Manipulating Binary files using the shelve module: You can save variables in your Python programs to binary shelf files, for example, using the shelve module. This way, your program can restore data to variables from the hard drive. The shelve module will let you add Save and Open features to your program. For example, if you ran a program and entered some configuration settings, you could save those settings to a shelf file and then have the program load them the next time it is run.
+
+# To read and write data using the shelve module, you first import shelve. Call shelve.open() and pass it a filename, and then store the returned shelf value in a variable. You can make changes to the shelf value as if it were a dictionary. When you’re done, call close() on the shelf value. Here, our shelf value is stored in shelfFile. We create a list cats and write shelfFile['cats'] = cats to store the list in shelfFile as a value associated with the key 'cats' (like in a dictionary). Then we call close() on shelfFile. Note that as of Python 3.7, you have to pass the open() shelf method filenames as strings. You can’t pass it Path object.
+
+import shelve
+
+shelfFile = shelve.open('mydata')
+cats = ['Zophie', 'Pooka', 'Simon']
+shelfFile['cats'] = cats
+shelfFile.close()
+
+#After running the previous code on Windows, you will see three new files in the current working directory: mydata.bak, mydata.dat, and mydata.dir. On macOS, only a single mydata.db file will be created. These binary files contain the data you stored in your shelf. The format of these binary files is not important; you only need to know what the shelve module does, not how it does it. The module frees you from worrying about how to store your program’s data to a file. Your programs can use the shelve module to later reopen and retrieve the data from these shelf files. Shelf values don’t have to be opened in read or write mode—they can do both once opened
+
+shelfFile = shelve.open('mydata')
+print(type(shelfFile))  # check the type of variable storing the shelve file
+
+print(shelfFile['cats'])  # check that our list was correctly stored in the shelve file
+shelfFile.close()
+
+# Just like dictionaries, shelf values have keys() and values() methods that will return list-like values of the keys and values in the shelf. Since these methods return list-like values instead of true lists, you should pass them to the list() function to get them in list form.
+
+print()
+shelfFile = shelve.open('mydata')
+print(list(shelfFile.keys()))
+
+print(list(shelfFile.values()))
+
+shelfFile.close()
+
+# Saving variable data to text files using pprint.pformat(): the pprint.pprint() function will “pretty print” the contents of a list or dictionary to the screen, while the pprint.pformat() function will return this same text as a string instead of printing it. Not only is this string formatted to be easy to read, but it is also syntactically correct Python code. Say you have a dictionary stored in a variable and you want to save this variable and its contents for future use. Using pprint.pformat() will give you a string that you can write to a .py file. This file will be your very own module that you can import whenever you want to use the variable stored in it.
+
+import pprint
+
+# Save the cats dict in a mycats.py file
+print()
+cats = [{'name': 'Zophie', 'desc': 'chubby'}, {'name': 'Pooka', 'desc': 'fluffy'}]
+pprint.pformat(cats)
+
+fileObj = open('myCats.py', 'w')
+fileObj.write('cats = ' + pprint.pformat(cats) + '\n')
+
+fileObj.close()
+
+# Import the mycats.py file as python module and use it
+import myCats
+print(myCats.cats)
+print(myCats.cats[0])
+print(myCats.cats[0]['name'])
+
+# (NB) For most applications, however, saving data using the shelve module is the preferred way to save variables to a file. Only basic data types such as integers, floats, strings, lists, and dictionaries can be written to a file as simple text. File objects, for example, cannot be encoded as text.
+
+print('\n------------- *** DEBUGGING *** --------------------------')
+# RAISING EXCEPTIONS: Raising an exception is a way of saying, “Stop running the code in this function and move the program execution to the except statement.” Exceptions are raised with a raise statement and consists of:
+
+    # 1. The raise keyword
+    # 2. A call to the Exception() function
+    # 3. A string with a helpful error message passed to the Exception() function
+
+# (NB) Often it’s the code that calls the function, rather than the function itself, that knows how to handle an exception. That means you will commonly see a raise statement inside a function and the try and except statements in the code calling the function.
+
+
+def boxPrint(symbol, width, height):
+    if len(symbol) != 1:
+        raise Exception('Symbol must be a single character string.')
+    if width <= 2:
+        raise Exception('Width must be greater than 2.')
+    if height <= 2:
+        raise Exception('Height must be greater than 2.')
+
+    # prints the top edge
+    print(symbol * width)
+
+    # Prints the sides
+    for i in range(height - 2):
+        print(symbol + (' ' * (width - 2)) + symbol)
+
+    # prints the bottom edge
+    print(symbol * width)
+
+# Driver code attempting to print 4 types of boxes
+for sym, w, h in (('*', 4, 4), ('O', 20, 5), ('x', 1, 3), ('ZZ', 3, 3)):
+    try:
+        boxPrint(sym, w, h)
+
+    except Exception as err:
+        print('An exception happened: ' + str(err))
+
+# TRACEBACK: error information produced by python when an error is encountered. It includes the error message, the line number of the line that caused the error, and the sequence of the function calls that led to the error. This sequence of calls is called the CALL STACK. It is displayd when the error is unhandled.
+
+# You can also obtain it as a string by calling traceback.format_exc(). This function is useful if you want the information from an exception’s traceback but also want an except statement to gracefully handle the exception. You will need to import Python’s traceback module before calling this function. For example, instead of crashing your program right when an exception occurs, you can write the traceback information to a text file and keep your program running. You can look at the text file later, when you’re ready to debug your program.
+
+import traceback
+
+def spam():
+    bacon()
+
+def bacon():
+    raise Exception('This is the error message.')
+
+try:
+    spam()
+
+except:
+    errofile = open('errofile.txt', 'w')
+    errofile.write(traceback.format_exc())
+    errofile.close()
+
+    print('\nThe traceback info was written to errorfile.txt')
+
+# ASSERTIONS: are sanity check to make sure your code isn’t doing something obviously wrong. These sanity checks are performed by assert statements. If the sanity check fails, then an AssertionError exception is raised. In code, an assert statement consists of the following:
+
+# The assert keyword
+    # 1. A condition (that is, an expression that evaluates to True or False)
+    # 2. A comma
+    # 3. A string to display when the condition is False
+
+# An assert statement says, “I assert that the condition holds true, and if not, there is a bug somewhere, so immediately stop the program.” These are used to detect bugs during development and should not be used in production code.
+
+ages = [26, 57, 92, 54, 22, 15, 17, 80, 47, 73]
+ages.sort()
+assert ages[0] <= ages[-1]  # Does nothing as result is True
+# assert ages[0] >= ages[-1]  # Raises AssertError as result is False
+
+# (NB) Assertions should also not replce comprehensive tests
+
+print('\n------------- *** WEB SCRAPING *** --------------------------')
+# Web scraping is the term for using a program to download and process content from the web.
+
+# The webbrowser module for opening a URL in a webrowser e.g a Google maps address
+
+def map_address():
+    import webbrowser, sys, pyperclip
+
+    if len(sys.argv) > 1:
+        address = ''.join(sys.argv[1:])
+
+    else:
+        address = pyperclip.paste()
+
+    webbrowser.open(f'https://www.google.com/maps/place/{address}')
+
+# map_address()
+
+# The requests module lets you easily download files from the web without having to worry about complicated issues such as network errors, connection problems, and data compression.
+
+def download_file():
+    import requests
+
+    response_obj = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+    response_obj.raise_for_status() # raises HTTPError if download was not successfull
+
+    return response_obj
+
+# Saving downloaded files: Even if the page is in plaintext (such as the Romeo and Juliet text you downloaded earlier), you need to write binary data instead of text data in order to maintain the Unicode encoding of the text. This is achieved by opening the file in write bnary mode:
+
+    # open('file', 'wb')
+
+def save_file_download():
+    res_obj = download_file()
+    file = open('Romeo_Juliet_download.txt', 'wb')
+
+    for file_chunk in res_obj.iter_content(10000):
+        file.write(file_chunk)
+
+    file.close()
+
+save_file_download()
+
+# Using the Beautiful Soup module (bs4) for extracting information from an HTML page.
+# (pip install bs4)
+# The bs4.BeautifulSoup() function needs to be called with a string containing the HTML it will parse. The bs4.BeautifulSoup() function returns a BeautifulSoup object.
+
+def bs4_demo():
+    import requests, bs4
+
+    res = requests.get('https://nostarch.com')
+    res.raise_for_status()
+    noStarchSoup = bs4.BeautifulSoup(res.text, 'html.parser')
+    print(type(noStarchSoup))
+
+# bs4_demo()
+
+# This code uses requests.get() to download the main page from the No Starch Press website and then passes the text attribute of the response to bs4.BeautifulSoup(). The BeautifulSoup object that it returns is stored in a variable named noStarchSoup. You can also load an HTML file from your hard drive by passing a File object to bs4.BeautifulSoup() along with a second argument that tells Beautiful Soup which parser to use to analyze the HTML.
+
+# The 'html.parser' parser used here comes with Python. However, you can use the faster 'lxml' parser if you install the third-party lxml module (pip install lxml). Forgetting to include this second argument will result in a UserWarning: No parser was explicitly specified warning. Once you have a BeautifulSoup object, you can use its methods to locate specific parts of an HTML document.
+
+# Find elements in HTML docs using the bs4 select() method by passing a string of a CSS selector for the element you are looking for. Selectors are like regular expressions: they specify a pattern to look for—in this case, in HTML pages instead of general text strings. CSS selector syntax: https://nostarch.com/automatestuff2/. The various selector patterns can be combined to make sophisticated matches.
+
+# Instead of writing the selector yourself, you can also right-click on the element in your browser and select Inspect Element. When the browser’s developer console opens, right-click on the element’s HTML and select Copy ▸ CSS Selector.
+
+# The select() method will return a list of Tag objects, which is how Beautiful Soup represents an HTML element. The list will contain one Tag object for every match in the BeautifulSoup object’s HTML. Tag values can be passed to the str() function to show the HTML tags they represent. Tag values also have an attrs attribute that shows all the HTML attributes of the tag as a dictionary.
+
+def parse_example_html():
+    import bs4
+
+    e_file = open('example.html')
+    e_soup = bs4.BeautifulSoup(e_file.read(), 'html.parser')
+    tag_obj = e_soup.select('#author') # all tags with attr id='author
+
+    e_file.close()
+
+    print(f'# of tags: {len(tag_obj)}, tags obj type: {type(tag_obj[0])}, \
+        HTML tag type: {str(tag_obj[0])}, tag innerHTML: {tag_obj[0].getText()}, \
+        all tag attributes: {tag_obj[0].attrs}')
+
+# parse_example_html()
+
+# The get() method for Tag objects makes it simple to access attribute values from an element. The method is passed a string of an attribute name and returns that attribute’s value.
+
+def parse_example_html2():
+    import bs4
+
+    soup = bs4.BeautifulSoup(open('example.html'), 'html.parser')
+    spanElem = soup.select('span')[0]
+
+    print(str(spanElem))
+
+    print(spanElem.get('id'))
+
+    print(spanElem.get('some_nonexistent_addr') == None)
+
+    print(spanElem.attrs)
+
+parse_example_html2()

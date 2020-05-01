@@ -1,20 +1,20 @@
 import json
 from flask import Flask, request, jsonify
-from block_chain import BlockChain
 from uuid import uuid4
+from .model import BlockChainModel
 
 
-# The Flask Node, enabling interacting with the blockchain on the web, over HTTP requests
+# Initialize the flask app
 app = Flask(__name__)
+
+# Initialize the back-end
+blockchain = BlockChainModel('localhost', 'db_block_chain', 'col_default')
 
 # Generate a globally unique address for this node
 node_id = str(uuid4()).replace('-', '')
 
-# Instantiate the Blockchain
-blockchain = BlockChain()
-
-
-@app.route('/mine', methods=['GET'])
+# The node endpoints
+@app.route('/mine', methods=['POST'])
 def mine():
     '''
     1. Calculates the Proof of Work
@@ -23,12 +23,15 @@ def mine():
     '''
 
     # Run the proof of work algorithm to get the next proof
-    last_block = blockchain.last_block
+    last_block = blockchain.last_block()
     last_proof = last_block['proof']
+
+    # Calculate the proof for the new block
     proof = blockchain.proof_of_work(last_proof)
 
-    # Receive a reward for finding the proof. The sender is "0" to signify that this node has mined a new coin and is initializing a reward transaction in the blockchain
-    blockchain.new_transaction(sender=0, recipient=node_id, amount=1)
+    # Receive a reward for calculating the proof.
+    # The sender is "0" to signify that this node has mined a new coin and is initializing a reward transaction in the blockchain.
+    blockchain.save_new_transaction(sender=0, recipient=node_id, amount=1)
 
     # Forge the new Block by adding it to the chain
     previous_hash = blockchain.hash(last_block)
@@ -42,8 +45,7 @@ def mine():
         'previous_hash': new_block['previous_hash']
     }
 
-    return jsonify(response), 200
-
+    return jsonify(response), 201
 
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
@@ -59,12 +61,12 @@ def new_transaction():
         return "Missing values", 400
 
     # Else create a new transaction
-    index = blockchain.new_transaction(values['sender'], values['recipient'], \
+    index = blockchain.save_new_transaction(values['sender'], values['recipient'], \
         values['amount'])
 
     response = {'Message': f'Transaction will be added to block number {index}'}
-    return jsonify(response), 201
 
+    return jsonify(response), 201
 
 @app.route('/chain', methods=['GET'])
 def full_chain():
@@ -72,9 +74,15 @@ def full_chain():
     Exposes the entire blockchain
     '''
 
+    doc_List = []
+
+    for document in blockchain.get_chain():
+        del document['_id']
+        doc_List.append(document)
+
     response = {
-        'chain': blockchain.chain,
-        'length': len(blockchain.chain)
+        'chain': doc_List,
+        'length': len(doc_List)
     }
 
     return jsonify(response), 200
@@ -88,15 +96,21 @@ def register_nodes():
     values = request.get_json()
     nodes = values.get('nodes')
 
-    if nodes is None:
+    if not nodes:
         return "Error: Please supply a valid list of nodes", 400
 
     for node in nodes:
-        blockchain.register_node(node)
+        blockchain.register_node(node['name'], node['address'])
+
+    node_list = []
+
+    for node in blockchain.get_nodes():
+        del node['_id']
+        node_list.append(node)
 
     response = {
         'message': 'New nodes have been added',
-        'total_nodes': list(blockchain.nodes)
+        'all_nodes': node_list
     }
 
     return jsonify(response), 201
@@ -104,30 +118,22 @@ def register_nodes():
 @app.route('/nodes/resolve', methods=['GET'])
 def consensus():
     replaced = blockchain.resolve_conflicts()
+    chain = []
+
+    for block in blockchain.get_chain():
+        del block['_id']
+        chain.append(block)
 
     if replaced:
         response = {
             'message': 'Our chain was replaced',
-            'new_chain': blockchain.chain
+            'new_chain': chain
         }
 
     else:
         response = {
             'message': 'Our chain is King',
-            'chain': blockchain.chain
+            'chain': chain
         }
 
     return jsonify(response), 200
-
-
-if __name__ == "__main__":
-    '''
-    Usage:  1. Set app env variable: $ export FLASK_APP= <app name>
-            2. Set the run environment to develpoment: $ export FLASK_ENV=development
-            3. Set port: $ export FLASK_RUN_PORT= <desired port> (especially for multi-processes) other skip this step to run on default port 3000
-            4. Run app: $ python app.py
-
-            (NB) All above can be run as a single command:
-            $ FLASK_APP=app FLASK_RUN_PORT=5000 FLASK_ENV=development flask run
-    '''
-    app.run(debug=True)

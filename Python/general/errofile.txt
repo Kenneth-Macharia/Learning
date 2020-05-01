@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "automate_boring_stuff.py", line 750, in <module>
+    spam()
+  File "automate_boring_stuff.py", line 744, in spam
+    bacon()
+  File "automate_boring_stuff.py", line 747, in bacon
+    raise Exception('This is the error message.')
+Exception: This is the error message.

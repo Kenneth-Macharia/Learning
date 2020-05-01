@@ -1,5 +1,9 @@
 def is_valid_chess_board(moves_dict):
-    ''' Checks if chess moves passed in as a dictionary are legal chess moves
+    '''
+    Checks if chess moves passed in as a dictionary are legal chess moves
+
+    SEE AUTOMATED TESTS IN THE TEST FOLDER
+
     '''
 
     valid = False
