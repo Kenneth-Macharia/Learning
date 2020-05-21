@@ -56,10 +56,10 @@ class Deck:
     _SUITE = 'H D S C'.split()  # _SUITE list
     _RANKS = '2 3 4 5 6 7 8 9 10 J Q K A'.split()  # _RANKS list
 
-    # private _deck lists
-    _deck = []    # private full _deck
-    _play__deck1 = []  # private 1st 1/2 play _deck
-    _play__deck2 = []  # private 2nd 1/2 play _deck
+    # protected _deck lists
+    _deck = []    # protected full _deck
+    _play__deck1 = []  # protected 1st 1/2 play _deck
+    _play__deck2 = []  # protected 2nd 1/2 play _deck
 
     def __init__(self):
         ''' Create a _deck of cards '''
