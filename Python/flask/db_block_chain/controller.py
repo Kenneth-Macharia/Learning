@@ -1,19 +1,25 @@
-import json
-from flask import Flask, request, jsonify
+import os, json
+from flask import Flask, request, jsonify, render_template
 from uuid import uuid4
-from .model import BlockChainModel
-
+from model import BlockChainModel
 
 # Initialize the flask app
 app = Flask(__name__)
 
 # Initialize the back-end
-blockchain = BlockChainModel('localhost', 'db_block_chain', 'col_default')
+DB_HOST = os.getenv('DB_HOST')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+blockchain = BlockChainModel(DB_HOST, DB_USER, DB_PASSWORD)
 
 # Generate a globally unique address for this node
 node_id = str(uuid4()).replace('-', '')
 
 # The node endpoints
+@app.route('/', methods=['GET'])
+def welcome():
+    return render_template('index.html')
+
 @app.route('/mine', methods=['POST'])
 def mine():
     '''
@@ -29,11 +35,12 @@ def mine():
     # Calculate the proof for the new block
     proof = blockchain.proof_of_work(last_proof)
 
-    # Receive a reward for calculating the proof.
+    # Receive a reward for calculating the proof.``
     # The sender is "0" to signify that this node has mined a new coin and is initializing a reward transaction in the blockchain.
     blockchain.save_new_transaction(sender=0, recipient=node_id, amount=1)
 
     # Forge the new Block by adding it to the chain
+    del last_block['_id']
     previous_hash = blockchain.hash(last_block)
     new_block = blockchain.new_block(proof, previous_hash)
 

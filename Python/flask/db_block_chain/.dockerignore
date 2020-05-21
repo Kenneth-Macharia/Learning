@@ -1,0 +1,7 @@
+block_chain_nodes
+__pycache__
+*.db
+.vscode
+.git
+.DS_Store
+*.pyc

@@ -1,0 +1,22 @@
+version: '2'
+
+# based off compose-sample-2, only we build nginx.conf into image
+# uses sample site from https://startbootstrap.com/template-overviews/agency/
+
+# Runs an nginx proxy server infront of an apache server hosting the sample site.
+# Bind mounts the apache server to enable live edits on the site files.
+services:
+  proxy:
+    # Builds the image if the specified image is not found locally
+    build:
+      # Build arguments. If it does build this image, it will be named using the name specified under the 'image'. If an image to build off was not specified, the new built image will be named 'project_folder/service_name'
+      context: .
+      dockerfile: nginx.Dockerfile
+    image: nginx-custom   # Looks for this image locally
+    ports:
+      - '80:80'
+  web:
+    image: httpd
+    # Bind mount
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/

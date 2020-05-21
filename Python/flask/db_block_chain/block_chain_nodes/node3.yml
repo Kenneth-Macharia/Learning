@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+    node3:
+        image: kennethmacharia/flask_node:latest
+        ports:
+            - 5003:5000
+        environment:
+            DB_HOST: node3-db
+            DB_USER: root
+            DB_PASSWORD: node3#Password
+
+    node3-db:
+        image: mongo:4.2.5
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: node3#Password

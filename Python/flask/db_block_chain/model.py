@@ -7,19 +7,21 @@ from time import time
 from uuid import uuid4
 from urllib.parse import urlparse
 
-
 class BlockChainModel:
 
-    def __init__(self, host, database_name, collection_name):
+    def __init__(self, host, user, password):
         '''
         Sets up a MongoDB connection object to the collection of interest
         Collections are similar to SQL tables and documents are similar to SQL records
         '''
 
         # Set up database connection
-        self.client = MongoClient(host, 27017)
-        self.db = self.client[database_name]
-        self.collection = self.db[collection_name]
+        db_connection_uri = 'mongodb://%s:%s@%s/blockchain_db?authSource=admin' % (
+            user, password, host)
+
+        self.client = MongoClient(db_connection_uri)
+        self.db = self.client.get_database()
+        self.collection = self.db.blockchain_collection
 
         # Creating seed block
         try:
@@ -136,7 +138,6 @@ class BlockChainModel:
         # hexdigest() return block hash in hexadecimal digits
         # The block dictionary should be ordered, or the hashes will be inconsistent.
 
-        del block['_id']
         block_str = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(block_str).hexdigest()
 
@@ -175,17 +176,11 @@ class BlockChainModel:
         :return: <bool> True if valid, False if not
         '''
 
-        doc_list = []
-        curr = self.collection.find({})
-
-        for document in curr:
-            doc_list.append(document)
-
-        last_block = doc_list[0]
+        last_block = chain[0]
         current_index = 1
 
-        while current_index < len(doc_list):
-            block = doc_list[current_index]
+        while current_index < len(chain):
+            block = chain[current_index]
 
             # Check that the hash of the block is correct
             if block['previous_hash'] != self.hash(last_block):
