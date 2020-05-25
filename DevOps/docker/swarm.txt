@@ -85,7 +85,10 @@ $ docker service update (see --help) to scale up a service. This is designed to 
 Demo: Run the drupal app and its postgres DB as services on a multi-node swarm cluster using an overlay network:
 
     1. Have the cluster set (3-node on Azure)
-    2. Create the overlay network: $ docker network create --driver overlay <network_name>
+    2. Create the overlay network:
+
+        $ docker network create --driver overlay <network_name>
+
     3. Create the postgres service and add it to the above created network:
 
         $ docker service create --name <name> --network <network_name> -e ENV_VAR=env_val <service_image>
@@ -94,9 +97,15 @@ Demo: Run the drupal app and its postgres DB as services on a multi-node swarm c
 
     4. Create the drupal service and add it to the same network:
 
-        $ docker service create --name <name> --network <network_name> -p host_port:container_port <service_image>
+        $ docker service create --name <name> --network <network_name> -p host_port:container_port --replicas <#_of_replicas> <service_image>
 
     5. Check the service processes: $ docker service ps <service> to see on which node the service is running on, then use that nodes external IP to access the application running on that node.
+
+(NB) Creating volumes & bind mounts in services uses a differnt format as that on containers:
+
+    --mount type=volume/bind_mount,source=vol-name or /bind_mount,target=path/to/file
+
+(NB) Published ports in a swarm cluster need to be opened as well on the nodes for the swarm routing mesh to work.
 
 # Routing Mesh (Load Balancing via the VIP)
 - Allows an application running on one node in the cluster to be accessible from all the cluster nodes.
