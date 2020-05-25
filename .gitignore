@@ -4,6 +4,7 @@ venv
 *.pyc
 *.db
 .remote-sync.json
+node_modules
 .vscode
 *.code-workspace
 .condaauto
