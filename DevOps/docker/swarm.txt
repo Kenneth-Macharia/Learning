@@ -121,3 +121,62 @@ Demo: Run the drupal app and its postgres DB as services on a multi-node swarm c
 - The routing mesh ensure that we are not concerned with what node/server is running what service, because this might changed, if the container/task fails and the swarm re-creates the service on a different node. So we need to be concerned about changign firewall or DNS setting when services keep changing nodes.
 
 - Routing mesh load balancing is STATELESS (interaction instances are independent of each other e.g for sessions, auth, resposnses etc). It also a layer 3 load balancer, operating at the TCP and not DNS layer (4) and will not work for running the same webiste on the same node, swarm and port for example. You need an extra layer e.g NGINX or use Docker EE, which has a built in layer 4 web proxy.
+
+# Swarm Stacks (Production-Grade Compose)
+- An abstraction layer added to swarm allowing the use of docker compose files (> v3) to define services, networks and volumes.
+- Stacks handle creation of these objects automatically, but we can create our own before hand and instruct the stack to use those instead.
+- The command to use with stacks:
+
+    $ docker stack deploy
+
+- Additional compose keys in stacks:
+
+    1. deploy: Includes swarm specific items e.g replicas, rolling updates, fail over etc, which are concerns in production not considered in a dev environment.
+
+(NB) We however cannot use a build instruction in the compose file, which should never happen in a production swarm anyway; builds should happend at the CI stage.
+
+- $ docker compose will ignore 'deploy' instructions in the compose file in a dev environment and $ docker stack will ingore the 'build' instruction in the compose file in production, thus enabling the use of one compose file.
+
+(NB) A stack visulaization in lecture 71: (4:36) minutes.
+
+- Stacks simplify the process of managing a swarm serices through a YAML file instead of having to type all numerous service commands to spin them up. They can however only manage one swarm and the nodes within that swarm only.
+
+(NB) Docker visulaizer which runs on port 8080 is a visual rep of the state of the swarm.
+
+# Swarm Secrets (> Docker 1.113 raft DB is encrypted by default)
+- Easy, secure and built in swarm solution for storing confidential data e.g app access keys, passwords etc. These are required by the service(s) that will run the app.
+- They are first stored first in swarm then assigned to services and only on the disks of manager nodes. They are then passed to the containers that need (those assigned to the particular service) them through the TLS secure control plane.
+- The secrets look like file to containers but are actually in-memory ram file with the names we assigned to them and inside the key (key-value).
+- They are accessed at /run/secrets/<secret_name> or /run/secrets/<secret_alias> if using alises to reference the same secret.
+
+## Working with Secrets in Services
+1. In the swarm leader node terminal, set up the secrets:
+
+    Create a secret: $ echo "<secret>" | docker secret create <secret_name> -
+
+    We will type the password in terminal and echo it to the docker daemon t create it in a ram file with the name we specify. This create a secret, to show created secrets:
+
+        $ docker secrets ls : a docker inpsect of a secret will still not reveal the key assigned to the secret. The only way is to access it under /run/secrets inside a running container that uses the secret by bashing into it.
+
+(NB) Note typing the password as part of a terminal command will leave it exposed in the users terminal history. (You cna clear the history when done or grep the contents for the partucular command and delete it form the terminal history)
+
+2. Using postgres secrets for username and password to access the database used by an app.
+
+    a) Create the two secrets as above e.g: psql_user and psql_password
+    b) Create a postgres service and assign the secrets to it, such that all containers assigned to this service will use those secrets to access the database:
+
+    $ docker service create --name psql --secret psql_user --secret psql_password -e POSTGRES_USER_FILE=/run/secrets/psql_user -e POSTGRES_PASSWORD_FILE=/run/secrets/psql_user postgres
+
+(NB) Official docker images have the '_FILE' environment variable standard to enable passing the secrets to the containers as shown above.
+
+3. You can add/ remove/ update the secrets assigned to a service using:
+
+    $ docker service update
+
+## Working with Secrets in Stacks
+- You can define secret in compose files (> 3.1) for use with stacks.
+_ The best way to define the secrets in the compose file is to create them before hand in the leader node cli then define them by their name (docker secrets ls) in 'secrets/ section of the compose file using the keyword 'external'. You can use 'file' but that is less secure.
+- After defining them, then we assign the secrets to only the services that need them.
+- Removing the stack, removes all the resources the stack created just like services:
+
+    $ docker stack rm <stack_name>
