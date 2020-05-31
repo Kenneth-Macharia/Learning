@@ -1,2 +1,2 @@
 # Learning and Practice
-My coding learning material.
+My notes and practice excercises as I learn various technolgies.
