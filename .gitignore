@@ -9,16 +9,3 @@ node_modules
 *.code-workspace
 .coverage
 .condaauto
-/JavaTutorials/TicTacToeGame/nbproject/private/
-/JavaTutorials/TicTacToeGame/dist/
-/JavaTutorials/TicTacToeGame/build/
-/JavaTutorials/Database/SQLiteConnection/nbproject/private/
-/JavaTutorials/SQLiteConnection/build/
-/AndroidStudioProjects/JavaPractice/nbproject/private/
-/AndroidStudioProjects/IntermediateJava/nbproject/private/
-/AndroidStudioProjects/javapractice/nbproject/private/
-/AndroidStudioProjects/javapractise/nbproject/private/
-/AndroidStudioProjects/javapractise/build/
-.*jpeg
-*.jpeg
-*.png
