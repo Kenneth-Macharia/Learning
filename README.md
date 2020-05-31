@@ -1,2 +1,2 @@
 # Learning and Practice
-My notes and practice excercises as I learn various technolgies.
+My notes and practice exercises as I learn various technolgies.
