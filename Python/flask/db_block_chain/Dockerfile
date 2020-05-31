@@ -14,4 +14,4 @@ EXPOSE 5000
 
 COPY . .
 
-CMD ["python", "run.py"]
+CMD ["python", "wsgi.py"]

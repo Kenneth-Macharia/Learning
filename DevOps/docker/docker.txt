@@ -164,7 +164,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 
 - Custom docker VPNs get automatic DNS resolutions for all containers within these networks. All containers in these networks can find each other using their names, regardless of their IP addresses.
 
-- The default bridge network does not have this auto DNS resolution, the work aorund being to use the --link list when creating a container (see $ docker container create --help) to link the container to another, so its easier to just create a custom VPN.
+- The default bridge network does not have this auto DNS resolution, the work around being to use the --link list when creating a container (see $ docker container create --help) to link the container to another, so its easier to just create a custom VPN.
 
 # WORKING WITH DOCKER IMAGES
 - An image is the app binaries(No kernel or kernel modules such as drivers), its dependancies and the metadata about the image and how to run it.
@@ -270,7 +270,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
     2. Bind Mounts: linking a host file directory to a container's, also makes it look like a local file path to the container, essentially having two pointer to the same location on the host file system. These allow live editing of container files from outside the container becuase the two are linked.
 
         - The data persists while the bind mount exists and survives the container it was created for.
-        - Bind mounts cantbe specified in DockrFiles because they must exist on the host's hard drive thus are specified during run time eg:
+        - Bind mounts cant be specified in DockerFiles because they must exist on the host's hard drive thus are specified during run time eg:
 
         $ docker container run -v full_path/on/the/host:/path/in/container (unix)
         $ docker container run -v //c/full_path/on/the/host:/path/in/container (Win)

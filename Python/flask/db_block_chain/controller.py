@@ -7,10 +7,10 @@ from model import BlockChainModel
 app = Flask(__name__)
 
 # Initialize the back-end
-DB_HOST = os.getenv('DB_HOST')
-DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-blockchain = BlockChainModel(DB_HOST, DB_USER, DB_PASSWORD)
+# DB_HOST = os.getenv('DB_HOST')
+# DB_USER = os.getenv('DB_USER')
+# DB_PASSWORD = os.getenv('DB_PASSWORD')
+# blockchain = BlockChainModel(DB_HOST, DB_USER, DB_PASSWORD)
 
 # Generate a globally unique address for this node
 node_id = str(uuid4()).replace('-', '')
@@ -73,7 +73,7 @@ def new_transaction():
 
     response = {'Message': f'Transaction will be added to block number {index}'}
 
-    return jsonify(response), 201
+#     return jsonify(response), 201
 
 @app.route('/chain', methods=['GET'])
 def full_chain():

@@ -1,12 +1,13 @@
 .DS_Store
-venv
 .env
+__pycache__
 *.pyc
 *.db
 .remote-sync.json
 node_modules
 .vscode
 *.code-workspace
+.coverage
 .condaauto
 /JavaTutorials/TicTacToeGame/nbproject/private/
 /JavaTutorials/TicTacToeGame/dist/
@@ -21,4 +22,3 @@ node_modules
 .*jpeg
 *.jpeg
 *.png
-.coverage

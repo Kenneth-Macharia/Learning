@@ -15,7 +15,7 @@ class BlockChainModel:
         Collections are similar to SQL tables and documents are similar to SQL records
         '''
 
-        # Set up database connection
+        Set up database connection
         db_connection_uri = 'mongodb://%s:%s@%s/blockchain_db?authSource=admin' % (
             user, password, host)
 
@@ -29,7 +29,8 @@ class BlockChainModel:
         except:
             self.new_block(proof=1000, previous_hash=1, index=1)
 
-    def new_block(self, proof, previous_hash=None, index=None):
+TODO: MOVE TO CONTROLLER
+    def new_block(self, proof=1000, previous_hash=1, index=1):
         '''
         Create a new Block in the Blockchain
         :param proof: <int> The proof given by the Proof of Work algorithm
@@ -46,10 +47,13 @@ class BlockChainModel:
             'type': 'block'
         }
 
-        # Append new block to the database
+        TODO: PERSIST BLOCK
+
+        Append new block to the database
         self.collection.insert_one(block)
         return block
 
+TODO: MOVE TO NODE FORNT-END
     def save_new_transaction(self, sender, recipient, amount):
         '''
         Creates a new transaction to go into the next mined Block. Temporarily persisted to a text file before the destination block is forged.
@@ -79,6 +83,7 @@ class BlockChainModel:
         tempfile.close()
         return self.last_block_index() + 1
 
+TODO: REFACTOR TO WORK WITH REDIS AND MOVE TO CONTROLLER
     def fetch_new_transaction(self):
         '''
         Fetches the new transaction when a new block is being .
@@ -97,6 +102,7 @@ class BlockChainModel:
             tempfile.close()
 
         return transactions
+
 
     def last_block(self):
         '''
