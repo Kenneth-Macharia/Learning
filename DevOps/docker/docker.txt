@@ -318,3 +318,114 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
     (NB) docker-compose down does not clean up the image built above, to do this ensure an 'image' is not specified in the docker-compose file when building, then run:
 
         $ docker-compose down --rmi <option> (see docker-compose --help)
+
+# Using Secrets with docker-compose
+- Usin docker-compose > v11, it is possible to use secrets with the cli for development, only that you can only use secrets from a file stored locally on the host hard drive.
+- This is not secure compared to secrets stored in a swarm, but allow us to mimick this production functionality to locally test our deployments.
+- Other than the limitation to use secret files, the rest of the functionality is similar to secrets in swarm.
+
+(NB) The docker-compse file version still needs to be >=v3.1
+
+# Docker health Checks
+- Introduced in Docker 1.12, this feature is available on the docker run and service commands as well as in Docker and docker-compose YAML files.
+- The docker engine 'execs' the command in the container and returns either 0 (OK) or 1 (ERROR).
+- Container states in terms of health are: starting, healthy or unhealthy.
+- Prior to health checks, all docker knew about the container was that it is running, health introduces more checks like ensuring the docker is actually doing what it is supposed to do. (It is however not as robust as an external/3rd party monitoring tool)
+- Health check appears:
+
+    1. Under $ docker container ls
+    2. Under $ docker container inspect
+
+(NB) With $ docker run, it does not take any action against unhealthy container, but swarm will replace them when detected and if updating will wait for the health check to pass before proceeding to the next task.
+- Examples of using health checks:
+
+    1. Dockerfile:
+
+    --interval=<duration(def: 30sec)>   :after how long the health checks(s) will be run
+    --timeout=<duration(def: 30sec)>    :how long it waits before returning an error code
+    --start-period=<duration(def: 0sec)>   :overrides the default interval period especially for apps that take longer to start.
+    --retries=<N(default:3)>
+
+    - Basic command example:
+
+        HEALTHCHECK curl -f https://localhost/ || false
+
+        HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f https://localhost/ || exit 1 (if giving options and the command comes after the options)
+
+        HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1
+
+    (NB) Diffrent apps have differnt health check tools
+
+    2. $ docker run \
+        --health-cmd="curl -f localhost:9200/_cluster/health" false" \
+        --health-timeout=5s \
+        --health-start-period=2s \
+        elasticsearch:2
+
+        (NB) Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false.
+
+    3. Compose files: (>=2.1 for health checks and >=3.4 for start_period)
+
+        healthcheck:
+            test: ["CMD", "curl", "-f', "http://localhost"]
+            interval: 1m30s
+            timeout: 10s
+            retries: 3
+            start_period: 3m
+
+# Docker Registries
+- Docker hub is the most popular docker container registry though not the only one.
+- Docker hub includes other features such as image auto-builds.
+- Via docker hub hooks you can extend your deployment workflow down the line e.g to the production server after successful image build.
+- Via docker hub create and autobuild you can link to a code repo such as github and have docker hub build images on code pushes.
+- For automated image builds, under build setting two setting of particular impotance:
+
+    1. Repository links: add dependancy repos so that when those image dependancies get updated, your image get re-built as well.
+    2. Build triggers: incase docker hub should listen for build triggers from other software.
+
+## Docker Registry
+- It is a private registry that can be used to store images on a private network and best suited for small teams.
+- It is part of dockre/distribution github repo (not legacy) and is written in Go.
+- It ca be accessed from docker hub: $ docker pull registry
+- It is the de facto back end registry for storing images privately.
+- It has basic auth, no GUI, it is at its core a web API running on port 5000 and a storage system locally, but has drivers for various cloud platform storage solutions.
+- Key concerns working with dockr registry:
+
+    1. Set up configs inclusing TLS for better security
+    2. Garbage collection for disk space management
+    3. Enabling docker hub cache via --registry-mirror so as not to pull all images from docker hub everytime they are required.
+
+# Using Docker Registry Locally
+- Docker need a registry to be secured using HTTPS before interacting with it, except if running on localhost (127.0.0.0/8)
+- For remote self-signed TLS or no TLS, enable 'insecure-registry' in the engine to allow docker interaction but docker will still complain about the registry insecurity.
+(https://training.play-with-docker.com/linux-registry-part1/)
+
+- To run the registry: $ docker container run -d -- name registry -p 5000:5000 registry
+
+- Tagging images for registries other Docker Hub, follow the format:
+
+    $ docker tag image_name host/tag_name
+
+- Push images to the registry: $ docker push <image_host/image_tag> (as used in above command)
+
+- Pull images from the registry: $ docker pull <image_host/image_tag> (as used in above command)
+
+- To stop the registry container: $ docker container kill registry
+- To remove the registry: $ docker container rm registry
+
+- To use a volume to store the registry data:
+
+    $ docker container run -d --name registry -p 5000:5000 -v $(pwd)/registry_data:/var/lib/registry registry
+
+# Using Docker Registry with Swarm
+- Works the same as loclahost because all nodes can see 127.0.0.1:500 because of the routing mesh.
+
+- To run the registry:
+
+    $ docker service create --name registry --publish 5000:5000 registry
+
+(NB) Note all the nodes in the swarm need to be able to access the image in the particular registry.
+
+(NB) Use hosted SaaS registries over a private repo.
+
+# Using Docker Registry over HTTPS: https://training.play-with-docker.com/linux-registry-part2/
