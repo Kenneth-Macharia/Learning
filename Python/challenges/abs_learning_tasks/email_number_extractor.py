@@ -21,7 +21,6 @@ SOLUTION STEPS:
 
 import re, pyperclip
 
-# TODO: Create email phone regex
 phone_regex = re.compile(r'''(
     (\d{3}|\(\d{3}\))?  # Non-greedy mode for the first match of aread code; either 444 or (444)
     (\s|-|\.)?  # Match a space or tab followed by a '-' or a '.'
@@ -32,7 +31,6 @@ phone_regex = re.compile(r'''(
 
 )''', re.VERBOSE)
 
-# TODO: Create email regex
 email_regex = re.compile(r'''(
     [a-zA-Z0-9._%+-]+   # username character class: any lower or upper case char, digit, '.', '%', '_', '-', '+'
     @   # @ symbol
@@ -41,7 +39,6 @@ email_regex = re.compile(r'''(
 
 )''', re.VERBOSE)
 
-# TODO: Find matches in clipboard (paste clipboard content, use findall to get matches
 text = str(pyperclip.paste())   # fetch clipboard data
 
 matches = []    # stores the matches as tuples
@@ -58,7 +55,6 @@ for groups in phone_regex.findall(text):
 for groups in email_regex.findall(text):
     matches.append(groups[0])   # group[0] is an entire match string
 
-# TODO: Copy results back to the clipboard
 if len(matches) > 0:
     pyperclip.copy('\n'.join(matches))
     print('Phone numbers and email addresses found and copied to clipboard:')
