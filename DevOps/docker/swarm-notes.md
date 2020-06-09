@@ -1,4 +1,5 @@
-# WHY SMARM?
+# Why swarm?
+- Swarm is a container orchestrator that runs one or more containers across one or more servers/nodes, efficiently.
 - Docker containers promise deployment of app like on a PaaS, but on any machine/host anywhere and the apps will run the same. However, Paas solution have additional services/features that manage multiple (could be thousands) containers/services deployed over mutiple servers/instances etc.
 - So how do we replicate the PaaS features i.e managing and automating the containers' lifecycle eg. scaling, starting & re-starting, updating, creating, re-creating on failure, deleting, replacing and ensuring zero downtime (blue/green deploy) etc.
 - How to create and monitor cross-node virtual networks? How to ensure only trust4ed servers run our containers? How to store sensitive container data and ensure it is only accssed by the container intended for?
@@ -7,7 +8,7 @@
 
 (NB) Swarm mode is not enabled by default in Docker.
 
-# SWARM UNDER THE HOOD
+# Swarm under the hood
 - A swarm, which could be a VM or physical machine running Linux or Windows Server, contains: (Illust. @ Section7/Time5.48)
 
     1. Manager nodes: have a local DB called Raft db, which stores information and configs that enable them to be the authority inside the swarm. A swarm can have more that 1 manager node (but only one leader node), but they all keep a copy of the raf db and encrypt data moving within the swarm (using the control plane - how instructions for actions are sent around the swarm) to ensure they administer the swarm securely.
@@ -22,7 +23,7 @@
 - This allows adding feature to the service such as replicas (which are tasks). A service can have multiple tasks and each task will lauch a container. Where previously we spun an nginx container using $ docker run, with swarm, we can spin up an nginx service with $ docker service create with 3 nginx replicas and use the manager node to decide which node in the swarm gets replicas (by default they are spread out evenly). (Illust. @ Section7/Time6.19)
 - The swarm manager node has the following services (API, orcherstrator, Allocator, Scheduler and Dispatcher) and the worker node has a worker and executor service. (Illust. @ Section7/Time7.44).
 
-# USING SWARM CLUSTERS
+# Using Swarm clusters
 $ docker info to check if swarm is enabled
 $ docker swarm init to enable swarm
 $ docker swarm --help to view more command options
@@ -48,18 +49,18 @@ $ docker container ls show the containers being run by the swarm tasks. Their na
 
 (NB) A swarm service cannot be stopped, so the only option is to remove the service from the cluster: $ docker serice rm <serice>
 
-# Scaling up a service
+## Scaling up a service
 $ docker service update (see --help) to scale up a service. This is designed to change a service live to ensure its always up e.g docker service update <service> --<options> <option_value_to_set> This is similar to $ docker update for single containers.
 
 (NB) Also $ docker service scale --help
 
 - Should any task/container in the swarm fail, then another immediatly spun up to replace it.
 
-# Multi-Node Swarm Clusters
+## Multi-Node Swarm Clusters
 - To create a multi-node cluster using different OSs is not possible with the local docker install, as that will provide only 1 OS, the localhost OS.
 - We can provision the 3 nodes/VMs on a cloud platform e.g Digital Ocean, Azure, AWS, GCP etc. or run three nodes locally via virtualization software e.g virtualBox and docker-machine and ensure they are connected and can communicate with each other. The prior option is best as it closest replicates production environments. There is also the option to use Play with docker but this will only persist your environment for 4hrs.
 
-# Creating a Multi-node Swarm Cluster
+## Creating a Multi-node Swarm Cluster
 - Create 3 Ubuntu-Linux nodes on a cloud platform e.g Digital Ocean/Azure/AWS/GCP.
 
 (NB) https://docs.docker.com/network/overlay/ (See port required for the nodes to comm)
@@ -107,7 +108,7 @@ Demo: Run the drupal app and its postgres DB as services on a multi-node swarm c
 
 (NB) Published ports in a swarm cluster need to be opened as well on the nodes for the swarm routing mesh to work.
 
-# Routing Mesh (Load Balancing via the VIP)
+## Routing Mesh (Load Balancing via the VIP)
 - Allows an application running on one node in the cluster to be accessible from all the cluster nodes.
 - It is a ingress/incoming network (default swarm overlay network, created automatically when either $ docker swarm init or $ docker swarm join is ran).
 - It routes incoming packets to the proper task/container in a swarm service & spans all the cluster nodes.

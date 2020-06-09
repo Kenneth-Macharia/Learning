@@ -1,4 +1,4 @@
-# DOCKER BACKGROUND
+# Docker Background
 - Docker was released in 2013 as open source project.
 - Major technological changes:
     1. Mainframes -> PC's
@@ -9,13 +9,13 @@
 - These evolutions, before containerization, were mainly geared towards sys admins required learning new technologies and a mind-set change.
 - Containerization was the first to include developers in the Ops mix and advancing the DevOps mind-set.
 
-# WHY DOCKER?
+# Why Docker?
 - Speed of software development.
 - 'Matrix from hell' where different solution have their own unique requirments to work. Containers enable these solutions to work the same way regardless of their running environments.
 - IT talent efficiency, by decreasing 80% maintainance time vs 20% innovation time, as a resutl of the multitude of existing software.
 - Reduced compute power e.g needed for virtualization, means reduced provisioning costs.
 
-# DOCKER EDITIONS/VERSIONS
+# Docker editions/ versions
 - Docker today is more thatn just a container runtime and evolves very quickly thus is important to keep up-to-date.
 - There is a free CE (community edition) and a paid EE (enterprise edition)
 - Installs are direct (Linux), Mac/Win (which require docker to install a VM on these OS for Docker to run on), Cloud (with all cloud offered features)
@@ -23,7 +23,7 @@
 
 (NB) You can install docker desktop which come with all the tools bundled in (including the docker server) or just the docker CLI (via homebrew, for communication with docker on a remote server)
 
-# WORKING WITH DOCKER CONTAINERS
+# Working with Docker containers
 - Check docker version: $ docker version
 - View command options: $ docker info
 - Old command structure: docker <command> <option>
@@ -51,29 +51,29 @@ $ docker container run --publish 80:80 nginx  (port format for -p HOST:CONTAINER
 
 $ docker container run --publish --detach nginx
 
-# Run an Nginx container with a custom name in detached mode:
+- Run an Nginx container with a custom name in detached mode:
 
 $ docker container run --publish 80:80 --detach --name <custom_name> nginx
 
-## List running containers: $ docker container ls
-## List all docker containers: $ docker container ls -a
-## List all local images: $ docker image ls
+- List running containers: $ docker container ls
+- List all docker containers: $ docker container ls -a
+- List all local images: $ docker image ls
 
 (NB) Container names, when one is not specified at runtime, are randomly generated from a concatenation of an adjective and the name of a notable hacker or scientist.
 
-## Delete a stopped container: $ docker container rm <container ids> (space separated)
-## Delete a running container: $ docker container rm --force <id>
+- Delete a stopped container: $ docker container rm <container ids> (space separated)
+- Delete a running container: $ docker container rm --force <id>
 
-# Pass environment variables to containers using the --env flag
+- Pass environment variables to containers using the --env flag
 
-# MONITOR A CONTAINER
+## Monitor a container
 - Commands to inspect and monitor Containers:
 
     1. $ docker container top: see process list inside a container
     2. $ docker container inspect: view container configs including how it started
     3. $ docker container stats: view container perfomance stats live
 
-# GETTING INTO A CONTAINER
+## Getting into a container
 - Using Docker CLI, no SSH needed:
     1. $ docker container run -it: starts an interactive shell inside a container
 
@@ -166,7 +166,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 
 - The default bridge network does not have this auto DNS resolution, the work around being to use the --link list when creating a container (see $ docker container create --help) to link the container to another, so its easier to just create a custom VPN.
 
-# WORKING WITH DOCKER IMAGES
+# Working with Docker Images
 - An image is the app binaries(No kernel or kernel modules such as drivers), its dependancies and the metadata about the image and how to run it.
 - Officially though it is, an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
 - The kernel that runs the image (via containers) is provided by the host.
@@ -192,7 +192,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 
 - This create a json in your local profile with the login details.Ensure to log out if the machine with these details is not trusted.
 
-# Image tagging
+## Image tagging
 - An image tag is a label pointing to a specific image ID. You can have many tags for the same image, but they all refer to one images, denoted by thier similar ID.
 - You can tag any images either yours or other images, the tag however needs to be in a specific format to work with image repos.
 
@@ -240,7 +240,8 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 - docker system df show resources list and info
 - $ docker image prune will remove dangling images only
 - $ docker container prune will remove unused containers
-- $ docker system prune -a will remove everything including images and networks.
+- $ docker system prune -a will removes all containers images and networks.
+- $ docker volume rm <volume_name> removes one volume ($ docker volume prune removes all)
 
 # Container Lifetime & persistent Data
 - Containers are usually immutable (once created cannot be changed) and ephemeral (short-lasting and disposable). They can be created any number of times from an image.
@@ -279,47 +280,49 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 
         Lecture 49 & 52/53: Live demos of how cool bind mounts are!
 
-    # Docker Compose
-    - Because we will frequently need to run multiple containers to solve a particular solution.
-    - Docker compose helps configure relationships between containers so that they cna work together easily to solve our problem.
-    - Enables one-liner developer env start-ups.
-    - Comprises of two parts:
+# Docker Compose
+- Because we will frequently need to run multiple containers to solve a particular solution.
+- Docker compose helps configure relationships between containers so that they cna work together easily to solve our problem.
+- Enables one-liner developer env start-ups.
+- Comprises of two parts:
 
-        1. YAML config file (docker-compose.yml): similar but easier than a .ini file, that describes solution options for docker containers, networks, volumes, env variables etc. i.e automate the docker run options.
+    1. YAML config file (docker-compose.yml): similar but easier than a .ini file, that describes solution options for docker containers, networks, volumes, env variables etc. i.e automate the docker run options.
 
-            - Default name docker-compose.yml but any other .yml file can be used alongside 'docker-compose -f'
-            - Has its own versions, defaulting to v1 if not specified, recommmended >= v2 but to get the latest features specify the latest version.
-            - Used with 'docker-compose' in dev/tesing and with 'docker' in production via Swarm(> v1.13)
-            - See compose-sample-1 directory
+        - Default name docker-compose.yml but any other .yml file can be used alongside 'docker-compose -f'
+        - Has its own versions, defaulting to v1 if not specified, recommmended >= v2 but to get the latest features specify the latest version.
+        - Used with 'docker-compose' in dev/tesing and with 'docker' in production via Swarm(> v1.13)
+        - See compose-sample-1 directory
 
-        2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms.
+    2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms.
 
-            Access help via docker-compose --help
+    https://docs.docker.com/compose/install/
 
-            - docker-compose up : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
+        Access help via docker-compose --help
 
-            - docker-compose down : stops and tears down a dev environment that is running.
+        - docker-compose up : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
 
-            - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
+        - docker-compose down : stops and tears down a dev environment that is running.
 
-            - Basically has similar comands to the docker run command (--detach etc) and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
+        - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
 
-    # Building images using Docker Compose at runtime
-    - Compose will build images with:
+        - Basically has similar comands to the docker run command (--detach etc) and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
 
-        $ docker-compose up if image is not found in the cache (See docker-compose2.yml)
+## Building images using Docker Compose at runtime
+- Compose will build images with:
 
-    - The above is a common developer set-up to build and test in a production simulated environment. Note a DB service or any other required service the applicationwill need in production can also be added.
+    $ docker-compose up if image is not found in the cache (See docker-compose2.yml)
 
-    - To rebuild already built images by docker-compose i.e if changes are made to it and since once build it remains in the cache unitl manually removed, use:
+- The above is a common developer set-up to build and test in a production simulated environment. Note a DB service or any other required service the applicationwill need in production can also be added.
 
-        $ docker-compose build or $ docker-compose up --build
+- To rebuild already built images by docker-compose i.e if changes are made to it and since once build it remains in the cache unitl manually removed, use:
 
-    (NB) docker-compose down does not clean up the image built above, to do this ensure an 'image' is not specified in the docker-compose file when building, then run:
+    $ docker-compose build or $ docker-compose up --build
 
-        $ docker-compose down --rmi <option> (see docker-compose --help)
+(NB) docker-compose down does not clean up the image built above, to do this ensure an 'image' is not specified in the docker-compose file when building, then run:
 
-# Using Secrets with docker-compose
+    $ docker-compose down --rmi <option> (see docker-compose --help)
+
+## Using Secrets with docker-compose
 - Usin docker-compose > v11, it is possible to use secrets with the cli for development, only that you can only use secrets from a file stored locally on the host hard drive.
 - This is not secure compared to secrets stored in a swarm, but allow us to mimick this production functionality to locally test our deployments.
 - Other than the limitation to use secret files, the rest of the functionality is similar to secrets in swarm.
@@ -337,6 +340,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
     2. Under $ docker container inspect
 
 (NB) With $ docker run, it does not take any action against unhealthy container, but swarm will replace them when detected and if updating will wait for the health check to pass before proceeding to the next task.
+
 - Examples of using health checks:
 
     1. Dockerfile:
@@ -395,7 +399,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
     2. Garbage collection for disk space management
     3. Enabling docker hub cache via --registry-mirror so as not to pull all images from docker hub everytime they are required.
 
-# Using Docker Registry Locally
+## Using Docker Registry Locally
 - Docker need a registry to be secured using HTTPS before interacting with it, except if running on localhost (127.0.0.0/8)
 - For remote self-signed TLS or no TLS, enable 'insecure-registry' in the engine to allow docker interaction but docker will still complain about the registry insecurity.
 (https://training.play-with-docker.com/linux-registry-part1/)
@@ -417,7 +421,7 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 
     $ docker container run -d --name registry -p 5000:5000 -v $(pwd)/registry_data:/var/lib/registry registry
 
-# Using Docker Registry with Swarm
+## Using Docker Registry with Swarm
 - Works the same as loclahost because all nodes can see 127.0.0.1:500 because of the routing mesh.
 
 - To run the registry:
@@ -428,4 +432,4 @@ $ docker container run -d --name webhost --network my_dk_vpn nginx
 
 (NB) Use hosted SaaS registries over a private repo.
 
-# Using Docker Registry over HTTPS: https://training.play-with-docker.com/linux-registry-part2/
+## Using Docker Registry over HTTPS: https://training.play-with-docker.com/linux-registry-part2/
