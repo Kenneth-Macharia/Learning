@@ -100,3 +100,41 @@ K8s cluster diagram vs Swarm cluster diagram: Lecture 96 - 4:10 min
     $ kubectl delete deployment <deployment_name>
 
 (NB) The service/kubernetes is the K8s server.
+
+## Scaling ReplicaSets
+- Using the scale command to scale the number of replica pods:
+
+    $ kubectl scale deployment <deployment_to_scale> --replicas <replicas_desired>
+
+(NB) kubectl is flexible in the command formats in various areas e.g instead of 'deployment' above 'deploy' or 'deployments' will still work. It is however not apparent in which cases such command variations can work. Recommendation is to choose one format and use it throughout.
+
+- You can also use / instead of the space between the command and the option e.g
+    deployment/<deployment_name>
+
+## Inspecting Kubernetes objects
+- Fetching kubernetes deployment logs:
+
+    $ kubectl logs deployment/<deployment_name> but this only fetches the logs for one pod.
+
+- To combine logs for all pods, use a 'selector' to fetch for all pods sharing a common label e.g. the deployment name (shared by all the pods):
+
+    $ kubectl logs -l run=<pods_common_label>
+
+(NB) Be careful with label assignment as you may fetch data for pods not interested in. Also this selector system can only pull logs for up-to 5 pods in a deployment, as it is resource heavy. A third party tool in production e.g Stern is better epsecially for tail logging.
+
+(NB) Linux logging options: -- follow will refresh logs with new entries and --tail 1 will only output the last log entry
+
+- To view pod details (similar to docker's inpsect command) use the describe command:
+
+    $ kubectl describe pod/<full_pod_name>  (get pod name using $ kubectl get pods)
+
+- You can also inspect many pods at once (CAUTION WHEN THYE MANY) using:
+
+    $ kubectl describe pods
+
+- Kurbernetes just like any orchestration tool will automatically replace a pod to ensure the desired replicas are alwys maintained. To watch this process we can use the --watch linux command to obeserve this in action:
+
+    $ kubectl get pods --watch
+    $ kubectl delete pod/<pod_name_to_delete>
+
+(NB) Unlike swarm which will warn before editing or deleting the wrong object in the abstration layers, kubernetes will not, so extra care needs to be taking when modifying objects. Modification should be made top-down e.g modifying a deployment instead of any of the objects below it e.g ReplicaSet or pod.
