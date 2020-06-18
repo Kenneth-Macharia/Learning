@@ -43,7 +43,7 @@ K8s cluster diagram vs Swarm cluster diagram: Lecture 96 - 4:10 min
     2. API: communicating and issuing cluster instruction
     3. scheduler: how and where the containers are placed in the nodes, in objects called pods.
     4. Controller manager: monitors the cluster state and reconciles with the task instructions passed to it.
-    5. Core DNS and any other depending on the add-ons installed
+    5. CoreDNS and any other depending on the add-ons installed
 
 - Each node (worker node) needs a kublet:
 
@@ -138,3 +138,54 @@ K8s cluster diagram vs Swarm cluster diagram: Lecture 96 - 4:10 min
     $ kubectl delete pod/<pod_name_to_delete>
 
 (NB) Unlike swarm which will warn before editing or deleting the wrong object in the abstration layers, kubernetes will not, so extra care needs to be taking when modifying objects. Modification should be made top-down e.g modifying a deployment instead of any of the objects below it e.g ReplicaSet or pod.
+
+# K8s Networking
+- After creating a pod, you will need to create a service(s) on top of it, so that it can accept connections from within or without the cluster because they don't automatically have DNS resolving or have IP addresses attached to them.
+- A service is an endpoint for pods i.e an address where the pods can be reached.
+- To create a service for existng pods:
+
+    $ kubectl expose
+
+- CoreDNS, a part of each master node in the control plane, allows service names to be resolved and it porperly routes traffic to a service through one of the following 4 service types:
+
+    1. ClusterIP (default): only available within the cluster, pods can reach service on app port numbers.
+    2. NodePort: for inter-cluster and external communication using the node IPs. This will create a high port on each node assigned to this service. Other pods need to be updated about this service and it's high (no-app default port).
+
+(NB) The above two services will work out of the box with kubernetes.
+
+    3. LoadBalancer: mostly used in the cloud for piping external traffic to the cluster and also used to control an external system e.g instructing an AWS load balancer to send traffic to the NodePort. It will also automatically create the previous two automatically first. This only work with a infra provider that allows their load balancers to receive instruction from K8s.
+    4. ExternalName: as opposed to the 1st three above, this service is used for outbound cluster traffic. This is achived by creating CNAME DNS records in the CoreDNS serivice so that the cluster can resolve DNS names internally.
+
+## Creating a ClusterIP
+- Use $ kubectl get pods -w to watch the service creation process in a seperate window.
+- Start a httpenv deployment (a web server that returns the env variables on the host machine):
+
+    $ kubectl create deployment httpenv --image=bretfisher/httpenv
+
+- Scale up the deployment:
+
+    $ kubectl scale deployment/httpenv --replicas=5
+
+- Create the ClusterIP serivce and attach it to the above deployment, exposing port 8888 for intra-cluster communication:
+
+    $ kubectl expose deployment/httpenv --port 8888
+
+- Show services created:
+
+    $ kubectl get service
+
+(NB) Remember that on MacOS and Windows, Docker actually runs a mini Linux VM on top of the host OS, unlike Linux, this means the container OS is the Host OS only on Linux. Since the ClusterIP service is only accessible inside the cluster, whcih technically is on a different host (VM) as the host machine, we therefore can't access it direclt from the host machine using a curl for example.
+
+- Accessing the httpenv deployment on Linux:
+
+    $ curl <service_IP>:8888
+
+- Acessing the deployment on Windows or Mac: Attempting the above will result in the following curl error 'curl: (6) Could not resolve host: httpenv'. One way to get around this problem is to run a single pod within the deployment cluster (in the container host where the cluster is accessible), from within which we can access the ClusterIP serivce.
+
+- Use a custom image with a bash utility from where we can run 'curl':
+
+    $ kubectl run --generator=run-pod/v1 tmp-shell --rm -it --image bretfisher/netshoot -- bash
+
+(NB)    1. Learn about generators later
+        2. 'run-pod/v1 : generator template to use
+        3. 'temp-shell' : pods name
