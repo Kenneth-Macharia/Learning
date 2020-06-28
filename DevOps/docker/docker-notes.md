@@ -331,7 +331,7 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
         - Basically it has similar comands to the `$ docker run` command and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
 
-                _Access help via docker-compose --help_
+    _Access help via docker-compose --help_
 
 ### Building images using Docker Compose at runtime
 
@@ -386,7 +386,7 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
         `HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1`
 
-            _Diffrent apps have different health check tools_
+        _Diffrent apps have different health check tools_
 
     2. docker run command:
 
@@ -394,14 +394,14 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
         _Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false._
 
-    3. Compose files: (>=2.1 for health checks and }=3.4 for start_period):
+    3. Compose files: (>=2.1 for health checks and >=3.4 for start_period):
 
-        healthcheck:
-            test: ["CMD", "curl", "-f', "http://localhost"]
-            interval: 1m30s
-            timeout: 10s
-            retries: 3
-            start_period: 3m
+        > healthcheck:
+            > test: ["CMD", "curl", "-f', "http://localhost"]
+            > interval: 1m30s
+            > timeout: 10s
+            > retries: 3
+            > start_period: 3m
 
 ## Docker Registries
 
