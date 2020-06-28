@@ -127,7 +127,7 @@ _Note when exiting from an 'exec instance, the container is still alive, because
     3. Forego the default VPNs and use the host IP i.e --net=host
     4. Use different docker network drivers to gain new abilities.
 
-### See demo docker networking diagram in lecture video 27.
+_See demo docker networking diagram in lecture video 27._
 
 - To view which ports are fowarding traffic from the host to the container:
 
