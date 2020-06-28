@@ -48,7 +48,7 @@ _More commands in tutorial commands text files._
 
 _The image version can also be specified rather than using the default (latest) e.g nginx:1.11_
 
-_Stop a container using 'ctr + c' or `$ docker container stop {container id}`(first few characters of the ID will suffice.). The ID will displayed when the container is run in detach mode i.e in the background (not displaying the process log in the console)_
+_Stop a container using 'ctr + c' or `$ docker container stop {container id}`(first few characters of the ID will suffice.). The ID will be displayed when the container is run in detach mode i.e in the background (not displaying the process log in the console)_
 
 - Run an Nginx container with a custom name in detached mode:
 
@@ -127,7 +127,7 @@ _Note when exiting from an 'exec instance, the container is still alive, because
     3. Forego the default VPNs and use the host IP i.e --net=host
     4. Use different docker network drivers to gain new abilities.
 
-### SEE DEMO DOCKER NETWORKING DIAGRAM IN LECTURE VIDEO 27
+### See demo docker networking diagram in lecture video 27.
 
 - To view which ports are fowarding traffic from the host to the container:
 
@@ -149,6 +149,7 @@ _Containers do not always use the same IP address as the host._
 - All custom docker VPNs use the default 'bridge' driver. This can be changed using the --driver flag.
 
 - Docker networks:
+
     1.docker 0, 'bridge' is the default docker VPN NAT'ed behind the host IP (public IP)
     2. 'host' is the network that skips the docker default VPN and attaches directly to the host interface using the _--net=host flag_. This foregoes some default docker network functionality including container security.
     3. 'none' a network interface not connected to any network.
@@ -243,13 +244,15 @@ _See also course repo files for DockerFile samples._
 - The order of commands in the Dockerfile matters because, once the initial build of the image is done, docker keeps a record of the build process in the cache, such that a rebuild of the image, only executes the stanzas where changes have been made and stanzas after that. To ensure builds are fast, place commands for mostly static items at the top and those that change alot at the bottom of your Dockefile.
 
 # Cleaning the Docker system (docker }=1.13)
-`$ docker system --help` to see system management flags
-`$ docker system prune` removes everything that is not associated to running containers.
-`$ docker system df` show resources list and info
-`$ docker image prune` will remove dangling images only
-`$ docker container prune` will remove unused containers
-`$ docker system prune -a` will removes all containers images and networks.
-`$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
+- Use the below commands to clean up the docker environment, since these resources may bloat the system quickly:
+
+    `$ docker system --help` to see system management flags
+    `$ docker system prune` removes everything that is not associated to running containers.
+    `$ docker system df` show resources list and info
+    `$ docker image prune` will remove dangling images only
+    `$ docker container prune` will remove unused containers
+    `$ docker system prune -a` will removes all containers images and networks.
+    `$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
 
 # Container Lifetime & persistent Data
 - Containers are usually immutable (once created cannot be changed) and ephemeral (short-lasting and disposable). They can be created any number of times from an image.
@@ -257,97 +260,90 @@ _See also course repo files for DockerFile samples._
 - Even if a container is recycled/ updated, the container data is still persisted and is available to the 'new' container as it were for the 'old' one, a concept called persistent data and this features work automatically by default. Only when the container is removed, is its UFS file changes / persisted data removed as well.
 - Docker features to handle persistant data are:
 
-    1. Volumes: container config options that create special location outside the container UFS, to store its persistant data, and allow attaching the data to any container over container removals. To container they appear as its own local file path and not the hosts.
+## Volumes
+- These are container config options that create special location outside the container UFS, to store its persistant data, and allow attaching the data to any container over container removals. To container they appear as its own local file path and not the hosts.
+- Volume configs are specified under the VOLUME stanza in the DockerFile.
+- `$ docker volume ls` : lists the volumes created for a container and these out-live the container, thus if the container is deleted, the volumes remain.
+- If you inspect a container, then under _Mounts, you see the mapping between the volume location in the container (specified in the DockerFile) and its actual location in the host_. For mac & windows this can't be navigated to since they live in the VM autocreated for these two OSs.
+- The problem with the auto created volumes is that you can't tell which volume relates to which container.
+- _Named Volumes_ help solve this problem. This is specified using the _-v flag_ when running a container:
 
-        - Volume configs are specified under the VOLUME stanza in the DockerFile.
-        - $ docker volume ls : list the volumes created for a container and these out-live
-            the container, thus if the container is deleted, the volumes remain.
-        - If you inspect a container, then under Mounts, you see the mapping between the volume location in the container (specified in the DockerFile) and its actual location in the host (for mac & windows this can't be navigated to since they live in the VM autocreated for these two OSs).
-        - The problem with the auto created volumes is that you can't tell which volume relates to which container.
-        - Named Volumes help solve this problem. This is specified using the -v flag when running a container:
+    `$ docker container run -v {custom_vol_name}:{the_volume_config_in_the_DockerFile}`
 
-        $ docker container run -v {custom_vol_name}:{the_volume_config_in_the_DockerFile}
+- The above will create a named volume for the container and with a $ docker volume ls or $ docker volume inspect {vol_name} its easier to distinguish which volume realtes to which container and can also be confirmed by inspecting the container.
+- Removing the above container and creating another and assigning the above vol, a new vol will not be created but the previous one will be attached to the new container.
 
-        - The above will create a named volume for the container and with a $ docker volume ls or $ docker volume inspect {vol_name} its easier to distinguish which volume realtes to which container and can also be confirmed by inspecting the container.
+_Sometimes especially in production you may need to create a volume ahead of time to specify other custom config eg. driver. This is done using: `$ docker colume create`: See the command options using --help_
 
-        - Removing the above container and creating another and assigning the above vol, a new vol will not be created but the previous one will be attached to the new container.
+## Bind Mounts
+- These map a host file directory to a container's, making it look like a local file path to the container, essentially having two pointer to the same location on the host file system. These allow live editing of container files from outside the container becuase the two are linked.
+- The data persists while the bind mount exists and survives the container it was created for.
+- Bind mounts cant be specified in DockerFiles because they must exist on the host's hard drive thus are specified during run time eg:
 
-        (NB) Sometimes especially in production you may need to create a volume ahead of time to specify other custom config eg driver. This is done using:
+    `$ docker container run -v full_path/on/the/host:/path/in/container`
+    (unix)
 
-        $ docker colume create: See the command options using --help
+    `$ docker container run -v //c/full_path/on/the/host:/path/in/container` (Win)
 
-    2. Bind Mounts: linking a host file directory to a container's, also makes it look like a local file path to the container, essentially having two pointer to the same location on the host file system. These allow live editing of container files from outside the container becuase the two are linked.
+- Docker knows this is a bind mount, rather than a named volume because it begins with a '/'
 
-        - The data persists while the bind mount exists and survives the container it was created for.
-        - Bind mounts cant be specified in DockerFiles because they must exist on the host's hard drive thus are specified during run time eg:
-
-        $ docker container run -v full_path/on/the/host:/path/in/container (unix)
-        $ docker container run -v //c/full_path/on/the/host:/path/in/container (Win)
-
-        - Docker knows this is a bind mount, rather than a named vol because it begins with a '/'
-
-        Lecture 49 & 52/53: Live demos of how cool bind mounts are!
+### Lecture 49 & 52/53: Live demos of how cool bind mounts are!
 
 # Docker Compose
-- Because we will frequently need to run multiple containers to solve a particular solution.
-- Docker compose helps configure relationships between containers so that they cna work together easily to solve our problem.
-- Enables one-liner developer env start-ups.
-- Comprises of two parts:
+- A tool to run multiple containers at once.
+- Docker compose helps configure relationships between containers so that they can work together easily to solve a problem.
+- Enables one-liner developer environment start-ups.
+- It comprises of two parts:
 
-    1. YAML config file (docker-compose.yml): similar but easier than a .ini file, that describes solution options for docker containers, networks, volumes, env variables etc. i.e automate the docker run options.
+    1. YAML config file: similar but easier than a .ini file, that describes solution options for docker containers, networks, volumes, env variables etc. i.e automate the docker run options.
 
-        - Default name docker-compose.yml but any other .yml file can be used alongside 'docker-compose -f'
-        - Has its own versions, defaulting to v1 if not specified, recommmended }= v2 but to get the latest features specify the latest version.
-        - Used with 'docker-compose' in dev/tesing and with 'docker' in production via Swarm(} v1.13)
+        - Default name docker-compose.yml but any other .yml file can be used with the '-f' flag
+        - It has it's own versions, defaulting to v1 if not specified, recommmended >= v2 but to get the latest features specify the latest version.
         - See compose-sample-1 directory
 
-    2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms.
+    2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms (https://docs.docker.com/compose/install/)
 
-    https://docs.docker.com/compose/install/
+    _Access help via docker-compose --help_
 
-        Access help via docker-compose --help
+        `$ docker-compose up` : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
 
-        - docker-compose up : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
-
-        - docker-compose down : stops and tears down a dev environment that is running.
+        `$ docker-compose down` : stops and tears down a dev environment that is running.
 
         - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
 
-        - Basically has similar comands to the docker run command (--detach etc) and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
+        - Basically it has similar comands to the `$ docker run` command and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
 
 ## Building images using Docker Compose at runtime
 - Compose will build images with:
 
-    $ docker-compose up if image is not found in the cache (See docker-compose2.yml)
+    `$ docker-compose up` if image is not found in the cache (See docker-compose2.yml)
 
-- The above is a common developer set-up to build and test in a production simulated environment. Note a DB service or any other required service the applicationwill need in production can also be added.
+- The above is a common developer set-up to build and test in a production simulated environment. Note a DB service or any other required service the application will need in production can also be added.
 
 - To rebuild already built images by docker-compose i.e if changes are made to it and since once build it remains in the cache unitl manually removed, use:
 
-    $ docker-compose build or $ docker-compose up --build
+    `$ docker-compose up --build`
 
-(NB) docker-compose down does not clean up the image built above, to do this ensure an 'image' is not specified in the docker-compose file when building, then run:
-
-    $ docker-compose down --rmi {option} (see docker-compose --help)
+_docker-compose down does not clean up the image built above, to do this ensure an 'image' is not specified in the docker-compose file when building, then run: `$ docker-compose down --rmi {option}`_ (see docker-compose --help)
 
 ## Using Secrets with docker-compose
-- Usin docker-compose } v11, it is possible to use secrets with the cli for development, only that you can only use secrets from a file stored locally on the host hard drive.
+- Using docker-compose  >v1, it is possible to use secrets with the CLI for development, only that you can only use secrets from a file stored locally on the host hard drive.
 - This is not secure compared to secrets stored in a swarm, but allow us to mimick this production functionality to locally test our deployments.
 - Other than the limitation to use secret files, the rest of the functionality is similar to secrets in swarm.
 
-(NB) The docker-compse file version still needs to be }=v3.1
+_The docker-compse file version still needs to be >=v3.1_
 
 # Docker health Checks
-- Introduced in Docker 1.12, this feature is available on the docker run and service commands as well as in Docker and docker-compose YAML files.
+- Introduced in Docker 1.12, this feature is available on the `$ docker run` and `$ docker service` commands as well as in Dockerfiles and docker-compose YAML files.
 - The docker engine 'execs' the command in the container and returns either 0 (OK) or 1 (ERROR).
 - Container states in terms of health are: starting, healthy or unhealthy.
-- Prior to health checks, all docker knew about the container was that it is running, health introduces more checks like ensuring the docker is actually doing what it is supposed to do. (It is however not as robust as an external/3rd party monitoring tool)
+- Prior to health checks, all docker knew about the container was that it is running, health introduces more checks like ensuring the container is actually doing what it is supposed to do. (It is however not as robust as an external/3rd party monitoring tool)
 - Health check appears:
 
-    1. Under $ docker container ls
-    2. Under $ docker container inspect
+    1. Under `$ docker container ls`
+    2. Under `$ docker container inspect`
 
-(NB) With $ docker run, it does not take any action against unhealthy container, but swarm will replace them when detected and if updating will wait for the health check to pass before proceeding to the next task.
+_With `$ docker run`, it does not take any action against unhealthy container, but swarm will replace them when detected and if updating will wait for the health check to pass before proceeding to the next task._
 
 - Examples of using health checks:
 
@@ -360,84 +356,75 @@ _See also course repo files for DockerFile samples._
 
     - Basic command example:
 
-        HEALTHCHECK curl -f https://localhost/ || false
+        `HEALTHCHECK curl -f https://localhost/ || false`
 
-        HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f https://localhost/ || exit 1 (if giving options and the command comes after the options)
+        `HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f https://localhost/ || exit 1` (if giving options and the command comes after the options)
 
-        HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1
+        `HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1`
 
-    (NB) Diffrent apps have differnt health check tools
+    _Diffrent apps have differnt health check tools_
 
-    2. $ docker run \
-        --health-cmd="curl -f localhost:9200/_cluster/health" false" \
-        --health-timeout=5s \
-        --health-start-period=2s \
-        elasticsearch:2
+    2. docker run command:
 
-        (NB) Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false.
+        `$ docker run --health-cmd="curl -f localhost:9200/_cluster/health" false" --health-timeout=5s --health-start-period=2s elasticsearch:2`
 
-    3. Compose files: (}=2.1 for health checks and }=3.4 for start_period)
+    _Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false._
 
-        healthcheck:
-            test: ["CMD", "curl", "-f', "http://localhost"]
-            interval: 1m30s
-            timeout: 10s
-            retries: 3
-            start_period: 3m
+    3. Compose files: (>=2.1 for health checks and }=3.4 for start_period):
+
+        `healthcheck:`
+            `test: ["CMD", "curl", "-f', "http://localhost"]`
+            `interval: 1m30s`
+            `timeout: 10s`
+            `retries: 3`
+            `start_period: 3m`
 
 # Docker Registries
 - Docker hub is the most popular docker container registry though not the only one.
 - Docker hub includes other features such as image auto-builds.
 - Via docker hub hooks you can extend your deployment workflow down the line e.g to the production server after successful image build.
-- Via docker hub create and autobuild you can link to a code repo such as github and have docker hub build images on code pushes.
-- For automated image builds, under build setting two setting of particular impotance:
+- Via docker hub create and auto-build you can link to a code repo such as github and have docker hub build images on code pushes.
+- For automated image builds, under build setting, there are two setting of particular impotance:
 
     1. Repository links: add dependancy repos so that when those image dependancies get updated, your image get re-built as well.
     2. Build triggers: incase docker hub should listen for build triggers from other software.
 
 ## Docker Registry
 - It is a private registry that can be used to store images on a private network and best suited for small teams.
-- It is part of dockre/distribution github repo (not legacy) and is written in Go.
-- It ca be accessed from docker hub: $ docker pull registry
+- It is part of docker/distribution github repo (not legacy) and is written in Go.
+- It ca be accessed from docker hub: `$ docker pull registry`
 - It is the de facto back end registry for storing images privately.
 - It has basic auth, no GUI, it is at its core a web API running on port 5000 and a storage system locally, but has drivers for various cloud platform storage solutions.
-- Key concerns working with dockr registry:
+- Key concerns working with docker registry:
 
-    1. Set up configs inclusing TLS for better security
+    1. Set up configs including TLS for better security
     2. Garbage collection for disk space management
     3. Enabling docker hub cache via --registry-mirror so as not to pull all images from docker hub everytime they are required.
 
 ## Using Docker Registry Locally
-- Docker need a registry to be secured using HTTPS before interacting with it, except if running on localhost (127.0.0.0/8)
-- For remote self-signed TLS or no TLS, enable 'insecure-registry' in the engine to allow docker interaction but docker will still complain about the registry insecurity.
+- Docker need every registry to be secured using HTTPS before interacting with it, except if running on localhost (127.0.0.0/8)
+- For remote self-signed TLS or no TLS, enable _insecure-registry_ in the engine to allow docker interaction but docker will still complain about the registry insecurity.
+
 (https://training.play-with-docker.com/linux-registry-part1/)
 
-- To run the registry: $ docker container run -d -- name registry -p 5000:5000 registry
+- To run the registry: `$ docker container run -d -- name registry -p 5000:5000 registry`
 
 - Tagging images for registries other Docker Hub, follow the format:
 
-    $ docker tag image_name host/tag_name
+    `$ docker tag image_name host/tag_name`
 
-- Push images to the registry: $ docker push {image_host/image_tag} (as used in above command)
+- Pushing images to the registry: `$ docker push {image_host/image_tag}`
 
-- Pull images from the registry: $ docker pull {image_host/image_tag} (as used in above command)
+- Pulling images from the registry: `$ docker pull {image_host/image_tag}`
 
-- To stop the registry container: $ docker container kill registry
-- To remove the registry: $ docker container rm registry
+- To stop the registry container: `$ docker container kill registry`
+
+- To remove the registry: `$ docker container rm registry`
 
 - To use a volume to store the registry data:
 
-    $ docker container run -d --name registry -p 5000:5000 -v $(pwd)/registry_data:/var/lib/registry registry
+    `$ docker container run -d --name registry -p 5000:5000 -v $(pwd)/registry_data:/var/lib/registry registry`
 
-## Using Docker Registry with Swarm
-- Works the same as loclahost because all nodes can see 127.0.0.1:500 because of the routing mesh.
+_It is recommended to use a hosted SaaS registry instead of a private docker registry._
 
-- To run the registry:
-
-    $ docker service create --name registry --publish 5000:5000 registry
-
-(NB) Note all the nodes in the swarm need to be able to access the image in the particular registry.
-
-(NB) Use hosted SaaS registries over a private repo.
-
-## Using Docker Registry over HTTPS: https://training.play-with-docker.com/linux-registry-part2/
+_Using Docker Registry over HTTPS: https://training.play-with-docker.com/linux-registry-part2/_
