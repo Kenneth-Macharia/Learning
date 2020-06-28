@@ -233,9 +233,7 @@ _Note when exiting from an 'exec instance, the container is still alive, because
 
 - A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image.
 - They are shell script-like files composed of stanzas which are commands (and layers) that build on the image being created.
-- Build an image using the files in the cwd (the context) only includes the files neccessary in there.
-
-<https://docs.docker.com/engine/reference/builder/>
+- Build an image using the files in the cwd (the context) only includes the files neccessary in there: <https://docs.docker.com/engine/reference/builder/>
 
 `$ docker build .`
 
@@ -394,7 +392,9 @@ _Access help via docker-compose --help_
 
 2. docker run command:
 
-    `$ docker run --health-cmd="curl -f localhost:9200/_cluster/health" false" --health-timeout=5s --health-start-period=2s elasticsearch:2`
+        $ docker run \
+            --health-cmd="curl -f localhost:9200/_cluster/health" false" --health-timeout=5s
+            --health-start-period=2s elasticsearch:2
 
     _Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false._
 
