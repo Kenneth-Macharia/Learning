@@ -260,13 +260,13 @@ _See also course repo files for DockerFile samples._
 
 - Use the below commands to clean up the docker environment, since these resources may bloat the system quickly:
 
-        - `$ docker system --help` to see system management flags
-        - `$ docker system prune` removes everything that is not associated to running containers.
-        - `$ docker system df` show resources list and info
-        - `$ docker image prune` will remove dangling images only
-        - `$ docker container prune` will remove unused containers
-        - `$ docker system prune -a` will removes all containers images and networks.
-        - `$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
+  - `$ docker system --help` to see system management flags
+  - `$ docker system prune` removes everything that is not associated to running containers.
+  - `$ docker system df` show resources list and info
+  - `$ docker image prune` will remove dangling images only
+  - `$ docker container prune` will remove unused containers
+  - `$ docker system prune -a` will removes all containers images and networks.
+  - `$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
 
 ## Container Lifetime & persistent Data
 
@@ -313,25 +313,25 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 - Enables one-liner developer environment start-ups.
 - It comprises of two parts:
 
-    1. YAML config file: similar but easier than a .ini file, that describes solution options for docker containers, networks, volumes, env variables etc. i.e automate the docker run options.
+1. YAML config file: similar but easier than a .ini file, that describes solution options for docker containers, networks, volumes, env variables etc. i.e automate the docker run options.
 
-        - Default name docker-compose.yml but any other .yml file can be used with the '-f' flag
-        - It has it's own versions, defaulting to v1 if not specified, recommmended >= v2 but to get the latest features specify the latest version.
+    - Default name docker-compose.yml but any other .yml file can be used with the '-f' flag
+    - It has it's own versions, defaulting to v1 if not specified, recommmended >= v2 but to get the latest features specify the latest version.
         - See compose-sample-1 directory
 
-    2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms
+2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms
 
     <https://docs.docker.com/compose/install/>
 
-        - `$ docker-compose up` : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
+    `$ docker-compose up` : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
 
-        - `$ docker-compose down` : stops and tears down a dev environment that is running.
+    `$ docker-compose down` : stops and tears down a dev environment that is running.
 
-        - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
+    - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
 
-        - Basically it has similar comands to the `$ docker run` command and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
+    - Basically it has similar comands to the `$ docker run` command and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
 
-    _Access help via docker-compose --help_
+_Access help via docker-compose --help_
 
 ### Building images using Docker Compose at runtime
 
@@ -371,37 +371,42 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
 - Examples of using health checks:
 
-    1. Dockerfile:
+1. Dockerfile:
 
-        - `--interval={duration(def: 30sec)}` :after how long the health check(s) will be run
-        - `--timeout={duration(def: 30sec)}` :how long it waits before returning an error code
-        - `--start-period={duration(def: 0sec)}` :overrides the default interval period especially for apps that take longer to start.
-        - `--retries={N(default:3)}`
+    - `--interval={duration(def: 30sec)}` :after how long the health check(s) will be run
+    - `--timeout={duration(def: 30sec)}` :how long it waits before returning an error code
+    - `--start-period={duration(def: 0sec)}` :overrides the default interval period especially for apps that take longer to start.
+    - `--retries={N(default:3)}`
 
-        - Basic command examples:
+    - Basic command examples:
 
-        `HEALTHCHECK curl -f https://localhost/ || false`
+    `HEALTHCHECK curl -f https://localhost/ || false`
 
-        `HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f https://localhost/ || exit 1` (if giving options and the command comes after the options)
+    `HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f https://localhost/ || exit 1` (if giving options and the command comes after the options)
 
-        `HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1`
+    `HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1`
 
-        _Diffrent apps have different health check tools_
+    _Diffrent apps have different health check tools_
 
-    2. docker run command:
+2. docker run command:
 
-        `$ docker run --health-cmd="curl -f localhost:9200/_cluster/health" false" --health-timeout=5s --health-start-period=2s elasticsearch:2`
+    `$ docker run --health-cmd="curl -f localhost:9200/_cluster/health" false" --health-timeout=5s --health-start-period=2s elasticsearch:2`
 
-        _Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false._
+    _Shell commands usually output 1 incase the command returns an error, curl can return more than that so we specificy what it should return. This can be 1 or false._
 
-    3. Compose files: (>=2.1 for health checks and >=3.4 for start_period):
+3. Compose files: (>=2.1 for health checks and >=3.4 for start_period):
 
-        > healthcheck:
-            > test: ["CMD", "curl", "-f', "http://localhost"]
-            > interval: 1m30s
-            > timeout: 10s
-            > retries: 3
-            > start_period: 3m
+    healthcheck:
+
+        test: ["CMD", "curl", "-f', "http://localhost"]
+
+        interval: 1m30s
+
+        timeout: 10s
+
+        retries: 3
+
+        start_period: 3m
 
 ## Docker Registries
 
