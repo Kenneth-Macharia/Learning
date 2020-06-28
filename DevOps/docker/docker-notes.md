@@ -144,11 +144,11 @@ _Note when exiting from an 'exec instance, the container is still alive, because
 
 - Docker networks CLI Management:
 
-        - Show networks: `$ docker network ls`
-        - Inspect a network: `$ docker network inspect`
-        - Create a network: `$ docker network create --driver`
-        - Attach a container to a network: `$ docker network connect`
-        - Detach a network from a container: `$ docker network disconnect`
+  - Show networks: `$ docker network ls`
+  - Inspect a network: `$ docker network inspect`
+  - Create a network: `$ docker network create --driver`
+  - Attach a container to a network: `$ docker network connect`
+  - Detach a network from a container: `$ docker network disconnect`
 
 - View command options for each above using --help
 - The connect and disconnect command dynamically add and remove NICs    (network interface controller / network cards) from a container.
@@ -237,7 +237,7 @@ _Note when exiting from an 'exec instance, the container is still alive, because
 
 <https://docs.docker.com/engine/reference/builder/>
 
-    `$ docker build .`
+`$ docker build .`
 
 - Start an image build using a file other than the default Dockerfile by using a file alias:
 
@@ -373,20 +373,24 @@ _Access help via docker-compose --help_
 
 1. Dockerfile:
 
-    - `--interval={duration(def: 30sec)}` :after how long the health check(s) will be run
-    - `--timeout={duration(def: 30sec)}` :how long it waits before returning an error code
-    - `--start-period={duration(def: 0sec)}` :overrides the default interval period especially for apps that take longer to start.
-    - `--retries={N(default:3)}`
+        --interval={duration(def: 30sec)} :after how long the health check(s) will be run
+
+        --timeout={duration(def: 30sec)} :how long it waits before returning an error code
+
+        --start-period={duration(def: 0sec)} :overrides the default interval period especially for apps that take longer to start.
+
+        --retries={N(default:3)}
 
     - Basic command examples:
 
-    `HEALTHCHECK curl -f https://localhost/ || false`
+        HEALTHCHECK curl -f <https://localhost/> || false
 
-    `HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f https://localhost/ || exit 1` (if giving options and the command comes after the options)
+        HEALTHCHECK --timeout=2s --interval=3s --retries=3 CMD curl -f
+        <https://localhost/> || exit 1` (if giving options and the command comes after the options)
 
-    `HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1`
+        HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1
 
-    _Diffrent apps have different health check tools_
+    _Different apps have different health check tools_
 
 2. docker run command:
 
@@ -396,17 +400,12 @@ _Access help via docker-compose --help_
 
 3. Compose files: (>=2.1 for health checks and >=3.4 for start_period):
 
-    healthcheck:
-
-        test: ["CMD", "curl", "-f', "http://localhost"]
-
-        interval: 1m30s
-
-        timeout: 10s
-
-        retries: 3
-
-        start_period: 3m
+        healthcheck:
+            test: ["CMD", "curl", "-f', "http://localhost"]
+            interval: 1m30s
+            timeout: 10s
+            retries: 3
+            start_period: 3m
 
 ## Docker Registries
 
