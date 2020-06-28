@@ -203,3 +203,12 @@ _ The best way to define the secrets in the compose file is to create them befor
 (NB) Should the containers in service become unbalanced across the available node, especially due to service updates, the below command will force swarm to re-balance the load by replacing the task, the following the default initialization allocation schema:
 
     $ docker service update --force <service_name>
+
+# Using Docker Registry with Swarm
+- Works the same as loclahost because all nodes can see 127.0.0.1:500 because of the routing mesh.
+
+- To run the registry:
+
+    $ docker service create --name registry --publish 5000:5000 registry
+
+_Note all the nodes in the swarm need to be able to access the image in the particular registry._
