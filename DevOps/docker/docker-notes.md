@@ -137,11 +137,11 @@ _Containers do not always use the same IP address as the host._
 
 - Docker networks CLI Management:
 
-    1. Show networks: `$ docker network ls`
-    2. Inspect a network: `$ docker network inspect`
-    3. Create a network: `$ docker network create --driver`
-    4. Attach a container to a network: `$ docker network connect`
-    5. Detach a network from a container: `$ docker network disconnect`
+    - Show networks: `$ docker network ls`
+    - Inspect a network: `$ docker network inspect`
+    - Create a network: `$ docker network create --driver`
+    - Attach a container to a network: `$ docker network connect`
+    - Detach a network from a container: `$ docker network disconnect`
 
 - View command options for each above using --help
 - The connect and disconnect command dynamically add and remove NICs    (network interface controller / network cards) from a container.
@@ -303,8 +303,6 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
     2. The compose CLI (docker-compose) particularly used for dev/testing YAML file automation. It is separatefrom the docker CLI and needs to be installed separate on Linux systems but is bundled together with the docker CLI for other platforms (https://docs.docker.com/compose/install/)
 
-    _Access help via docker-compose --help_
-
         - `$ docker-compose up` : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
 
         - `$ docker-compose down` : stops and tears down a dev environment that is running.
@@ -312,6 +310,8 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
         - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
 
         - Basically it has similar comands to the `$ docker run` command and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
+
+    _Access help via docker-compose --help_
 
 ## Building images using Docker Compose at runtime
 - Compose will build images with:
