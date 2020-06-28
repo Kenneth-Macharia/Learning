@@ -195,13 +195,13 @@ _Using IPs for container communication is an anti-pattern and should be avoided.
 
 - A container is also an image layer added when created/run but unlike the actual image composition layers which are read-only, the container layer is read-write.
 - Only official images have root namespace, the unofficial image naming convention is *publishers_repo_name/unoffical_image_name*
-- To push images to your docker hub, you must be logged in via the dockr CLI:
+- To push images to your docker hub, you must be logged in via the docker CLI:
 
     `$ docker login`
 
 - This creates a json entry in your local profile with the login details.
 
-_Ensure to log out if the machine with these details is not trusted._
+_Ensure to log out of the machine with these details is not trusted._
 
 ## Image tagging
 - An image tag is a label pointing to a specific image ID. You can have many tags for the same image, but they all refer to one image, denoted by their similar ID.
@@ -243,16 +243,16 @@ _See also course repo files for DockerFile samples._
 - CMD is a required stanza and specifies what will be run when a container is spun up.
 - The order of commands in the Dockerfile matters because, once the initial build of the image is done, docker keeps a record of the build process in the cache, such that a rebuild of the image, only executes the stanzas where changes have been made and stanzas after that. To ensure builds are fast, place commands for mostly static items at the top and those that change alot at the bottom of your Dockefile.
 
-# Cleaning the Docker system (docker }=1.13)
+# Cleaning the Docker system (with docker >=1.13)
 - Use the below commands to clean up the docker environment, since these resources may bloat the system quickly:
 
-    `$ docker system --help` to see system management flags
-    `$ docker system prune` removes everything that is not associated to running containers.
-    `$ docker system df` show resources list and info
-    `$ docker image prune` will remove dangling images only
-    `$ docker container prune` will remove unused containers
-    `$ docker system prune -a` will removes all containers images and networks.
-    `$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
+    - `$ docker system --help` to see system management flags
+    - `$ docker system prune` removes everything that is not associated to running containers.
+    - `$ docker system df` show resources list and info
+    - `$ docker image prune` will remove dangling images only
+    - `$ docker container prune` will remove unused containers
+    - `$ docker system prune -a` will removes all containers images and networks.
+    - `$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
 
 # Container Lifetime & persistent Data
 - Containers are usually immutable (once created cannot be changed) and ephemeral (short-lasting and disposable). They can be created any number of times from an image.
@@ -273,7 +273,7 @@ _See also course repo files for DockerFile samples._
 - The above will create a named volume for the container and with a $ docker volume ls or $ docker volume inspect {vol_name} its easier to distinguish which volume realtes to which container and can also be confirmed by inspecting the container.
 - Removing the above container and creating another and assigning the above vol, a new vol will not be created but the previous one will be attached to the new container.
 
-_Sometimes especially in production you may need to create a volume ahead of time to specify other custom config eg. driver. This is done using: `$ docker colume create`: See the command options using --help_
+_Sometimes especially in production you may need to create a volume ahead of time to specify other custom config eg. driver. This is done using: `$ docker volume create`: See the command options using --help_
 
 ## Bind Mounts
 - These map a host file directory to a container's, making it look like a local file path to the container, essentially having two pointer to the same location on the host file system. These allow live editing of container files from outside the container becuase the two are linked.
@@ -287,7 +287,7 @@ _Sometimes especially in production you may need to create a volume ahead of tim
 
 - Docker knows this is a bind mount, rather than a named volume because it begins with a '/'
 
-### Lecture 49 & 52/53: Live demos of how cool bind mounts are!
+_Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
 # Docker Compose
 - A tool to run multiple containers at once.
@@ -305,9 +305,9 @@ _Sometimes especially in production you may need to create a volume ahead of tim
 
     _Access help via docker-compose --help_
 
-        `$ docker-compose up` : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
+        - `$ docker-compose up` : sets up and starts a dev environment specified in the docker-compose.yml file i.e containers, volumes, networks etc.
 
-        `$ docker-compose down` : stops and tears down a dev environment that is running.
+        - `$ docker-compose down` : stops and tears down a dev environment that is running.
 
         - Use ctrl+c to temp stop the environment (so that the instances are not torn down) then simply use docker-compose up to start it up again.
 
@@ -331,7 +331,7 @@ _docker-compose down does not clean up the image built above, to do this ensure 
 - This is not secure compared to secrets stored in a swarm, but allow us to mimick this production functionality to locally test our deployments.
 - Other than the limitation to use secret files, the rest of the functionality is similar to secrets in swarm.
 
-_The docker-compse file version still needs to be >=v3.1_
+_The docker-compose file version still needs to be >=v3.1_
 
 # Docker health Checks
 - Introduced in Docker 1.12, this feature is available on the `$ docker run` and `$ docker service` commands as well as in Dockerfiles and docker-compose YAML files.
@@ -362,7 +362,7 @@ _With `$ docker run`, it does not take any action against unhealthy container, b
 
         `HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1`
 
-    _Diffrent apps have differnt health check tools_
+    _Diffrent apps have different health check tools_
 
     2. docker run command:
 
@@ -372,12 +372,12 @@ _With `$ docker run`, it does not take any action against unhealthy container, b
 
     3. Compose files: (>=2.1 for health checks and }=3.4 for start_period):
 
-        `healthcheck:`
-            `test: ["CMD", "curl", "-f', "http://localhost"]`
-            `interval: 1m30s`
-            `timeout: 10s`
-            `retries: 3`
-            `start_period: 3m`
+        healthcheck:
+            test: ["CMD", "curl", "-f', "http://localhost"]
+            interval: 1m30s
+            timeout: 10s
+            retries: 3
+            start_period: 3m
 
 # Docker Registries
 - Docker hub is the most popular docker container registry though not the only one.
@@ -393,7 +393,7 @@ _With `$ docker run`, it does not take any action against unhealthy container, b
 - It is a private registry that can be used to store images on a private network and best suited for small teams.
 - It is part of docker/distribution github repo (not legacy) and is written in Go.
 - It ca be accessed from docker hub: `$ docker pull registry`
-- It is the de facto back end registry for storing images privately.
+- It is the de facto back-end registry for storing images privately.
 - It has basic auth, no GUI, it is at its core a web API running on port 5000 and a storage system locally, but has drivers for various cloud platform storage solutions.
 - Key concerns working with docker registry:
 
