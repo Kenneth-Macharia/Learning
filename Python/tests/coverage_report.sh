@@ -1,4 +1,4 @@
-coverage run -m --source=exercises unittest
+coverage run -m --source=challenges unittest
 echo
 coverage report -m
 echo
