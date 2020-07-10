@@ -284,3 +284,36 @@ _It is important that that you dont mix the three approaches._
     3. Store yaml files in git or a git repo and commit every change before applying them.
 
 - The above approach transitions you into GitOps, where yaml file changes commits are automatically applied to clusters.
+
+## Declarative K8s Declarative YAML
+
+- This workflow approach is the most used on test or production environments and most closely merges with DevOps practices, specifically IaC and GitOps.
+- The command that is used to specify or manage configurations is:
+
+    `$ kubectl apply -f configuration_src`
+
+- Examples of its implementation:
+
+    1. Create/update resouurces in a file: `$ kubectl apply -f config_file.yml`
+    2. Create/update a whole directory of YAML files: `$ kubectl apply -f dir/`
+    3. Create/update from a URL: `$ kubectl apply -f https://pod_host/pod.yml`
+
+- Kubernetes YAML format is more complex than docker-compose YAML format, because it adds alot of configurable options to play with.
+- K8s config files can be written in both YAML or JSON but by default get converted to JSON at runtime, however it recommended to write them in YAML as its more human friendly.
+
+## Writing K8s YAML
+
+- Each file contains one or more manifests describing an API object e.g deployment, job, secret etc
+- Each manifest _requires_ 4 parts at the root of the file:
+
+    1. apiVersion: the API that implements a specific resource _kind_. Some resource can have multiple APIs, a reference to the APIGROUP can direct you on which one to use for the specific resource. To view a list of API that a cluster supports:
+
+        `$ kubectl api-version`
+
+    2. kind: the type of resource e.g deployment, service, pod etc. To view a list of resources the cluster supports:
+
+        `$ kubectl api-resources`
+
+    3. metadata: contains the name of the resource to be created, make it a robust name.
+
+    4. spec: is different depending on the type of resource being created.
