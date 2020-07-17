@@ -316,4 +316,46 @@ _It is important that that you dont mix the three approaches._
 
     3. metadata: contains the name of the resource to be created, make it a robust name.
 
-    4. spec: is different depending on the type of resource being created.
+    4. spec: is different depending on the type of resource being created & is the details of what the YAML file should do.
+
+        - Use `$ kubectl explain {resource_kind} --recursive` to show all the different supported keys in the YAML file, that can be used as quick lookup.
+
+        - Get more details about a spec: `$ kubectl explain {resource_kind}.spec`
+
+        - Get details about a specific key inside the spec for the resource required: `$ kubectl explain {resource_kind}.spec.type`
+
+_To get the various spec keys, its easier to use the commands such as above in but these may not alwys give the correct API versions. For this use the `api version commands` above or use the K8s API documentation `kubernetes.io/docs/reference/#api-reference`._
+
+## Dry Runs and diffs with the apply YAML (>v1.13)
+
+- This enable sending of the YAML file to the server and comparing what changes will be effected by the YAML file and report back the anticipated changes rather than effecting the changes.
+- The traditional dry run `$ kubectl apply -f file.yml --dry-run` will only report back the changes it will make in the deployment server without actually contacting the server to check the deployment state and validity of the proposed changes.
+- You can get the differences between the deployment YAML vs the proposed one using `$ kubectl diff -f file.yml`
+- Incorporating the above in your workflow + a yml repo where all changes are commited is a more DevOps / GitOps approach.
+
+## Labels and Label Selectors
+
+- Labels, which are optonal and usually placed under _metadata_ in at the YAML root, are a list of key-value pairs assigned to resources for use later in selecting, grouping or filtering resource.
+- Examples include tier: frontend, app: api, env: prod, client: acme.co
+- Annotations are used for more complex, large, id information e.g custom configuration objects.
+- More differences between labels & annotations: <https://vsupalov.com/kubernetes-labels-annotations-difference/>
+
+- Label implementation examples:
+
+    1. Get particular pods: `$ kubectl get pods -l app=nginx`
+    2. Apply YAML configs to specific resources: `$ kubectl apply -f file.yml -l app=nginx`
+
+- The K8s docs have more info and illustration: <https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/>
+
+- Label selectors are what ties deployments and servoces to their pods and need to specified in the YAML, so that these resources cna talk to each other.
+- They are also used to link resource dependencies and also for specifying which pods go to which cluster node. (<https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/>)
+- Taints & tolerances offer a more complex way to customize node placement control (<https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>)
+
+## K8s Storage
+
+- Containers are meant to be stateless and adding statefulnes via persistent storage and databases adds complexity.
+- K8s has a resources called `StatefulSets` for managing state & storage for pods.
+- However, if it is recommended to avoid introducing statefulness and use cloud storage as much as possible.
+- You can add _Volumes_ to containers by adding `Volumes` under spec in the YAML file. In this case, the volume is tied to the lifecycle of a pod, where all containers within the a pod can use the volume.
+- _Persistent volumes_ are storage solutions created at a cluster level, usually before-hand and is availble on-demenad to a particular cluster. Multiple pods can share them and they also separate storage configs from the pod since they are created independant of the pods and at times by different team, deidcated to providing persitant storage services.
+- _Container Storage Interface_ (CSI) plugins are a new way to add 3rd party storage within your cluster.
