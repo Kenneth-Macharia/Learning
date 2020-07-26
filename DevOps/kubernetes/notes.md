@@ -233,13 +233,15 @@ _Linux K8s distributions do not have a loadbalancer built in so this command wil
 - Namespaces prevent service clashes, but enable more modularized deployments at scale.
 - To view namespaces:
 
-    `kubectl get namespaces`
+    `kubectl get namespaces` or `kubectl get all --all-namespaces`
 
 - A service FQDN has the following structure:
 
     `{hostname}.{namespace}.{SVC}.{cluster}.{local}`
 
 - By default the {default} namespace is assigned to a basice cluster. `SVC` implies we are referring to a service and `cluster.local` is the default cluster name assigned to your basic cluster, but is configurable.
+
+    _See more on namespaces and context in Lecture 127_
 
 ## Kubernetes Management Techniques
 
@@ -359,3 +361,48 @@ _To get the various spec keys, its easier to use the commands such as above in b
 - You can add _Volumes_ to containers by adding `Volumes` under spec in the YAML file. In this case, the volume is tied to the lifecycle of a pod, where all containers within the a pod can use the volume.
 - _Persistent volumes_ are storage solutions created at a cluster level, usually before-hand and is availble on-demenad to a particular cluster. Multiple pods can share them and they also separate storage configs from the pod since they are created independant of the pods and at times by different team, deidcated to providing persitant storage services.
 - _Container Storage Interface_ (CSI) plugins are a new way to add 3rd party storage within your cluster.
+
+## Ingress
+
+- So far non of K8s services handle OSI layer 7 (HTTP/DNS routing) in a multi-website cluster, enabling the different websites hosted to share the HTTP ports 80 & 443 and have the correct web traffic routed to the right website container based on hostname or URLs and not just the ports.
+- K8s provides the _ingress_ resource for such a scenario.
+- Ingress, which is not a service/load balancer or HTTP proxy, provides the mechanism for how your cluster should use a 3rd HTTP proxy to solve the above problem.
+- The most common 3rd party HTTP proxy is _Nginx_ but _Traefik_ was created specific for a containerized environment.
+- In order for the ingress resource to work, the cluster must have an ingress controller running.
+
+`https://kubernetes.io/docs/concepts/services-networking/ingress/`
+`https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/`
+`https://docs.traefik.io/v2.0/providers/kubernetes-crd/#traefik-ingressroute-definition`
+
+## Custom resources (CRD's) and Operator patterns
+
+- K8s allows addition of 3rd party adds-on (resources & controllers) that extend its default functionality (APIs & CLI), such that `kubectl` gets custom commands to handle specific implementations.
+- The emerging _operator pattern_ allows the deployment and management of complex software e.g DBs, monitoring tools, backups & custom ingresses, thus giving the impression that this was a K8s default functionality.
+- The are implemented through complex YAML.
+- Care should be taken to ensure not to introduce too much complexity through CRDs.
+
+    _See Lecture 124 resources for examples_
+
+## Higher Deployment Abstrations
+
+- K8s has limited built-in templating, versioning, tracking and management of apps, which creates the problem of numerous opinions on how to deploy the YAML for the K8s resources.
+- `kubectl apply` is one way using GitOps with the YAML files.
+- But as deployments & teams scale, other concerns emerge e.g permissions and authorizations etc leading to the question of _how best to then deploy app on K8s_
+- There are over 60 3rd party tools that add ways of how to deploy with K8s, creating alot of opinions on how to do this.
+- _Helm_ is the most popular way to create deployment templates through _sharks_ which actually create the YAML for deploying to a K8s cluster and supported by all K8s distros.
+- Another intersting way is via _Compose on K8s_ which comes with docker desktop and enables using `docker stack deploy` YAML to straight deploy to K8s instead of Swarm, using _docker compose YAML_
+- Docker desktop settings allows setting the default orchestrator to K8s instead on Swarm and so does the `$ docker stack deploy` command through the `--orchestrator` flag.
+- Compose on K8s is Docker's 3rd party tool / opinion on how to deploy on K8s and reduces the complexity of doing this by translating docker-compose YAML into K8s YAML. This works out of the box with _Docker EE_ and simplifies & standardizes the YAML workflow.
+- It is still not as robust as K8s YAML but satifies the 80-20 rule similar to using Swarm.
+
+    _Docker > 19.03 also comes with the `$ docker app` command that also allows templating of compose YAML. It also allows packaging of compose YAML into images, version them._
+
+- Note however multiple tools can be used together, depending on which works the best for a particular deployment /cluster.
+- Remember these tool are helping template the deployment YAML. K8s now has its own default templating feature called _Kustomize_ , similar to Dockers' _app_ command feature, but is still not as powerful as Helm.
+
+## K8s Dashboard
+
+- This is the default GUI for K8s but needs to be installed first (github.com/kubernetes/dashboard).
+- Other K8s distros e.g OpenShift or Docker EE have their own GUI while cloud providers such AWS or Azure will not provide one out-of-the-box for their K8s implemetations (installation required), allowing viweing of resources and uploading YAML.
+
+    _Note that dashboards are less secure as they don't include robust security features ,thus measure to secure them such as randomized high ports, IP address limiting, VPNs or authentication proxies infront of the dashboard_
