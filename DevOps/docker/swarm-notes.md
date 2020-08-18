@@ -1,4 +1,5 @@
 # Why swarm?
+
 - Swarm is a container orchestrator that runs one or more containers across one or more servers/nodes, efficiently.
 - Docker containers promise deployment of app like on a PaaS, but on any machine/host anywhere and the apps will run the same. However, Paas solution have additional services/features that manage multiple (could be thousands) containers/services deployed over mutiple servers/instances etc.
 - So how do we replicate the PaaS features i.e managing and automating the containers' lifecycle eg. scaling, starting & re-starting, updating, creating, re-creating on failure, deleting, replacing and ensuring zero downtime (blue/green deploy) etc.
@@ -9,6 +10,7 @@
 (NB) Swarm mode is not enabled by default in Docker.
 
 # Swarm under the hood
+
 - A swarm, which could be a VM or physical machine running Linux or Windows Server, contains: (Illust. @ Section7/Time5.48)
 
     1. Manager nodes: have a local DB called Raft db, which stores information and configs that enable them to be the authority inside the swarm. A swarm can have more that 1 manager node (but only one leader node), but they all keep a copy of the raf db and encrypt data moving within the swarm (using the control plane - how instructions for actions are sent around the swarm) to ensure they administer the swarm securely.
@@ -130,7 +132,7 @@ Demo: Run the drupal app and its postgres DB as services on a multi-node swarm c
 - Stacks also handle creation of these objects automatically e.g overlay networks, but we can create our own before hand and instruct the stack to use those instead.
 - The command to use with stacks:
 
-    $ docker stack deploy <options> <stack_name>
+    $ docker stack deploy <options> <stack_name> ,
 
 - Additional compose keys in stacks:
 

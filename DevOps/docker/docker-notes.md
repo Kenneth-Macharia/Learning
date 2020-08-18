@@ -27,6 +27,8 @@
 
     _You can install docker desktop which comes with all the tools bundled in (including the docker server) or just the docker CLI (via homebrew, for communication with docker on a remote server)_
 
+    _Easy Linux install: <https://get.docker.com/>_
+
 ## Working with Docker containers
 
 - Old command structure: docker {command} {option}
@@ -329,7 +331,7 @@ _Lecture 49 & 52/53: Live demos of how cool bind mounts are!_
 
     - Basically it has similar comands to the `$ docker run` command and can be used in a similar way to docker run only within the context of the YAML configs. It achieves this by communicating with the docker API on our behalf.
 
-_Access help via docker-compose --help_
+        _Access help via docker-compose --help_
 
 ### Building images using Docker Compose at runtime
 
@@ -388,7 +390,7 @@ _Access help via docker-compose --help_
 
         HEALTHCHECK --interval=5s --timeout=3s CMD pg_isready -U postgres || exit 1
 
-    _Different apps have different health check tools_
+        _Different apps have different health check tools_
 
 2. docker run command:
 
@@ -459,3 +461,9 @@ _Access help via docker-compose --help_
     _It is recommended to use a hosted SaaS registry instead of a private docker registry._
 
     _Using Docker Registry over HTTPS: <https://training.play-with-docker.com/linux-registry-part2/>_
+
+### Docker Production Security
+
+- Explore methods and tools for securing docker deployments (Section: 18):
+
+    _<https://github.com/BretFisher/ama/issues/17>_
