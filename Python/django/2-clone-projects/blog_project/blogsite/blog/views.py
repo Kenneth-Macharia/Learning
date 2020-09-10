@@ -60,7 +60,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 	''' Allows a logged in user to delete a post '''
 
 	model = Post
-	success_url = reverse_lazy('post_list')  # Only after successful deletion of the view, 
+	success_url = reverse_lazy('post_list')  # Only after successful deletion of the view,
 	# redirect back to the posts list page.
 
 class DraftListView(LoginRequiredMixin, ListView):
@@ -122,18 +122,3 @@ def post_publish(request, pk):
 	post.publish()
 
 	return redirect('post_detail', pk=pk)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

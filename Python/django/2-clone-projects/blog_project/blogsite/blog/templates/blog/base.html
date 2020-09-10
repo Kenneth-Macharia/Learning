@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 
 <html>
 <head>
@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Boostrap optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous">
 
 	<!-- Medium style editor -->
@@ -37,7 +37,7 @@
 				<li><a href="https://www.linkedin.com">LinkedIn</a></li>
 
 			</ul>
-				
+
 			<ul class='nav navbar-nav navbar-right'>
 
 				{% if user.is_authenticated %}
@@ -51,7 +51,7 @@
 					<li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
 
 				{% endif %}
-	
+
 			</ul>
 		</div>
 	</nav>
@@ -66,7 +66,7 @@
 						<!-- Stuff to be populated by other inheriting templates -->
 					{% endblock %}
 
-				</div> 
+				</div>
 			</div>
 		</div>
 	</div>

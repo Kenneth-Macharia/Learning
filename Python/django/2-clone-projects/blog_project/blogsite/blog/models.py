@@ -6,7 +6,7 @@ from django.urls import reverse
 class Post(models.Model):
 	''' Manages the posts data on the blog '''
 
-	author = models.ForeignKey('auth.User', on_delete='models.CASCADE')  # Each post is linked to an authorization user/ owner
+	author = models.ForeignKey('auth.User', on_delete=models.CASCADE)  # Each post is linked to an authorization user/ owner
 	title = models.CharField(max_length=200)
 	text = models.TextField()
 	create_date = models.DateTimeField(default=timezone.now) # Dont execute the 'now' method here!
@@ -14,7 +14,7 @@ class Post(models.Model):
 
 	def publish(self):
 		''' Sets the post publish time '''
-		
+
 		self.published_date = timezone.now()
 		self.save() # Commit the published time
 
@@ -38,7 +38,7 @@ class Comment(models.Model):
 	''' Manages the comments data on the blog '''
 
 	# Comments related to a post
-	post = models.ForeignKey('blog.Post', related_name='comments', on_delete='models.CASCADE')  
+	post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE)
 	author = models.CharField(max_length=200)
 	text = models.TextField()
 	create_date = models.DateTimeField(default=timezone.now) # Dont execute the 'now' method here!
@@ -59,6 +59,3 @@ class Comment(models.Model):
 		''' Returns the comment when printing the comment model object '''
 
 		return self.text
-
-
-
