@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+// eslint-disable-next-line import/no-unresolved
 const express = require('express');
 const uuid = require('uuid');
 const router = express.Router();
