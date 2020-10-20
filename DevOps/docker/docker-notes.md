@@ -110,11 +110,11 @@ _Container names, when one is not specified at runtime, are randomly generated f
 
 - To start an iteractive bash shell within a container already running another program e.g mysql or ngnix, use docker exec (See docker container exec --help for it's options)
 
-    `docker exec --it {container_name} {additional_program_to_run}`
+    `docker exec -it {container_name} {additional_program_to_run}`
 
     e.g.
 
-    `$ docker exec --it mysql bash`
+    `$ docker exec -it mysql bash`
 
     _List running processes while in a container using 'ps or ps aux'. Note some container images dont include it ps by default; install it using 'apt-get install -y procps'_
 
@@ -266,7 +266,7 @@ _See also course repo files for DockerFile samples._
   - `$ docker image prune` will remove dangling images only
   - `$ docker container prune` will remove unused containers
   - `$ docker system prune -a` will removes all containers images and networks.
-  - `$ docker volume rm {volume_name}` removes one volume ($ docker volume prune removes all)
+  - `$ docker system prune -a --volumes` removes everything including volumes.
 
 ## Container Lifetime & persistent Data
 
