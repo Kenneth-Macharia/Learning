@@ -26,9 +26,6 @@ class Student(Resource):
     def get(self, name):
         return {'student':name}
 
-api.add_resource(Student, '/student/<string:name>')
-
-
 ''' Test-first design - involves thinking about what you want to achieve and set up a blueprint before implementing
     the solution '''
 ''' In postman (Section 4 collection), the various endpoint have been defined, to aid coding their implemtations below '''
@@ -110,7 +107,7 @@ class Items(Resource):
             return {'Response':'No items to return'}, 404
         return {'Response':items}, 200
 
-
+api.add_resource(Student, '/student/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(Items, '/items')
 
