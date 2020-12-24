@@ -7,28 +7,29 @@
 - Swarm allow deploying container into production reliably.
 - Swarm mode introduced in 2016 is a clustring solution bringing together different OSs/nodes/clusters together into a single manageable unit, that you can then orcherstrate the lifecycle of containers in. (And is not Swarm Classic <v1.12, which ran inside the Docker server and repeated docker run on many containers).
 
-(NB) Swarm mode is not enabled by default in Docker.
+_Swarm mode is not enabled by default in Docker_
 
-# Swarm under the hood
+## Swarm under the hood
 
 - A swarm, which could be a VM or physical machine running Linux or Windows Server, contains: (Illust. @ Section7/Time5.48)
 
     1. Manager nodes: have a local DB called Raft db, which stores information and configs that enable them to be the authority inside the swarm. A swarm can have more that 1 manager node (but only one leader node), but they all keep a copy of the raf db and encrypt data moving within the swarm (using the control plane - how instructions for actions are sent around the swarm) to ensure they administer the swarm securely.
     2. Worker nodes: that execute the tasks required in the swarm by following instructions received from the manager nodes.
 
-(NB) Manager nodes can also be worker node and vice versa vis a process of node promotion and demotion.
+_Manager nodes can also be worker node and vice versa vis a process of node promotion and demotion_
 
 - $ docker run could only provision 1 container on the machine the CLI is running on and did not have the ability to implemenent the PaaS feature mentioned above and is replaced by:
 
-    $ docker service --help in swarm
+    `docker service --help` in swarm
 
 - This allows adding feature to the service such as replicas (which are tasks). A service can have multiple tasks and each task will lauch a container. Where previously we spun an nginx container using $ docker run, with swarm, we can spin up an nginx service with $ docker service create with 3 nginx replicas and use the manager node to decide which node in the swarm gets replicas (by default they are spread out evenly). (Illust. @ Section7/Time6.19)
 - The swarm manager node has the following services (API, orcherstrator, Allocator, Scheduler and Dispatcher) and the worker node has a worker and executor service. (Illust. @ Section7/Time7.44).
 
-# Using Swarm clusters
-$ docker info to check if swarm is enabled
-$ docker swarm init to enable swarm
-$ docker swarm --help to view more command options
+## Using Swarm clusters
+
+`docker info` to check if swarm is enabled
+`docker swarm init` to enable swarm
+`docker swarm --help` to view more command options
 
 - Enabling swarm also creates a single node (manager) swarm with all the swarm features.
 - Other things done in the background include creating the security certificate and root-signing it, issuing the certificate for the first manager node and creating tokens of other nodes that will join the swarm. Also Raft databse is created and all security data created for the swarm are encrypted (>v1.13) and stored in it.
