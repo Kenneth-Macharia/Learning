@@ -1,14 +1,14 @@
 # Intro
 
-- Developed by a team at Google comparising of Robert Griesemar Rob Pike and Ken Thompson.
-- "Developed while waiting for other language programs to compile".
+- Developed by a team at Google comparising of Robert Griesemar, Rob Pike and Ken Thompson.
+- "Developed while waiting for C++ programs to compile".
 - Developed to build highly scalable and concurrent web applications.
 
 ## Why Go
 
-- Developed due to limitiation of existing languages in use at Google i.e Python (easy but slow), Java (fast but increasingly complex type system) and C/C++ (fast but slow compile times and increasingly complex type systme)
+- Developed due to limitiation of existing languages in use at Google i.e Python (easy but slow), Java (fast but increasingly complex type system) and C/C++ (fast but slow compile times and increasingly complex type system)
 - Concurrency is also patched into the the above languages.
-- Weaknesses addressed and included into Go are:
+- Weaknesses addressed and improvements included into Go are:
 
     1. Statically typed
     2. Fast - both compile and run times
@@ -19,7 +19,7 @@
 
 ## Setting up a Go local environment
 
-- Using the binary availble on golang.org, install Go to /usr/local/go
+- Using the binary availble on golang.org, install Go to _/usr/local/go_
 
 _check install location after installation using `$ which go`_
 
