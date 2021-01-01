@@ -10,3 +10,5 @@ node_modules
 .coverage
 .condaauto
 res
+bin
+pkg
