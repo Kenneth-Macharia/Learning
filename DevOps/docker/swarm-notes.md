@@ -37,12 +37,12 @@
 `$ docker node ls` to view swarm nodes
 `$ docker node --help` to view command options
 
-- docker service in a swarm replaces docker run which is a single and local host/node solution. For in a cluster, we dont care about individual nodes and they are disposal and impersonal e.g like cattle where we dont got to each node to start a container rather we 'throw' services at a swarm and it sort everything out for us.
+- `$ docker service` in a swarm replaces docker run which is a single and local host/node solution. For in a cluster, we dont care about individual nodes rather we 'throw' services at a swarm and it sort everything out for us.
 
 `$ docker service --help` to view command options
 `$ docker service create` to start a new service (see --help for more options)
 
-`Replicas means service_currently_running / services_specified_to_run, and swarm's goal is to always ensure they are matched. The serice naming convention (if not specified) follows docker's random container naming.`
+`Replicas means service_currently_running / services_specified_to_run, and swarm's goal is to always ensure they are matched. The service naming convention (if not specified) follows docker's random container naming.`
 
 `$ docker service ps {service}` shows the tasks within a service (a task runs a container)
 
