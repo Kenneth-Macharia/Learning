@@ -42,7 +42,7 @@
 `$ docker service --help` to view command options
 `$ docker service create` to start a new service (see --help for more options)
 
-(NB) Replicas means service_currently_running / services_specified_to_run, and swarm's goal is to always ensure they are matched. The serice naming convention (if not specified) follows docker's random container naming.
+`Replicas means service_currently_running / services_specified_to_run, and swarm's goal is to always ensure they are matched. The serice naming convention (if not specified) follows docker's random container naming.`
 
 `$ docker service ps {service}` shows the tasks within a service (a task runs a container)
 
@@ -50,13 +50,13 @@
 
 `$ docker container ls` show the containers being run by the swarm tasks. Their name (if not specified) will be in the form 'task_name.task_id + random_number'
 
-(NB) A swarm service cannot be stopped, so the only option is to remove the service from the cluster: $ docker serice rm {serice}
+`A swarm service cannot be stopped, so the only option is to remove the service from the cluster: $ docker serice rm {serice}`
 
 ## Scaling up a service
 
 `$ docker service update` (see --help) to scale up a service. This is designed to change a service live to ensure its always up e.g `docker service update {service} --{options} {option_value_to_set}` This is similar to $ docker update for single containers.
 
-(NB) Also `$ docker service scale --help`
+Also `$ docker service scale --help`
 
 - Should any task/container in the swarm fail, then another immediatly spun up to replace it.
 
@@ -68,7 +68,7 @@
 ## Creating a Multi-node Swarm Cluster
 
 - Create 3 Ubuntu-Linux nodes on a cloud platform e.g Digital Ocean/Azure/AWS/GCP.
-_(NB) <https://docs.docker.com/network/overlay/> (See port required for the nodes to comm)_
+_<https://docs.docker.com/network/overlay/> (See port required for the nodes to comm)_
 
 - Set up SSH keys and .ssh config files for them to ease working with them (Lecture resources on how)
 - Install docker using script on get.docker.com on all the nodes.
@@ -76,7 +76,7 @@ _(NB) <https://docs.docker.com/network/overlay/> (See port required for the node
 - Enable swarm on all the nodes, ensure to specify an IP address for the swarm service to advertise on, use the node's public IP since it's accessible by other servers and the other nodes we created as well.(If required by the cloud platform)
 - The node you fire up swarm on will be the leader node, use it to add other nodes, by using either the worker token or manager token on the other nodes. This will determine what type on nodes they become in the swarm. You can also administer (same as a single node swarm locally) the swarm from it.
 
-(NB) Worker node have a blank status and non of the docker commands will work for them as they dont have priviledges to administer the swarm. Other managers have a reacheable status.
+`Worker node have a blank status and non of the docker commands will work for them as they dont have priviledges to administer the swarm. Other managers have a reacheable status.`
 
 ## Overlay Multi-host Networking
 
