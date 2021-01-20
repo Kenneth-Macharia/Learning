@@ -25,7 +25,7 @@
 - Reduced compute power e.g needed for virtualization, means reduced provisioning
   costs.
 
-## Docker editions/ versions
+## Docker Editions/ Versions
 
 - Docker today is more than just a container runtime and evolves very quickly
   thus is important to keep up-to-date.
