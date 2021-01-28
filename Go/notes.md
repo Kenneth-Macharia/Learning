@@ -148,7 +148,8 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
           an int always) and `%` (the remainder)
 
     4. Bitwise operators: when comparing bit representation of two ints, they return
-    the result of the set bits (1) comparison of the two, converted back into an int:
+    the result of the set bits (1) comparison of the two, converted
+    back into an int:
 
         a) `&` (and): _1 if both corresponding bits have been set_
         b) `|` (or): _1 if either of the corresponding bits have been set or both_
@@ -157,10 +158,10 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
         d) `&^` (and not): _1 if neither of the corresponding bits have been set_
 
     5. Bit shifting is _adding or subtracting powers of 2.
-        - If `a := 8` = _2^3_ then:
+        - If `a := 8` then:
 
-            a) Left bit shifting: `a << 3` = `2^3 * 2^3` = `2^6` = 64
-            b) Right bit shifting: `a >> 3` = `2^3 / 2^3` = `2^0` = 1
+            a) Left bit shifting: `a << 3` = `8 * 2^3` = 64
+            b) Right bit shifting: `a >> 3` = `8 / 2^3` = 1
 
     6. Floating types: _comform to the IEEE 64 standard_
 
@@ -188,9 +189,9 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
         - String operations:
 
             - Concatenation: `string1 + string2`
-            - Type conversion into bytes: `b := []byte(str)` convenient for
-            tranferring strings or files across application and not worry about
-            formating etc
+            - Type conversion into bytes: `b := []byte(str)` convenient
+            for tranferring strings or files across application and not
+             worry about formating etc
 
         `See code samples in main.go for`
 
@@ -202,3 +203,84 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
         - Refer to the go docs for info on how to work with runes.
 
 ## Constants
+
+- Declared using the `const` keyword
+- Their naming convention is similar to varibles _`camel_case`
+  for `package-scoped constants` and `Pascal_Case` for exportable constants_
+- Typed constants declared same as variables `const myConst int = 2`
+_Constants have to be assigned at compile time and must contain
+ a definite value and not as a result of a runtime operation
+ e.g function result or application runtime arguments_
+
+- All primitive types mentioned above are applicable to constants
+  as well as their operations.
+- Constant types dont have to be explicitly declared `const a = 42`
+ is valid. These defined as _literals_ can be used in operations
+ with other typed variables unlike variable only operations that must be
+ of the same type.
+-_Enumerated constants_: are constant blocks that auto-generate
+  enumerated values using a built-in counter called `iota`
+- Iota auto-generates ints from 0 for each constant declared in
+  the constants block. `See code samples in main.go for`
+
+## Collections Types
+
+- Types that hold multiple values at the same time. These include:
+
+  a) Arrays: Are fixed length declared at compile time .Unlike variables
+   that will be stored anywhere in memory, arrays store their elements
+   contiguously (next to each other), ensuring that they can be accessed efficiently.
+
+  - Using arrays:
+
+      1. `grades := [_size_] _type_ {elem, elem, elem}` explicitly
+      specify the array size.
+      2. `grades := [...] _type_ {elem, elem, elem}` creates an array
+      large enough to hold the literals declared
+      3. `var students [_size_] _type_` then initialize `students[0] = "Lisa"`
+      4. Access array element `students[2]`
+      5. Get array size `len(students)`
+
+    _Arrays can only store data of the same type from primitives to arrays_
+
+    - In other languages arrays are pointers to the elements stored in
+    memory and re-assigning the array re-assigns the pointer to the
+    initial values instead of making a copy of the array and re-assiging
+    it. In Go, re-assigning arrays creates a new copy.
+
+    - To change this behaviour use the _address of `&`_
+    operator to specifiy a varible to reference the original value
+    in memory. This operator in Go, is used to retrieve the memory
+    address _in hex format_ of a value.
+
+    `See code samples in main.go for`
+
+    _Most common use for arrays in Go is to back slices_
+
+    b) Slices: Works similarly to arrays
+    with all array functionalities. Are reference types to the
+    underlying array. They are also not fixed length and resize as
+    elements are added to them _usually to twice the previous size_,
+    giving them extra capacity.
+
+    - Using slices:
+
+      1. `a := [] _type_ {elem, elem}` create a slice of the entire
+      underlying array.
+      2. `a := arr[:]` create a slice of the entire arr
+      3. `a := arr[3:]` create a slice from the 4th element of arr
+      4. `a := arr[:6]` creates a slice upto the 6th element of arr
+      5. `a := arr[3:6]` creates a slice of arr between the 4th and the 6th elements.
+      6. `a := make([]_type_, _len_)` if capacity is same as length
+      7. `a := make([]_type_, _len_, _capacity_)` if len is different from cap
+      8. `len(a)` return the size of the slice
+      9. `cap(a)` returns the size of the underlying array
+      10. `append(_parentSlice_, item, item, item)`
+      11. `append(_parentSlice_, _sliceToAppend_...)`
+
+      _If appending more items than the size of the slice, a copy
+      operation will be triggered to move over all the elements to a new
+      bigger slice, which can be costly. Using the `make()` can be used
+      to avoid this_
+      _since slice operations are reference operations there ever is
+      only one underlying array being affected_
