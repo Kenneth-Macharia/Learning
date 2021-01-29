@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"reflect"
 )
 
 func main()  {
@@ -216,5 +218,106 @@ func main()  {
 	slcNew := []int{6, 7, 8, 9, 10}
 	slc4 := append(slcNew[:2], slcNew[3:]...)  //mid section pop
 	fmt.Printf("%v\n", slc4)
+	fmt.Println("---------------------------")
 
+	// Declare structs
+	type Doctor struct {
+		number int
+		actorName string
+		companions []string  //slice
+	}
+
+	// Using structs
+	aDoctor := Doctor{
+		number: 3,
+		actorName: "Jon Pertwee",
+		companions: []string{
+			"Liz Shaw",
+			"Jo Grant",
+			"Sarah Jane Smith",
+		},
+	}
+
+	// Working with structs
+	fmt.Println(aDoctor)
+
+	// Accessing struct individual data using dot notation
+	fmt.Println(aDoctor.actorName)
+	fmt.Println(aDoctor.companions[2])
+
+	// Anonymous struct
+	bDoctor := struct{name string}{name: "Jon Pertwee"}
+	fmt.Printf("Anonymous struct: %s\n", bDoctor)
+
+	// Embedding with structs
+	type Animal struct {
+		Name string
+		Origin string
+	}
+
+	type Bird struct {
+		Animal  // embedding Animal properties
+		SpeedKPH float32
+		CanFly bool
+	}
+
+	  //Initialize struct
+	bird1 := Bird{}
+
+	// Set properties
+	bird1.Name = "Emu"
+	bird1.Origin = "Australia"
+	bird1.SpeedKPH = 48
+	bird1.CanFly = false
+
+	fmt.Println(bird1)
+	fmt.Println(bird1.Name)
+	fmt.Println(bird1.Origin)
+	fmt.Println(bird1.CanFly)
+
+	// Using struct tags
+	type Mountains struct {
+		Name string `max:"100"`
+		Location string
+		height int
+	}
+
+	// Accessing struct tags
+	objectType := reflect.TypeOf(Mountains{})
+	field, ok := objectType.FieldByName(("Name"))
+	fmt.Println(field.Tag, ok)
+	field2, _ := objectType.FieldByName(("Name"))
+	fmt.Println(field2.Tag)
+
+	// Using the Go 'ok' variable to ensure that the key "Name" exists.
+	// We can also use the _ symbol to ignore this value
+	fmt.Println("---------------------------")
+
+	// Floating point equality comparison
+	// Passes for small precision numbers
+	myNum := 0.12
+
+	if myNum == math.Pow(math.Sqrt(myNum), 2) {
+		fmt.Println("Equal")
+	} else {
+		fmt.Println("Not equal")
+	}
+
+	// Fails for small precision numbers
+	myNum2 := 0.122562
+
+	if myNum2 == math.Pow(math.Sqrt(myNum2), 2) {
+		fmt.Println("Equal")
+	} else {
+		fmt.Println("Not equal")
+	}
+
+	// Fix for large precision equality tests using error epsilon value
+	myNum3 := 0.122562
+
+	if math.Abs(myNum3 / math.Pow(math.Sqrt(myNum3), 2) - 1) < 0.001 {
+		fmt.Println("Equal")
+	} else {
+		fmt.Println("Not equal")
+	}
 }

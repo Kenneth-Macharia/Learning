@@ -9,7 +9,7 @@
   system) and C/C++ (fast but slow compile times and increasingly complex type
   system)
 - Concurrency is also patched into the the above languages.
-- Weaknesses addressed and improvements included into Go are:
+- Some weaknesses addressed and improvements included into Go are:
 
     1. Strong typed - variables types can't change over time
     2. Statically typed - variables types must be declared at compile time
@@ -95,12 +95,12 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
 
 - Declare a block of global scope variables:
 
-    var (
-        var1 string = "somestring"
-        var2 int = 2
-        var3 float32 = 23.9
-        var4float64 = 33.9
-    )
+      var (
+          var1 string = "somestring"
+          var2 int = 2
+          var3 float32 = 23.9
+          var4float64 = 33.9
+      )
 
 - Variable shadowing: an inner scope variable with the same name as a package/
   global level, taking precedence.
@@ -157,7 +157,7 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
          but not both_
         d) `&^` (and not): _1 if neither of the corresponding bits have been set_
 
-    5. Bit shifting is _adding or subtracting powers of 2.
+    5. Bit shifting is _adding or subtracting powers of 2_
         - If `a := 8` then:
 
             a) Left bit shifting: `a << 3` = `8 * 2^3` = 64
@@ -193,7 +193,7 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
             for tranferring strings or files across application and not
              worry about formating etc
 
-        `See code samples in main.go for`
+        `See code samples in main.go`
 
         b) rune: are utf32/int32 characters. Can be upto 32bits thus has
          operations used during encoding runes to know the actual length e.g a
@@ -221,7 +221,7 @@ _Constants have to be assigned at compile time and must contain
 -_Enumerated constants_: are constant blocks that auto-generate
   enumerated values using a built-in counter called `iota`
 - Iota auto-generates ints from 0 for each constant declared in
-  the constants block. `See code samples in main.go for`
+  the constants block. ``See code samples in main.go``
 
 ## Collections Types
 
@@ -229,7 +229,8 @@ _Constants have to be assigned at compile time and must contain
 
   a) Arrays: Are fixed length declared at compile time .Unlike variables
    that will be stored anywhere in memory, arrays store their elements
-   contiguously (next to each other), ensuring that they can be accessed efficiently.
+   contiguously (next to each other), ensuring that they can be accessed
+   efficiently. Are also ordered.
 
   - Using arrays:
 
@@ -253,7 +254,7 @@ _Constants have to be assigned at compile time and must contain
     in memory. This operator in Go, is used to retrieve the memory
     address _in hex format_ of a value.
 
-    `See code samples in main.go for`
+    `See code samples in main.go`
 
     _Most common use for arrays in Go is to back slices_
 
@@ -284,3 +285,170 @@ _Constants have to be assigned at compile time and must contain
       to avoid this_
       _since slice operations are reference operations there ever is
       only one underlying array being affected_
+
+    c) Maps: an un-ordered key-value pair data structure. Their length is determined
+    by the number of elements in them.
+
+      _Map keys have to be equality testable_
+      _All primitives and arrays, interfaces, pointers, structs and
+      channels can be tested for equality but not slices, maps or functions_
+
+    - Using maps:
+
+      1. _Literal syntax declaration_: `mapName := map[_keys type_]
+      _values type_{key:value, key:value}`
+      2. Using `make()` when the values are not available at declaration
+        time: `mapName := make(map[_keys type_]_values type_)
+      3. Accessing maps values: `mapName[_key_]`
+      4. Adding values: `mapName[_key_] = _value`
+      5. Deleting values: `delete(_mapName_, _key_)
+      6. Get number of elements: `len(mapName)`
+
+      _Accessing non-existing keys in a map returns `0`_
+
+      - To check if the key does exist:
+
+      1. `return_val, ok := mapName[_key_]` : the `ok` variable will
+      contain true if the key exists or false otherwise.
+      2. To check existance only: `_ , ok := mapName[_key_]`
+
+      _Similar to slices, maps are passed by reference thus a change
+      downstream affects the original map_
+
+    d) Struct: key-value pair data structure that can be used to group
+    different typed data that is related e.g properties of an individual,
+    similar to objects. The key-values can be of any type including arrays and slices.
+
+    `See code samples in main.go`
+
+    - Naming conventions for other variables apply to structs, including
+    the key names.
+    - Anonymous structs can also be used for short-lived code such as json
+     responses from a web server.
+    - They are declared as: `structName := struct{_key_ _vlaue data type_}
+    {_key_: _value_}
+
+    _struct unlike map are passed by value thus copies of the original
+    structs are passed and changing one does not affect the other_
+    _To pass structs by reference, use the `&` address of operator just
+    like with arrays_
+
+    - Go does not have some object oriented features like _inheritance_
+    which represents a _is-a_ relationship between objects.
+    - It uses _embedding_ to implement _composition-like_ features
+    representing a _has-a_ relationship with structs.
+    - Embedding involves adding a struct1 type within another struct2 to
+    add struct1 properties to struct2, thus struct2 now _has_ struct1-like
+    properties, even though the two are different and not related.
+    - Embedding is appropriate when trying to add a _base_ behaviour that
+     can be built upon but is not appropriate when behaviour needs to be
+    used inter-changeably such as in polymorphism, in which case
+    _interfaces_ are better suited._
+
+    `See code samples in main.go`
+
+    _Tags / field MetaData_ can be added to struct properties e.g for
+    validation use. Tags are space-separated string literals added after
+    the property type, within back ticks. They can also be key-value pairs.
+    - Tags can only be accessed using Go's _reflection_ package.
+    - Tags are to implemented by other frameworks and by themselves have
+    no meaning in Go, other than literals added to struct properties.
+
+    `See code samples in main.go`
+
+## Control Flow
+
+(a) If statements:
+
+  1. `if _bool condition_ { code for true } else { code for false }`
+  2. `if _bool condition_ {} else if _other bool condition_ {} else {}`
+
+- Initializer syntax: `if pop, ok := myMap["key"]; ok {}` and uses the key
+  existance check as the bool condition.
+- All logical operators work with if statements: `< > >= <= == != && || !`
+
+_Short-circuting is when Go ignores the rest of the tests in an || or &&
+test, if a preceeding test meets the requirements for the overall test_
+
+- Equality tests for floating point numbers can result in unexpected
+  results, since they are only approximations of decimal.
+`See code examples in main.go`
+
+(b) Switch statements:
+
+- Tag syntax: overlapping conditions are not allowed.
+
+  1.Single case values:
+
+      switch _comparison tag_ {
+        case _value to compare_:
+          _code to execute_
+
+        case _value to compare_:
+          _code to execute_
+
+        default:
+          _code to execute_
+      }
+
+  2.Multiple unique case values:
+
+      switch _comparison tag_ {
+        case value1, value2, value3:
+          _code to execute_
+
+        case value1, value2:
+          _code to execute_
+
+        default:
+          _code to execute_
+      }
+
+  3.Multiple unique case initialized values:
+
+      switch _comparison tag_ {
+        case value1, value2, value3:
+          _code to execute_
+
+        case value1, i := 2 + 3; i:
+          _code to execute_
+
+        default:
+          _code to execute_
+      }
+
+- Tagles syntax: overlapping conditions e.g below are allowed and the
+  first match is processed.
+
+      i : = 10
+      switch {
+        case i <= 10:
+          _code to execute_
+
+        case i <= 20:
+          _code to execute_
+
+        default:
+          _code to execute_
+      }
+
+  _Since Go switches have an implicit `break` statement to prevent
+   case fall through, it allows for the use of the
+   `fallthrough` keyword to allow the next case to be processed as well,
+   whether or not the condition passes_
+  _An explicit `break` keyword can be used to breakout of a case execution early_
+
+  - You can also types to evaluate switch conditions:
+
+      `var i interface{} = 1` // Interfaces can take any type in Go
+
+        switch i.(type) {
+          case int:
+            _code to execute_
+          casefloat64:
+            _code to execute_
+          case [3]int:
+            _code to execute (arrays must be same type & size_
+          default:
+            _code to execute_
+        }
