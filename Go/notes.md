@@ -1,6 +1,6 @@
 # Intro
 
-- Developed by a team at Google comparising of Robert Griesemar, Rob Pike and
+- Developed by a team at Google comparising of Robert Griesemer, Rob Pike and
   Ken Thompson.
 - "Developed while waiting for C++ programs to compile".
 - Developed to build highly scalable and concurrent applications.
@@ -514,3 +514,7 @@ decide how to handle them.
       - `for index/key, value := range arr {}`
 
     `See code samples in main.go`
+
+## Pointers
+
+
