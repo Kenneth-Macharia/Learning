@@ -452,3 +452,65 @@ test, if a preceeding test meets the requirements for the overall test_
           default:
             _code to execute_
         }
+
+(c) _defer_: used on a statement in a function, will cause the
+statement to be executed after the function but just before the function
+returns. With multiple defer statement are executed in a LIFO order.
+Variables associated with deferred statements will be evaluated
+upto the defer.
+
+  `See code sample in server.go`
+
+(d) _panic_: Go does not have _Exception_ since they are considered
+normal occurrences in Go e.g reading from a non-existing file. Go
+returns _errors_ rather than throw exceptions and execution continues.
+In situations where execution can't continue _panic_ is used instead.
+
+    - Go runtime will raise a _panic_ where execution can't continue,
+    since there are no in-built panic handling mechanisms.
+    - We can raise a _panic_ where we anticipate execution will fail and
+     where critical errors are likely to occur that we need handling of.
+
+(e) _recover_: used to guratee execution after the code that panics. The
+ panicking code e.g function still crashes but execution continues after
+panicked function. The useful place to user `recover()` is within
+deferred functions so that the application can look for panics and
+decide how to handle them.
+
+  _`returns` happen after `panics` happen after `defers` happen after a
+   function executes `everything in {}`_
+  _if recover cant be implemeted in panicking code, the panic can be
+  delegated for handling further up the call stack by re-throwing it_
+
+   `See code samples in main.go`
+
+## Looping
+
+- For loop is the only looping structure but can be used as while or do while loop.
+- Syntax:
+
+  1. `for i := 0; i < 5; i++ {}`
+  2. `for i := 0; i < 5; i = i + 2 {}`
+  3. Two counters: `for i, j := 0; i < 5; i, j = i + 1 {}`
+
+      _The loop increment operation is not an expression, it is an independent statement_
+
+  4. `i := 0` `for ; i < 5; i++ {}`
+  5. Emulating a while loop:
+      - `for i := 0; i < 5; { i++ }`
+      - `i := 0` `for ; i < 5; { i++ }`
+      - Best while loop emulator: `i := 0` `for i < 5 { i++ }`
+  6. Infinate loop using _break_ keyword: `for { _break_ if some
+  condition here is true }.
+
+      _`break` cna be used with a `label` to indicate where to return
+      execution flow and can be useful with nested loops_
+
+  7. Ignore an interation using _continue_ keyword if some condition is
+  true.
+  8. Looping through collections using _for ... range_, which works for
+   strings, slices, arrays and maps.
+      - `arr := [3]int{1, 2, 3}`
+      - `for index/key, value := range arr {}`
+
+    `See code samples in main.go`

@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
 func main()  {
@@ -143,7 +146,7 @@ func main()  {
 		GigaB
 		TeraB
 		PetaB
-		ExaBy
+		ExaB
 		ZettaB
 		YottaB
 	)
@@ -303,7 +306,7 @@ func main()  {
 		fmt.Println("Not equal")
 	}
 
-	// Fails for small precision numbers
+	// Fails for big precision numbers
 	myNum2 := 0.122562
 
 	if myNum2 == math.Pow(math.Sqrt(myNum2), 2) {
@@ -320,4 +323,87 @@ func main()  {
 	} else {
 		fmt.Println("Not equal")
 	}
+	fmt.Println("---------------------------")
+
+	// Using continue in for loops
+	for i := 0; i < 10; i++ {
+		if i % 2 == 0 {
+			continue
+		}
+		fmt.Println(i)
+	}
+
+	// Using break with a label
+	loop:
+	for i := 0; i <= 3; i++ {
+		for j := 1; j <= 3; j++ {
+			fmt.Println(i * j)
+
+			if i * j >= 3 {
+				break loop
+			}
+		}
+	}
+
+	// Looping over collections
+	phrase := "hello world"
+	for i, v := range phrase {
+		fmt.Println(i, string(v))
+	}
+
+	// Working with the keys/indice or values only
+	sPop := map[string]int{
+		"California": 3978359,
+		"Texas": 2794898,
+		"New York": 1977245,
+	}
+		// Key only
+	for k := range sPop {
+		fmt.Println(k)
+	}
+		// Values only using the 'write only' operator
+	for _, v := range sPop {
+		fmt.Println(v)
+	}
+	fmt.Println("----------")
+
+	// Using *defer* to release resources immediately after creation
+	res, err := http.Get(("http://www.google.com/robots.txt"))
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer res.Body.Close()
+		// working with res resource after closing it above
+	robots, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Printf("%s", robots)
+	fmt.Println("----------")
+
+	a10 := "start"
+	defer fmt.Println(a10)
+	a10 = "end"
+	fmt.Println("----------")
+
+	// recovering from panics
+	fmt.Println(("Start main execution..."))
+	panicker()
+	fmt.Println("Ending main execution")
+}
+
+func panicker() {
+	// panicking function
+
+	fmt.Println(("about to panic..."))
+
+		// Handle panic using defer, anonymous function & recover
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+			}
+		}()
+		panic("Something bad happened")
+		// Code unreacheable since code after panic in packined function does not execute
+		fmt.Println("Done panicking")
 }
