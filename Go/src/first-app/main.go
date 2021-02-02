@@ -9,6 +9,24 @@ import (
 	"net/http"
 )
 
+func panicker() {
+	// panicking function
+
+	fmt.Println(("about to panic..."))
+
+		// Handle panic using defer, anonymous function & recover
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+			}
+		}()
+		panic("Something bad happened")
+		// Code unreacheable since code after panic in packined function does not execute
+		fmt.Println("Done panicking")
+		fmt.Println("---------------------------")
+
+}
+
 func main()  {
 
 	// Uninitialized variables have a default value of 0 or false
@@ -381,29 +399,49 @@ func main()  {
 	fmt.Printf("%s", robots)
 	fmt.Println("----------")
 
-	a10 := "start"
-	defer fmt.Println(a10)
-	a10 = "end"
-	fmt.Println("----------")
-
 	// recovering from panics
 	fmt.Println(("Start main execution..."))
 	panicker()
 	fmt.Println("Ending main execution")
-}
+	fmt.Println("---------------------------")
 
-func panicker() {
-	// panicking function
+	// Pointers
+	val := 23
+	var pointer *int = &val  // create pointer to value in a in memory
+	fmt.Println(val, pointer)
+	fmt.Println(&val, pointer)  // confirming the two addresses are same
+	fmt.Println(val, *pointer)  // confirming the values
+	*pointer = 46		// Using the pointer to change the referenced value
+	fmt.Println(val, pointer)
+	fmt.Println("----------")
 
-	fmt.Println(("about to panic..."))
+	someArr := [3]int{1, 2, 3}
+	fmt.Printf("%v, %p, %p, %p\n", someArr, &someArr[0], &someArr[1], &someArr[2])
 
-		// Handle panic using defer, anonymous function & recover
-		defer func() {
-			if err := recover(); err != nil {
-				log.Println(err)
-			}
-		}()
-		panic("Something bad happened")
-		// Code unreacheable since code after panic in packined function does not execute
-		fmt.Println("Done panicking")
+	// Object pointers
+	type myStruct struct {
+		foo int
+	}
+
+	var ms *myStruct
+	ms = &myStruct{foo:42}  //ms points to s struct which has a property with a value 42
+	fmt.Println(ms)
+
+	// An uninitialized pointer will be set to nil
+	var ms2 *myStruct
+	ms2 = new(myStruct)  // can't initialize fields with new keyword
+	fmt.Println(ms2)
+
+	// Use the pointer to get a struct property value (dereferencing)
+	var ms3 *myStruct
+	ms3 = new(myStruct)
+	(*ms3).foo = 42
+	fmt.Println((*ms3).foo)
+
+	// Complex type derefencing is implied by the compiler
+	var ms4 *myStruct
+	ms4 = new(myStruct)
+	(*ms4).foo = 50
+	fmt.Println(ms4.foo)
+
 }

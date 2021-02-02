@@ -459,6 +459,10 @@ returns. With multiple defer statement are executed in a LIFO order.
 Variables associated with deferred statements will be evaluated
 upto the defer.
 
+        a10 := "start"
+        defer fmt.Println(a10)
+        a10 = "end"
+
   `See code sample in server.go`
 
 (d) _panic_: Go does not have _Exception_ since they are considered
@@ -503,7 +507,7 @@ decide how to handle them.
   6. Infinate loop using _break_ keyword: `for { _break_ if some
   condition here is true }.
 
-      _`break` cna be used with a `label` to indicate where to return
+      _`break` can be used with a `label` to indicate where to return
       execution flow and can be useful with nested loops_
 
   7. Ignore an interation using _continue_ keyword if some condition is
@@ -517,4 +521,19 @@ decide how to handle them.
 
 ## Pointers
 
+- Are numerical representations of data addresses in memory.
+- Created using an `asterisk` as prefix to a type.
+- We can then use the _addressof_ to get the address of a variable.
+- The `*` can also be used to retrive the value being referenced from
+a pointer by dereferencing it i.e `*b` while the `&` can be used to
+get the address a value that is stored at in memory i.e `&a`
 
+  _Go although allowing variable pointers, does not allow pointer
+  arithmetic like C/C++, to keep things simple_
+  _There is however the `unsafe` package in Go, that can be used to
+  achieve this but will not be checked by the compiler_
+  _An uninitialized pointer has the value `nil`_
+  _Pointers are responsible for the by-ref passing of slices and maps
+  because they have internal pointers, which are copied along_
+
+  `See code samples in main.go`
