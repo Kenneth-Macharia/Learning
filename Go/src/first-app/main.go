@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"math"
-	"reflect"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
+	"reflect"
 )
 
 func panicker() {
@@ -14,20 +14,20 @@ func panicker() {
 
 	fmt.Println(("about to panic..."))
 
-		// Handle panic using defer, anonymous function & recover
-		defer func() {
-			if err := recover(); err != nil {
-				log.Println(err)
-			}
-		}()
-		panic("Something bad happened")
-		// Code unreacheable since code after panic in packined function does not execute
-		fmt.Println("Done panicking")
-		fmt.Println("---------------------------")
+	// Handle panic using defer, anonymous function & recover
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println(err)
+		}
+	}()
+	panic("Something bad happened")
+	// Code unreacheable since code after panic in packined function does not execute
+	fmt.Println("Done panicking")
+	fmt.Println("---------------------------")
 
 }
 
-func main()  {
+func main() {
 
 	// Uninitialized variables have a default value of 0 or false
 	var i int
@@ -47,7 +47,7 @@ func main()  {
 	var c float32 = 3.4e32 // explicitly declare float32
 	fmt.Printf("%v, %T\n", c, c)
 
-	d := 2.1E14
+	d := 2.1e14
 	fmt.Printf("%v, %T\n", d, d)
 	fmt.Println("---------------------------")
 
@@ -86,7 +86,7 @@ func main()  {
 	fmt.Printf("%v, %T\n", str3, str3)
 
 	// Updating string (String bytes appending)
-	str4 := append([]byte("hello " ), "world"...)
+	str4 := append([]byte("hello "), "world"...)
 	fmt.Printf("Appended byte stream: %b\n", str4)
 	fmt.Printf("String representation: %s\n", string(str4))
 	fmt.Println("---------------------------")
@@ -158,7 +158,7 @@ func main()  {
 
 	// Formatting file size using enumerated constants
 	const (
-		_ = iota
+		_     = iota
 		KiloB = 1 << (10 * iota)
 		MegaB
 		GigaB
@@ -174,42 +174,42 @@ func main()  {
 
 	// Encoding info efficiently: Stores user roles using bits
 	const (
-		isAdmin = 1 << iota  //1
-		canSeeFinancials  //2
+		isAdmin          = 1 << iota //1
+		canSeeFinancials             //2
 
-		atHQ  //4
-		atAfrica  //16
-		atEurope  //32
+		atHQ     //4
+		atAfrica //16
+		atEurope //32
 	)
 
 	var user1 byte = isAdmin | canSeeFinancials | atHQ //111
-	fmt.Printf("%b\n", isAdmin)  //1
-	fmt.Printf("%b\n", canSeeFinancials)  //10
-	fmt.Printf("%b\n", atHQ)  //100
-	fmt.Printf("%b\n", user1)  //111
+	fmt.Printf("%b\n", isAdmin)                        //1
+	fmt.Printf("%b\n", canSeeFinancials)               //10
+	fmt.Printf("%b\n", atHQ)                           //100
+	fmt.Printf("%b\n", user1)                          //111
 
 	// Check user1 permissions
-	fmt.Printf("User1 an admin? %v\n", isAdmin & user1 == isAdmin)
-	fmt.Printf("User1 at HQ? %v\n", atHQ & user1 == atHQ)
-	fmt.Printf("User1 at HQ? %v\n", atAfrica & user1 == atAfrica)
+	fmt.Printf("User1 an admin? %v\n", isAdmin&user1 == isAdmin)
+	fmt.Printf("User1 at HQ? %v\n", atHQ&user1 == atHQ)
+	fmt.Printf("User1 at HQ? %v\n", atAfrica&user1 == atAfrica)
 	fmt.Println("---------------------------")
 
 	// Working with arrays
-	var identyMatrix [3][3] int
-	identyMatrix = [3][3]int { [3]int{1, 0, 0}, [3]int{0, 1, 0}, [3]int{0, 0, 1}, }
+	var identyMatrix [3][3]int
+	identyMatrix = [3][3]int{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}
 	fmt.Printf("%v\n", identyMatrix)
 
-	var indentityMatrix2 [3][3] int
-	indentityMatrix2[0] = [3]int {1, 0, 0}
-	indentityMatrix2[1] = [3]int {0, 1, 0}
-	indentityMatrix2[2] = [3]int {0, 0, 1}
+	var indentityMatrix2 [3][3]int
+	indentityMatrix2[0] = [3]int{1, 0, 0}
+	indentityMatrix2[1] = [3]int{0, 1, 0}
+	indentityMatrix2[2] = [3]int{0, 0, 1}
 	fmt.Printf("%v\n", indentityMatrix2)
 
 	// Array copies and references
 	arr := [...]int{1, 2, 3}
-	arr2 := arr  // arr2 is a copy of arr
+	arr2 := arr // arr2 is a copy of arr
 	arr2[1] = 5
-	arr3 := &arr2  // arr3 points to arr2
+	arr3 := &arr2 // arr3 points to arr2
 	arr3[2] = 9
 	fmt.Printf("%v\n", arr)
 	fmt.Printf("%v\n", arr2)
@@ -232,25 +232,25 @@ func main()  {
 
 	// Popping element from slices
 	slc := []int{1, 2, 3, 4, 5}
-	slc2 := slc[1:]  // head pop
+	slc2 := slc[1:] // head pop
 	fmt.Printf("%v\n", slc2)
-	slc3 := slc[1:len(slc) - 2]  // tail pop
+	slc3 := slc[1 : len(slc)-2] // tail pop
 	fmt.Printf("%v\n", slc3)
 	slcNew := []int{6, 7, 8, 9, 10}
-	slc4 := append(slcNew[:2], slcNew[3:]...)  //mid section pop
+	slc4 := append(slcNew[:2], slcNew[3:]...) //mid section pop
 	fmt.Printf("%v\n", slc4)
 	fmt.Println("---------------------------")
 
 	// Declare structs
 	type Doctor struct {
-		number int
-		actorName string
-		companions []string  //slice
+		number     int
+		actorName  string
+		companions []string //slice
 	}
 
 	// Using structs
 	aDoctor := Doctor{
-		number: 3,
+		number:    3,
 		actorName: "Jon Pertwee",
 		companions: []string{
 			"Liz Shaw",
@@ -267,22 +267,22 @@ func main()  {
 	fmt.Println(aDoctor.companions[2])
 
 	// Anonymous struct
-	bDoctor := struct{name string}{name: "Jon Pertwee"}
+	bDoctor := struct{ name string }{name: "Jon Pertwee"}
 	fmt.Printf("Anonymous struct: %s\n", bDoctor)
 
 	// Embedding with structs
 	type Animal struct {
-		Name string
+		Name   string
 		Origin string
 	}
 
 	type Bird struct {
-		Animal  // embedding Animal properties
+		Animal   // embedding Animal properties
 		SpeedKPH float32
-		CanFly bool
+		CanFly   bool
 	}
 
-	  //Initialize struct
+	//Initialize struct
 	bird1 := Bird{}
 
 	// Set properties
@@ -298,9 +298,9 @@ func main()  {
 
 	// Using struct tags
 	type Mountains struct {
-		Name string `max:"100"`
+		Name     string `max:"100"`
 		Location string
-		height int
+		height   int
 	}
 
 	// Accessing struct tags
@@ -336,7 +336,7 @@ func main()  {
 	// Fix for large precision equality tests using error epsilon value
 	myNum3 := 0.122562
 
-	if math.Abs(myNum3 / math.Pow(math.Sqrt(myNum3), 2) - 1) < 0.001 {
+	if math.Abs(myNum3/math.Pow(math.Sqrt(myNum3), 2)-1) < 0.001 {
 		fmt.Println("Equal")
 	} else {
 		fmt.Println("Not equal")
@@ -345,19 +345,19 @@ func main()  {
 
 	// Using continue in for loops
 	for i := 0; i < 10; i++ {
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			continue
 		}
 		fmt.Println(i)
 	}
 
 	// Using break with a label
-	loop:
+loop:
 	for i := 0; i <= 3; i++ {
 		for j := 1; j <= 3; j++ {
 			fmt.Println(i * j)
 
-			if i * j >= 3 {
+			if i*j >= 3 {
 				break loop
 			}
 		}
@@ -372,14 +372,14 @@ func main()  {
 	// Working with the keys/indice or values only
 	sPop := map[string]int{
 		"California": 3978359,
-		"Texas": 2794898,
-		"New York": 1977245,
+		"Texas":      2794898,
+		"New York":   1977245,
 	}
-		// Key only
+	// Key only
 	for k := range sPop {
 		fmt.Println(k)
 	}
-		// Values only using the 'write only' operator
+	// Values only using the 'write only' operator
 	for _, v := range sPop {
 		fmt.Println(v)
 	}
@@ -391,7 +391,7 @@ func main()  {
 		log.Fatalln(err)
 	}
 	defer res.Body.Close()
-		// working with res resource after closing it above
+	// working with res resource after closing it above
 	robots, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatalln(err)
@@ -407,11 +407,11 @@ func main()  {
 
 	// Pointers
 	val := 23
-	var pointer *int = &val  // create pointer to value in a in memory
+	var pointer *int = &val // create pointer to value in a in memory
 	fmt.Println(val, pointer)
-	fmt.Println(&val, pointer)  // confirming the two addresses are same
-	fmt.Println(val, *pointer)  // confirming the values
-	*pointer = 46		// Using the pointer to change the referenced value
+	fmt.Println(&val, pointer) // confirming the two addresses are same
+	fmt.Println(val, *pointer) // confirming the values
+	*pointer = 46              // Using the pointer to change the referenced value
 	fmt.Println(val, pointer)
 	fmt.Println("----------")
 
@@ -424,12 +424,12 @@ func main()  {
 	}
 
 	var ms *myStruct
-	ms = &myStruct{foo:42}  //ms points to s struct which has a property with a value 42
+	ms = &myStruct{foo: 42} //ms points to s struct which has a property with a value 42
 	fmt.Println(ms)
 
 	// An uninitialized pointer will be set to nil
 	var ms2 *myStruct
-	ms2 = new(myStruct)  // can't initialize fields with new keyword
+	ms2 = new(myStruct) // can't initialize fields with new keyword
 	fmt.Println(ms2)
 
 	// Use the pointer to get a struct property value (dereferencing)
