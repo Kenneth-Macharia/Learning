@@ -9,6 +9,19 @@ import (
 	"reflect"
 )
 
+func server() {
+	// Using *panic* to handle exceptional situations
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World"))
+	})
+	// starts a webserver on address :8080
+	error := http.ListenAndServe(":8080", nil)
+	// reporting err with panic, for port already in use
+	if error != nil {
+		panic(error.Error())
+	}
+}
+
 func panicker() {
 	// panicking function
 
