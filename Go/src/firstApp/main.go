@@ -506,15 +506,16 @@ func (obj *greeter) greet2() {
 }
 
 // Interfaces: primitive type
-	// declare an int type interface
+
+	// Incrementer is an int type interface
 type Incrementer interface{
 	Increment() int
 }
 
-	// declare an int type alias to implement the interface
+	// IntCounter is an int type alias to implement the interface
 type IntCounter int
 
-	// declare a method to increment the int type
+	// Increment is a method to increment the int type
 func (ic *IntCounter) Increment() int {
 	*ic++
 	return int(*ic)
@@ -616,10 +617,9 @@ func panicker() {
 		}
 	}()
 	panic("Something bad happened")
-	// Code unreacheable since code after panic in packined function does not execute
-	fmt.Println("Done panicking")
-	fmt.Println("---------------------------")
 
+	// Code after *panic* in a panicking function does not execute and is thus
+	// unreacheable
 }
 
 func greetings(greeting, name *string) { //Takes string pointer types
