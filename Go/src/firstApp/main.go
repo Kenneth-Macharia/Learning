@@ -298,7 +298,7 @@ func main() {
 	fmt.Println("---------------------------")
 
 	// Floating point equality comparison
-	// Passes for small precision numbers
+	// Passes for low precision numbers
 	myNum := 0.12
 
 	if myNum == math.Pow(math.Sqrt(myNum), 2) {
@@ -307,7 +307,7 @@ func main() {
 		fmt.Println("Not equal")
 	}
 
-	// Fails for big precision numbers
+	// Fails for high precision numbers
 	myNum2 := 0.122562
 
 	if myNum2 == math.Pow(math.Sqrt(myNum2), 2) {
@@ -316,7 +316,7 @@ func main() {
 		fmt.Println("Not equal")
 	}
 
-	// Fix for large precision equality tests using error epsilon value
+	// Fix for high precision equality tests using error epsilon value
 	myNum3 := 0.122562
 
 	if math.Abs(myNum3/math.Pow(math.Sqrt(myNum3), 2)-1) < 0.001 {
