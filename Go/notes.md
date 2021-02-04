@@ -325,7 +325,7 @@ _Constants have to be assigned at compile time and must contain
     the key names.
     - Anonymous structs can also be used for short-lived code such as json
      responses from a web server.
-    - They are declared as: `structName := struct{_key_ _vlaue data type_}
+    - They are declared as: `structName := struct{_key_ _value data type_}
     {_key_: _value_}
 
     _struct unlike map are passed by value thus copies of the original
@@ -537,3 +537,214 @@ get the address a value that is stored at in memory i.e `&a`
   because they have internal pointers, which are copied along_
 
   `See code samples in main.go`
+
+## Functions
+
+- Blocks of code that implement specific logic within an application and
+  are declared using the `func` keyword, followed by params brackets and
+  curly braces denoting the functions body. `func() {}`
+- Are first class citizens in Go that can be passed around like variables.
+
+  _Go applications must have an entry point, in package main, with a main
+  function (taking no args and returning no value)_
+
+- Naming convention is similar to variables.
+- Functions parameters are declared like normal variables without the
+  `var` keyword, in the params brackets, separated by commas.
+
+  _If multiple params have the same type, specify the type for the last one only_
+
+- Params are normally passed by-value to functions, but pointers to
+  other values can also be passed as well, in this case the value is passed by-ref.
+- Passing values by ref using pointers can have perfomance
+  improvemenets, if the data being passed to a function is large,
+  instead of passing copies everytime the data is required.
+- Variadic functions take an undefined number of arguments
+  declared as `func(args ...int) {}` which adds all args passed in
+  into a slice named _args_.
+- Variadic parameters passed to a function can only be one and must
+  be the last parameter passed in and be of the same type.
+- A function's return type is specified after args braces:
+ `func(arg type) type {}`
+- Functions in Go can return local variables as pointers, that can
+  be dereferenced in the calling code to access the underlying value.
+- Since the local return value is held in the function's stack
+  memory, returning values by-ref may not be safe in other
+  programming languages because once the function returns, its
+  stack memory is also cleared.
+- In Go however, a function's pointer return value is promoted to
+  the shared heap memory and will be available even after
+  the function returns.
+- For short functions, names return values may be result in cleaner
+  code, because the return values do not have to be declared within
+  the body of the func:
+  `func(arg type) (returnVal type) {_return_}`
+- You can return more than one return value in Go.
+
+### Anonymous / Immediately invoked functions
+
+- Used when using functions as types and declared as `func() {}()`,
+  with the brackets after the body, imeediately invoking the
+  function.
+- They can be used to limit scope within another function in a
+  bested structure or within a loop.
+- Anonymous functions can also be assinged to variables and invoked
+  from the varible of type _func()_:
+
+  `var f func() = func() {}` or `f := func() {}`
+  `f()`
+- You can create custom anonymous function type signatures as well:
+
+        var funcVar func(float64, float64) (float64, error)
+
+        funcVar = func(a, b float64) (float64, error) {
+          _function block code_
+        }
+
+### Methods
+
+- Are functions that execute within known contexts _(types)_, and in
+  Go, they can be associted with any type including primitives.
+
+`See code samples in main.go`
+
+## Interfaces
+
+_In the real world, the implementation details of classes change,
+ often quite substantially. If other classes are relying on the
+ internal implementation details of the class, then code dependent
+ on that class will start to malfunction when those details change.
+  By defining an interface, a class promises other classes
+  which depend on it "I will always have these properties and
+  methods available, even if the details of how I execute them may
+  change."_
+
+- Intefaces in Go are automatically implemented, if the implementer
+  has all the methods defined in the interface.
+- Interfaces are types _(interface)_ just like structs, but unlike
+structs which describe data, interfaces describe behaviour by
+storing method definitions e.g from the Go i/o package
+
+        type Writer interface {
+            Write([]byte) (int, err)  // no. bytes written & err
+        }
+
+- Anything implementing the above interface will take the slice of
+  bytes and write it somewhere e.g to console, tcp connenction or a
+  file.
+- To implement it we can define a console writer which will take
+  the bytes slice and print to console e.g using a struct
+
+        type ConsoleWriter struct {}
+
+- In Go, interfaces are implicitly implemented by defining a method
+  with a similar signature as an interface method and not by using
+  keywords such as _implements_ e.g.
+
+        func (cw ConsoleWriter) Write(data []byte) (int, error) {
+            // Custom implementation of the interface
+
+            n, err := fmt.Println(string(data))
+            return n, err
+        }
+
+- We can then use the ConsoleWriter to write text to the console:
+
+        func main() {
+            var writerObj Writer = ConsoleWriter{}
+            writerObj.Write([]byte("Hello Go"))
+        }
+
+- Interfaces drive polymorphism by enabling an object to take
+  different forms depending on the implemetation of an interface i.e
+  how it's methods are being overriden.
+- In the above example, the writerObj defined can be a console
+  writer, tcp writer or file writer depending on the implementation
+  code _(the struct & its method in our case)_, but it will always
+  write some bytes to some output.
+
+### Naming Interfaces
+
+- The name of an interface should reperesent what the interface
+  does i.e:
+
+  1. Single method interfaces: interface name is the _method name +
+  `er`_ e.g. above example: method: `Write`; interface: `Writer`
+  2. Multiple method interface: name interface by what it does.
+
+- Name should begin with caps as well as the method names.
+
+### Composing interfaces together (Similar to structs)
+
+- This is a key feature for scalable coding in Go because of
+single  method interfaces which while defineing very specific
+behaviours, they are not very opinionated and thus can be
+implemented in alot of ways.
+- Composition adds other interface features into other in a sort of
+ nesting that solves problems like requiring more methods in a
+single-method interface but can't decompose the interface down.
+
+- Type conversions can be performed on interfaces as well. For
+instance the `WriterCloser` object used to print out text in the
+sample code example can be cast into a `BufferedWriterCloser`
+object to be able to access more info about it:
+
+        newBWC, ok := wc.(*BufferedWriterCloser)
+
+  // Check if the conversion succeeded so that the app does not
+  panic (which is expensive), if the conversion fails:
+  
+        if ok { //investigate newBWC }
+        else { // show the conversion failed }
+
+### Empty Interface
+
+- An interface defined on the fly that has no methods, using the
+  syntax `interface{}` or `type interface {}` e.g
+
+  var myObj interface{} = NewBufferedWriterCloser()
+
+- Its useful when dealing with many types that are not compartible
+  with each other and that would require some type checking later
+  and is mostly used an intermediate conversion step.
+- Objects of the empty interface will later require conversion into
+  a useful object that has methods to implement.
+- We can use a `type switch` to check an empty interface object:
+
+        var i interface {} = true
+
+        switch i.(type) {
+          case int:
+            // handle an int
+          case string:
+            // handle string
+          default:
+            // handle anything else
+        }
+
+### Method Sets for Pointers and Values
+
+- When implementing an interface and we use a value type e.g `var
+writerObj Writer = ConsoleWriter{}`, then all methods in the type,
+must have `value receivers` i.e `func (obj ConsoleWriter) Method1()
+{}` `func (obj ConsoleWriter) Method2() {}`.
+- When implementing an interface and we use a pointer type e.g
+`var writerObj Writer = &ConsoleWriter{}`, then the methods in
+the type can both `pointer & value receivers` i.e `func (obj *ConsoleWriter)
+Method1(){}` `func (obj ConsoleWriter) Method2() {}`.
+
+_Pointers have access to the underlying type as well as the type's
+data thus care should be taken when using pointer receivers in
+methods as those methods can make alterations to the type_
+
+### Best practices for working with interfaces
+
+1. Use many small interface instead of few monolithic ones, then
+compose them together if needing large ones.
+2. Export concrete types instead of their interfaces for packages
+that will be consumed by others and let them create the interfaces.
+3. Do export interfaces for concrete types that I will be consuming.
+4. Design functions and methods to receive interfaces whenever
+possible so as to make them flexible.
+
+`See code samples in main.go`

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -8,37 +9,6 @@ import (
 	"net/http"
 	"reflect"
 )
-
-func server() {
-	// Using *panic* to handle exceptional situations
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
-	})
-	// starts a webserver on address :8080
-	error := http.ListenAndServe(":8080", nil)
-	// reporting err with panic, for port already in use
-	if error != nil {
-		panic(error.Error())
-	}
-}
-
-func panicker() {
-	// panicking function
-
-	fmt.Println(("about to panic..."))
-
-	// Handle panic using defer, anonymous function & recover
-	defer func() {
-		if err := recover(); err != nil {
-			log.Println(err)
-		}
-	}()
-	panic("Something bad happened")
-	// Code unreacheable since code after panic in packined function does not execute
-	fmt.Println("Done panicking")
-	fmt.Println("---------------------------")
-
-}
 
 func main() {
 
@@ -456,5 +426,232 @@ loop:
 	ms4 = new(myStruct)
 	(*ms4).foo = 50
 	fmt.Println(ms4.foo)
+	fmt.Println("---------------------------")
 
+	// Passing values by reference to functions using pointers
+	greeting, name := "Hello", "Stacey"
+	greetings(&greeting, &name) // Pass value address to function
+	fmt.Println(name)           //Confirm value was changed by function
+
+	// Passing varidic parameters
+	sum("Sum is:", 1, 2, 3, 4, 5)
+	fmt.Println(*sum2(3, 4, 5))  //dereference sum2's return value
+
+	// Returning multiple values (If err is thrown, main exits here)
+	retVal, err := throwsError(5.0, 1.0)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(retVal)
+
+	// Anonymous function used within loop
+	for i := 0; i < 5; i++ {
+		func (i int)  {
+			// Anonymous functions
+			fmt.Println(i)
+		}(i)  // Passing the for loop counter to the function is safer for asyn processing
+	}
+
+	// Using methods with structs
+		// Initialize struct
+	obj := greeter{
+		greeting: "Hello",
+		name: "Go",
+	}
+	obj.greet()
+	obj.greet2()
+	fmt.Println("---------------------------")
+
+	// Using primitive type interface
+	myInt := IntCounter(0) //cast an int to an intcounter
+	var inc Incrementer = &myInt
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(inc.Increment())
+	}
+
+	// Interface composition implementation with empty interface
+	// intermediate type conversion checking
+	var wc interface {} = NewBufferedWriterCloser()
+	if wc, ok := wc.(WriterCloser); ok {
+		wc.Write([]byte("Hello YouTube listeners, this is a test!"))
+		wc.Close()
+	} else {
+		fmt.Println("Type conversion failed")
+	}
+
+
+// ####################	END OF MAIN() ##################
+}
+
+// ########## STRUCTS, INTERFACES AND METHODS #########
+
+// Structs and methods
+	// declare a struct type
+type greeter struct {
+	greeting string
+	name string
+}
+
+	// declare a method. Receiving the context by-val via obj
+func (obj greeter) greet() {
+	fmt.Println(obj.greeting, obj.name)
+}
+
+	// declare another method. Receiving the context by-ref via obj.
+func (obj *greeter) greet2() {
+	// changes here will propagate to the struct
+	fmt.Println(obj.greeting, obj.name) //implicit dereferencing
+}
+
+// Interfaces: primitive type
+	// declare an int type interface
+type Incrementer interface{
+	Increment() int
+}
+
+	// declare an int type alias to implement the interface
+type IntCounter int
+
+	// declare a method to increment the int type
+func (ic *IntCounter) Increment() int {
+	*ic++
+	return int(*ic)
+}
+
+// ******* INTERFACE COMPOSITION *******
+
+	// Writer is the first interface to be composed
+type Writer interface {
+	Write([]byte) (int, error)
+}
+
+	// Closer is the second interface to be composed
+type Closer interface {
+	Close() error
+}
+
+	// WriterCloser is the composed interface
+type WriterCloser interface {
+	Writer  //embed the Writer interface
+	Closer  //embed the Closer interface
+}
+
+	// BufferedWriterCloser implements the composed interface
+type BufferedWriterCloser struct {
+	buffer *bytes.Buffer
+}
+
+	// Write method overide with a BufferedWriterCloser method
+func (bwc *BufferedWriterCloser) Write(data []byte) (int, error) {
+	// This method writes the buffer content in 8 char chunks
+	n, err := bwc.buffer.Write(data)
+	if err != nil {
+		return 0, err
+	}
+
+	v := make([]byte, 8)
+	for bwc.buffer.Len() > 8 {
+		_, err := bwc.buffer.Read(v)
+		if err != nil {
+			return 0, err
+		}
+		_, err = fmt.Println(string(v))
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	return n, nil
+}
+
+	// Close method overide with a BufferedWriterCloser method
+func (bwc *BufferedWriterCloser) Close() error {
+	// This method flushes the buffer if it has less than 8 chars
+	for bwc.buffer.Len() > 0 {
+		data := bwc.buffer.Next(8)
+		_, err := fmt.Println(string(data))
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+	// NewBufferedWriterCloser is a buffer initializer for the
+	// BufferedWriterCloser struct that retuns an obj with a buffer
+	// initialized
+func NewBufferedWriterCloser() *BufferedWriterCloser {
+	return &BufferedWriterCloser{
+		buffer: bytes.NewBuffer([]byte{}),  // Initializer
+	}
+}
+
+// ################ FUNCTIONS ######################
+
+func server() {
+	// Using *panic* to handle exceptional situations
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World"))
+	})
+	// starts a webserver on address :8080
+	error := http.ListenAndServe(":8080", nil)
+	// reporting err with panic, for port already in use
+	if error != nil {
+		panic(error.Error())
+	}
+}
+
+func panicker() {
+	// panicking function
+
+	fmt.Println(("about to panic..."))
+
+	// Handle panic using defer, anonymous function & recover
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println(err)
+		}
+	}()
+	panic("Something bad happened")
+	// Code unreacheable since code after panic in packined function does not execute
+	fmt.Println("Done panicking")
+	fmt.Println("---------------------------")
+
+}
+
+func greetings(greeting, name *string) { //Takes string pointer types
+	// Passing pointers as arguments
+	fmt.Println(*greeting, *name)
+	*name = "Ted" //Re-assigning value
+	fmt.Println(*name)
+}
+
+func sum(msg string, values ...int) {
+	result := 0
+
+	for _, val := range values {
+		result += val
+	}
+	fmt.Println(msg, result)
+}
+
+func sum2(vals ...int) *int { // int pointer type return
+	result := 0
+
+	for _, val := range vals {
+		result += val
+	}
+
+	return &result
+}
+
+func throwsError(a, b float64) (float64, error) {
+	if b == 0.0 {
+		return 0.0, fmt.Errorf("Cannot divide by %f", b)
+	}
+
+	return a / b, nil
 }
