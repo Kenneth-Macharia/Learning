@@ -61,15 +61,22 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
   structure when using source control, to make the applications go gettable i.e
   downloadable using `go get <lib>`, since github will create a similar folder structure.
 
-## Writing the first Go app
+## Libraries, Modules and Packages
 
-- Go files have a .go extension
-- Packages are how Go code is organised into sub-libraries. They are then importable
-  into your existing Go app to add functionality.
-- All Go app files must be part of a package, declared at the top of the file.
-- Imported packages follow next in the `import {}` statement.
+- Packages are how Go code is organised and take the form of .go files. Packages
+  usually perform specific functions and contain methods to perform those functions
+  e.g `http`
+- Inside the files, the package to which the file belongs to is indicates as the
+  line `package <package fileName>`
+- Imported/ external packages follow next in the `import ()` statement.
 - A main package with a main function is a Go app's entry point and is required
   for every Go application.
+- Multiple package files can be bundled into a directory to form a `module`. Modules
+  define a family of related packages e.g `net`
+- A library is a set of related modules.
+
+## Building and running Go apps
+
 - Use `go run <path to main.go>` to run a Go app, which temporarily complies the
   application src files, then run the generated binary.
 - Use `go build <path to package>` to compile the app package (app folder) into an
@@ -504,7 +511,7 @@ decide how to handle them.
       - `for i := 0; i < 5; { i++ }`
       - `i := 0` `for ; i < 5; { i++ }`
       - Best while loop emulator: `i := 0` `for i < 5 { i++ }`
-  6. Infinate loop using _break_ keyword: `for { _break_ if some
+  6. Infinite loop using _break_ keyword: `for { _break_ if some
   condition here is true }.
 
       _`break` can be used with a `label` to indicate where to return
@@ -693,7 +700,7 @@ object to be able to access more info about it:
 
   // Check if the conversion succeeded so that the app does not
   panic (which is expensive), if the conversion fails:
-  
+
         if ok { //investigate newBWC }
         else { // show the conversion failed }
 
@@ -746,5 +753,204 @@ that will be consumed by others and let them create the interfaces.
 3. Do export interfaces for concrete types that I will be consuming.
 4. Design functions and methods to receive interfaces whenever
 possible so as to make them flexible.
+
+`See code samples in main.go`
+
+## Goroutines
+
+- Most programming languages use OS threads, which have individual
+ functions call stack, to handle code assigned to these threads.
+- These call stacks tend to be large _about 1MB RAM_ and take a
+while to set up applications, making creation and destruction of threads expensive.
+- Go, on the hand uses, green threads which are an abstration of OS
+threads called goroutines, which ensure we dont have to interact
+with OS threads directly.
+- The Go runtime has a scheduler that maps goroutines onto the OS
+threads and takes turns with every available CPU thread, assigning
+the various goroutines, a certian amount of processing time on
+those threads.
+- Because of this abstration, goroutines can start with very small
+stack spaces because they can be reallocated quickly, making them
+cheap to create and destroy.
+- This allow the running of thousands or even tens of thousands of
+goroutines to run at the same time, which is not possible with
+languages that rely on large OS threads.
+- Since Go has `closures` _(persistent scope which holds on to local
+variables even after the code execution has moved out of that block)
+_, goroutines _(functions executed using the `go` keyword)_ have
+access to variable defined in parent scopes, even through the
+goroutine and the parent scoped code, run in different execution
+stacks. This can however create _race conditions_ and should be avoided:
+
+          func main() {
+            var msg string = "hello"
+
+            go func() {   // anonymous func has access to msg var
+                          // in different execution stack
+
+              fmt.Println(msg)
+            }()
+            msg = "goodbye"   // gets printed because the
+                              // main thread changes the var before
+                              // the goroutine acts on it
+
+            time.Sleep(100 * time.Millisecond)
+
+          }
+
+- The best way is to pass arguments into goroutines so that main
+threaad and the goroutine are decoupled, because a copy of the value will be passed:
+
+          func main() {
+            var msg string = "hello"
+
+            go func(msg string) {
+              fmt.Println(msg)  // prints out OK
+            }(msg)
+
+            msg = "goodbye"
+            time.Sleep(100 * time.Millisecond)
+
+          }
+
+- Using `Sleep` sync app execution to the real world clock which is
+ unreliable and should not be used in production.
+- The way to go is to use `Wait group` which syncs multiple
+goroutines together by informing the `main thread` of existing
+goroutines to sync with so that execution take just enough time to
+remain efficient:
+
+          var wg = sync.WaitGroup{}  // define the wait group
+
+          func main() {
+            var msg = "hello"
+            wg.Add(1)  // register # of goroutines to wait for
+            go func(msg string) {
+              fmt.Println(msg)
+              wg.Done()   // decrements the # of goroutines added
+                         // to 0 so that the application can exit
+            }(msg)
+            msg = "goodbye"
+            wg.Wait()   // Main goroutine to wait for the others
+          }
+
+_The main goroutine `running main()` just stores data and spawns other goroutines_
+
+- While using still waitgroups, the goroutines even synced to how
+they will access the common data, will still execute out of order
+from what is expected. To fix this, use a `Mutex`.
+- A mutex is a lock, that the application will honour. It is used
+to protect data such that only one entity can have access to the
+data at any one time.
+
+### Parallelism
+
+- By default Go will assign threads equal to the number of CPU cores
+on the local machine.
+
+_runtime.GOMAXPROCS(`int > 0`) is used to set the MAX number of
+OS threads that can be executing simulteanously for an app._
+_runtime.GOMAXPROCS(`int < 0`) is used to query the set MAX number
+of OS threads_
+_runtime.NumCPU() is used to query the available CPUs on the local machine_
+
+- GOMAXPROCS is a tuning tool, to setting the right number of
+threads for your application. 1:1 threads vs machine core count
+should be the minimum and by adding more, the application tends to
+ be faster. In production, profile the app with different values for
+GOMAXPROCS to find the sweet spot.
+
+`See code samples in main.go`
+
+### Goroutine Best Practices
+
+1. Don't create goroutines when creating libraries, rather let the
+ consumers control the concurrency to avoid sync issues, unless you
+function returns a channel, in which case the consumers will only
+be listening for a return value.
+2. Know how the goroutine will end, to avoid memory leaks because
+of perpetual goroutines e.g by closing its channel in a `defer` or
+a select statement.
+3. Check for race conditions at compile time using `-race` flag
+with `go run`, `go install` or `go build`
+
+## Channels
+
+- Make concurrency(ability to run asynchrounously) and parallelism
+(running asynchronously) in Go shine.
+- Channels allow data to be safely passed on between goroutines
+in order to avoid issues like race conditions and memory sharing issues.
+- Creating a channel: `ch := make(chan int)`
+- Channels are also strongly typed, thus int channels can only
+transmit ints, string > strings, pointers > pointers etc.
+- Value copies are passed into a channel just like other primitives.
+- For non-buffered channels, if multiple goroutines are sending
+data into a channel but non is consuming the data and vice versa
+then there will be a `deadlock` situation because one of the
+goroutines will block the channel indefinately, attempting to write
+to a non-empty channel or reading from an empty one.
+- Below creates a deadlock because 5 goroutines will attempt to
+write into the channel, while there is only one reading from the channel:
+
+          go func() {
+              i := <- ch
+              // Do something with i
+          }
+
+          for j := 0; j < 5; j++ {
+            go func() {
+              ch <- 42
+            }
+          }
+
+- The first goroutine with access to the channel on either end
+blocks it for use and releases it to the others, once done.
+- You can have goroutines read and write to and from a channel but
+best practice is to designate writers and readers.
+- Receiver goroutines declared as `go func(ch <- chan int) {}(ch)`
+ and sender goroutines declared as `go func(ch chan <- int) {}(ch)`
+
+### Buffered Channels
+
+- Made to operate where senders and receivers operate at different
+frequencies so that the channel is not blocked by the speedier goroutines.
+- Use a for loop in the receiver goroutine to retrieve the values
+from a buffered channel and ensure that the sender closes the
+channel once doen writing, so that the receiver loop knows when to
+stop iterating over the channel, otherwise there will be a deadlock
+due to a non-terminating loop and hence non-terminating goroutine.
+
+_Once a channel is closed, data cant be written to and an
+attempt to will `panic` the application and the only remedy
+here being to try a `recover`_
+_You can however check on the receiving end whether or not the
+channel is open or close by using the `, ok` within the for loop
+just like with maps:
+
+        go func(ch <- chan int) {
+          for {
+              if i, ok := <- ch; ok {
+                 // continue reading in values
+              } else {
+                break
+              }
+          }
+        }
+
+### Select Statements
+
+- We can a select statement to listen in on various channels for
+messages and decide on execution flow based on which channel
+responds first.
+- A good example for this is when developing a goroutine terminate strategy.
+- A select statement is syntactically similar to a switch but
+applies to channels and cna be used without a `default` case
+to ensure it blocks until a match is found.
+- It blocks continuously if there are no messages from any of the monitored channels.
+- If multiple channels receive a value simulteanously, then any one
+of them will proceed _no rule on which one_
+- A `default` makes the select non-blocking in which case if
+matching case is not found the default executes and the select
+exits.
 
 `See code samples in main.go`

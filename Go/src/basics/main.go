@@ -435,7 +435,7 @@ loop:
 
 	// Passing varidic parameters
 	sum("Sum is:", 1, 2, 3, 4, 5)
-	fmt.Println(*sum2(3, 4, 5))  //dereference sum2's return value
+	fmt.Println(*sum2(3, 4, 5)) //dereference sum2's return value
 
 	// Returning multiple values (If err is thrown, main exits here)
 	retVal, err := throwsError(5.0, 1.0)
@@ -447,17 +447,17 @@ loop:
 
 	// Anonymous function used within loop
 	for i := 0; i < 5; i++ {
-		func (i int)  {
+		func(i int) {
 			// Anonymous functions
 			fmt.Println(i)
-		}(i)  // Passing the for loop counter to the function is safer for asyn processing
+		}(i) // Passing the for loop counter to the function is safer for asyn processing
 	}
 
 	// Using methods with structs
-		// Initialize struct
+	// Initialize struct
 	obj := greeter{
 		greeting: "Hello",
-		name: "Go",
+		name:     "Go",
 	}
 	obj.greet()
 	obj.greet2()
@@ -473,7 +473,7 @@ loop:
 
 	// Interface composition implementation with empty interface
 	// intermediate type conversion checking
-	var wc interface {} = NewBufferedWriterCloser()
+	var wc interface{} = NewBufferedWriterCloser()
 	if wc, ok := wc.(WriterCloser); ok {
 		wc.Write([]byte("Hello YouTube listeners, this is a test!"))
 		wc.Close()
@@ -481,25 +481,24 @@ loop:
 		fmt.Println("Type conversion failed")
 	}
 
-
-// ####################	END OF MAIN() ##################
+	// ####################	END OF MAIN() ##################
 }
 
 // ########## STRUCTS, INTERFACES AND METHODS #########
 
 // Structs and methods
-	// declare a struct type
+// declare a struct type
 type greeter struct {
 	greeting string
-	name string
+	name     string
 }
 
-	// declare a method. Receiving the context by-val via obj
+// declare a method. Receiving the context by-val via obj
 func (obj greeter) greet() {
 	fmt.Println(obj.greeting, obj.name)
 }
 
-	// declare another method. Receiving the context by-ref via obj.
+// declare another method. Receiving the context by-ref via obj.
 func (obj *greeter) greet2() {
 	// changes here will propagate to the struct
 	fmt.Println(obj.greeting, obj.name) //implicit dereferencing
@@ -507,15 +506,15 @@ func (obj *greeter) greet2() {
 
 // Interfaces: primitive type
 
-	// Incrementer is an int type interface
-type Incrementer interface{
+// Incrementer is an int type interface
+type Incrementer interface {
 	Increment() int
 }
 
-	// IntCounter is an int type alias to implement the interface
+// IntCounter is an int type alias to implement the interface
 type IntCounter int
 
-	// Increment is a method to increment the int type
+// Increment is a method to increment the int type
 func (ic *IntCounter) Increment() int {
 	*ic++
 	return int(*ic)
@@ -523,30 +522,30 @@ func (ic *IntCounter) Increment() int {
 
 // ******* INTERFACE COMPOSITION *******
 
-	// Writer is the first interface to be composed
+// Writer is the first interface to be composed
 type Writer interface {
 	Write([]byte) (int, error)
 }
 
-	// Closer is the second interface to be composed
+// Closer is the second interface to be composed
 type Closer interface {
 	Close() error
 }
 
-	// WriterCloser is the composed interface
+// WriterCloser is the composed interface
 type WriterCloser interface {
-	Writer  //embed the Writer interface
-	Closer  //embed the Closer interface
+	Writer //embed the Writer interface
+	Closer //embed the Closer interface
 }
 
-	// BufferedWriterCloser implements the composed interface
+// BufferedWriterCloser implements the composed interface
 type BufferedWriterCloser struct {
 	buffer *bytes.Buffer
 }
 
-	// Write method overide with a BufferedWriterCloser method
+// Write method overriden with a BufferedWriterCloser method
 func (bwc *BufferedWriterCloser) Write(data []byte) (int, error) {
-	// This method writes the buffer content in 8 char chunks
+	// This method writes the buffer contents in 8 char chunks
 	n, err := bwc.buffer.Write(data)
 	if err != nil {
 		return 0, err
@@ -567,7 +566,7 @@ func (bwc *BufferedWriterCloser) Write(data []byte) (int, error) {
 	return n, nil
 }
 
-	// Close method overide with a BufferedWriterCloser method
+// Close method overide with a BufferedWriterCloser method
 func (bwc *BufferedWriterCloser) Close() error {
 	// This method flushes the buffer if it has less than 8 chars
 	for bwc.buffer.Len() > 0 {
@@ -581,12 +580,12 @@ func (bwc *BufferedWriterCloser) Close() error {
 	return nil
 }
 
-	// NewBufferedWriterCloser is a buffer initializer for the
-	// BufferedWriterCloser struct that retuns an obj with a buffer
-	// initialized
+// NewBufferedWriterCloser is a buffer initializer for the
+// BufferedWriterCloser struct that retuns an obj with a buffer
+// initialized
 func NewBufferedWriterCloser() *BufferedWriterCloser {
 	return &BufferedWriterCloser{
-		buffer: bytes.NewBuffer([]byte{}),  // Initializer
+		buffer: bytes.NewBuffer([]byte{}), // Initializer
 	}
 }
 
