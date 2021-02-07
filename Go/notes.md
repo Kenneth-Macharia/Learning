@@ -61,10 +61,10 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
   structure when using source control, to make the applications go gettable i.e
   downloadable using `go get <lib>`, since github will create a similar folder structure.
 
-## Libraries, Modules and Packages
+## Modules and Packages
 
 - Packages are how Go code is organised and take the form of .go files. Packages
-  usually perform specific functions and contain methods to perform those functions
+  usually perform specific functions and methods to perform those functions
   e.g `http`
 - Inside the files, the package to which the file belongs to is indicates as the
   line `package <package fileName>`
@@ -73,7 +73,11 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
   for every Go application.
 - Multiple package files can be bundled into a directory to form a `module`. Modules
   define a family of related packages e.g `net`
-- A library is a set of related modules.
+- Modules also specifiy the context Go needs to run code including the version and
+  dependancies required.
+- Modules are started with the `go mod init <module download URL>` command, which
+  creates a `go.mod` file in the module folder, identifying the module are
+  importable by other modules.
 
 ## Building and running Go apps
 
@@ -322,8 +326,8 @@ _Constants have to be assigned at compile time and must contain
       _Similar to slices, maps are passed by reference thus a change
       downstream affects the original map_
 
-    d) Struct: key-value pair data structure that can be used to group
-    different typed data that is related e.g properties of an individual,
+    d) Struct: a collection of key-value pair data structure that can be used to
+    group different typed data that is related e.g properties of an individual,
     similar to objects. The key-values can be of any type including arrays and slices.
 
     `See code samples in main.go`
@@ -776,8 +780,8 @@ cheap to create and destroy.
 goroutines to run at the same time, which is not possible with
 languages that rely on large OS threads.
 - Since Go has `closures` _(persistent scope which holds on to local
-variables even after the code execution has moved out of that block)
-_, goroutines _(functions executed using the `go` keyword)_ have
+variables after the code execution has moved out of that block),_
+goroutines _(functions executed using the `go` keyword)_ have
 access to variable defined in parent scopes, even through the
 goroutine and the parent scoped code, run in different execution
 stacks. This can however create _race conditions_ and should be avoided:
