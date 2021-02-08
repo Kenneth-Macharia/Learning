@@ -38,7 +38,8 @@ _Check install location after installation using `$ which go`_
 - Downloaded libraries using `$ go get <lib>` go into `~/go` (or golib), if the
  directory does not exist run `$ go get github.com/nsf/gocode` to download the
  syntax auto complete library, which will set up either directories for you.
-- Add the folder to PATH so as to access the binaries via the `$ go` command:
+- Add the executables _bin_ folder to PATH so as to access the `go get` dowloaded
+  binaries via the `$ go` command:
 
     1. Add to .bashrc file the env variable called
        GOPATH: `export GOPATH=/Users/kenneth/go`
@@ -55,29 +56,35 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
     2. Add the workspace folder above to GOPATH, similarly to the library folder
        above and update PATH as well.
 
-## Version controlling Go app
+_Use `go --help` to see available commands for interacting with the Go enironment.
 
-- Set up app folders using the `/go_workspace/github.com/<github_account_name>/app_folder`
-  structure when using source control, to make the applications go gettable i.e
-  downloadable using `go get <lib>`, since github will create a similar folder structure.
+## Organizing Go Code
 
-## Modules and Packages
-
-- Packages are how Go code is organised and take the form of .go files. Packages
-  usually perform specific functions and methods to perform those functions
-  e.g `http`
-- Inside the files, the package to which the file belongs to is indicates as the
-  line `package <package fileName>`
+- Modules are Go's unit of code distribution and versioning and are a colletion of
+  Go packages files e.g `net`
+- Packages are how Go code is organised and take the form of a collection of `.
+  go` files in the same module directory that are compiled together e.g `http`
+- Modules are creates using the `go mod init <module download URL>` command, which
+  creates a `go.mod` file in the module folder.
+- The `go.mod` file identifies the module are importable by other modules and also
+  specifies the context code is run in including the version of Go and dependancies
+  required.
+- Module `download URL/module path` should be the link to where the module is
+  hosted e.g `github.com/<github_account_name>/` if hosting on github, to make the
+  applications go gettable i.e downloadable using `go get <lib>`.
+- Module dependancies must be declared in the `go.mod` file of the module.
+- A collection of modules form a `repository`.
+- Even though Go modules need not be published to a remote repository, its good
+  practice to organize Go code using this format.
+- The module path also acts as the `package import path prefix` for all packages
+  within it.
+- A package's import path would b the concatenation of it's module path and it's
+  subdirectory within the module e.g `github.com/<github_account_name>/package_directory`
+- Inside the files, the package to which the file belongs to is indicated as the
+  first line i.e `package <package fileName>`
 - Imported/ external packages follow next in the `import ()` statement.
-- A main package with a main function is a Go app's entry point and is required
-  for every Go application.
-- Multiple package files can be bundled into a directory to form a `module`. Modules
-  define a family of related packages e.g `net`
-- Modules also specifiy the context Go needs to run code including the version and
-  dependancies required.
-- Modules are started with the `go mod init <module download URL>` command, which
-  creates a `go.mod` file in the module folder, identifying the module are
-  importable by other modules.
+- A main package file with a main function is a Go app's entry point and is
+  required for every Go application.
 
 ## Building and running Go apps
 
@@ -86,8 +93,9 @@ _The above ensures that the first segment of GOPATH will be used by `go get <lib
 - Use `go build <path to package>` to compile the app package (app folder) into an
   executable in the main app folder (if it finds a main package with a main function).
   The run the executable to start the app `./executable`
-- Use `go install <path to an enty-point package>` to build an app binary into
-  the _bin_ folder.
+- Use `go install <path to an enty-point package>` to build an app binary into the _bin_ folder.
+- Discover where Go is configured to install compiled binaries using `go
+  list -f '{{.Target}}'`
 
 ## Variables
 
