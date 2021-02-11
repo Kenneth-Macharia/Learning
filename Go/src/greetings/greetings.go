@@ -25,7 +25,7 @@ func init() {
 
 // randm Format returns a pre-formatted greeting randomly
 func randomFormat() string {
-	msgFormats := []string {
+	msgFormats := []string{
 		"Hi %v. Welcome!",
 		"Great to see you %v!",
 		"Hail, %v! Well met!",
@@ -39,7 +39,7 @@ func Hellos(names []string) (map[string]string, error) {
 	// map of names to messages
 	messages := make(map[string]string)
 
-	for  _, name := range names {
+	for _, name := range names {
 		msg, err := Hello(name)
 
 		if err != nil {
