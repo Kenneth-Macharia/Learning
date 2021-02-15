@@ -35,28 +35,27 @@ interpreted language"_
 
 _Check install location after installation using `$ which go`_
 
-- Downloaded libraries using `$ go get <lib>` go into `~/go` (or golib), if the
- directory does not exist run `$ go get github.com/nsf/gocode` to download the
- syntax auto complete library, which will set up either directories for you.
-- Add the executables _bin_ folder to PATH so as to access the `go get` dowloaded
-  binaries via the `$ go` command:
+- Downloaded libraries using `$ go get <lib>` go into `~/go`, if $GOPATH has not
+  been set.
+- If using another location, set a `go` directory with a `bin`, `src`
+  and `pkg` sub-directories.
+- Add this folder as the _first item in GOPATH_ for `go get` to use it for
+  downloaded packages.
+- Add the _bin_ folder to $PATH so as to access the `go get` dowloaded
+  binaries via the `go` command:
 
-    1. Add to .bashrc file the env variable called
-       GOPATH: `export GOPATH=/Users/kenneth/go`
-    2. Update PATH with the new executable location `export PATH=$PATH:$GOPATH/bin`
+    1. Addthe lib folder to GOPATH in .bashrc `export GOPATH=$GOPATH:<folder_path>`
+    2. Update PATH with its executables path `export PATH=$PATH:<folder_path>/bin`
     3. Source the .bashrc file to update the changes `source ~/.bashrc`
-
-_The above ensures that the first segment of GOPATH will be used by `go get <lib>`_
 
 - Set up your workspace folder:
 
-    1. Create a project folder with an _src_, _bin_ and _pkg_ folder to hold the
-    source code, compiled binaries and dependancy (to be included in project
-    binaries but not needing re-compling).
-    2. Add the workspace folder above to GOPATH, similarly to the library folder
-       above and update PATH as well.
+    1. Create a project folder with an _src_, _bin_ and _pkg_ folder to hold
+    external the source code, compiled binaries and dependancy _(to be included in
+    project binaries but not needing re-compling)_.
+    2. Add the workspace folder above to GOPATH and its bin folder to PATH as well.
 
-_Use `go --help` to see available commands for interacting with the Go enironment.
+_Use `go --help` to see available commands for interacting with the Go enironment_
 
 ## Organizing Go Code
 
@@ -93,7 +92,8 @@ _Use `go --help` to see available commands for interacting with the Go enironmen
 - Use `go build <path to package>` to compile the app package (app folder) into an
   executable in the main app folder (if it finds a main package with a main function).
   The run the executable to start the app `./executable`
-- Use `go install <path to an enty-point package>` to build an app binary into the _bin_ folder.
+- Use `go install <path to an enty-point package>` to build an app binary into the
+  _bin_ folder.
 - Discover where Go is configured to install compiled binaries using `go
   list -f '{{.Target}}'`
 
@@ -224,9 +224,10 @@ _Use `go --help` to see available commands for interacting with the Go enironmen
 ## Constants
 
 - Declared using the `const` keyword
-- Their naming convention is similar to varibles _`camel_case`
+- Their naming convention is similar to varibles _`camelCase`
   for `package-scoped constants` and `Pascal_Case` for exportable constants_
 - Typed constants declared same as variables `const myConst int = 2`
+
 _Constants have to be assigned at compile time and must contain
  a definite value and not as a result of a runtime operation
  e.g function result or application runtime arguments_
