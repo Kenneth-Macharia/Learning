@@ -80,9 +80,6 @@ func UpdateItem(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, _ := strconv.Atoi(vars["id"])
 
-	log.Debug(vars) // TODO: remove
-	log.Debugf("PUT item id is %v", id)  // TODO: remove
-
 	// Check that item to update exists in DB
 	check := GetItemByID(id)
 	if check == false {
@@ -113,9 +110,8 @@ func CreateItem(w http.ResponseWriter, r *http.Request) {
 
 // healthy responds to requests at /healthy with a API running OK message
 func healthy(w http.ResponseWriter, r *http.Request) {
-	log.Info("API Health is OK")
 	w.Header().Set("Content-Type", "application/json")
-	io.WriteString(w, `{"alive":true}`)
+	json.NewEncoder(w).Encode("Connected to API")
 }
 
 func init() {
@@ -138,9 +134,9 @@ func main() {
 
 	// Register routers
 	router := mux.NewRouter()
-	router.HandleFunc("/healthy", healthy).Methods("GET")
-	router.HandleFunc("/todo-completed", GetCompletedItems).Methods("GET")
-	router.HandleFunc("/todo-incomplete", GetUncompletedItems).Methods("GET")
+	router.HandleFunc("/status", healthy).Methods("GET")
+	router.HandleFunc("/todo/complete", GetCompletedItems).Methods("GET")
+	router.HandleFunc("/todo/incomplete", GetUncompletedItems).Methods("GET")
 	router.HandleFunc("/todo", CreateItem).Methods("POST")
 	router.HandleFunc("/todo/{id}", UpdateItem).Methods("PUT")
 	router.HandleFunc("/todo/{id}", DeleteItem).Methods("DELETE")

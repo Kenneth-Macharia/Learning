@@ -1,11 +1,24 @@
 const server = 'http://localhost:8000/';
 const todolistServer = `${server}todo`;
 
+window.addEventListener('load', () => {
+  $.ajax({
+    type: 'GET',
+    url: `${server}/status`,
+    success: (data) => {
+      alert(data);
+    },
+    error: (err) => {
+      alert(err.Description);
+    },
+  });
+});
+
 function getCompletedTodos() {
   let result = null;
   $.ajax({
     type: 'GET',
-    url: `${server}todo-completed`,
+    url: `${todolistServer}/complete`,
     async: false,
     success: (data) => {
       result = data;
@@ -18,7 +31,7 @@ function getIncompleteTodos() {
   let result = null;
   $.ajax({
     type: 'GET',
-    url: `${server}todo-incomplete`,
+    url: `${todolistServer}/incomplete`,
     async: false,
     success: (data) => {
       result = data;
@@ -54,9 +67,9 @@ function addItemToBackend(value) {
   return result.ID;
 }
 
-function removeItemInBackend(item) {
+function removeItemInBackend(itemId) {
   $.ajax({
-    url: `${todolistServer}/{item.id}`,
+    url: `${todolistServer}/${itemId}`,
     type: 'DELETE',
     async: false,
     success: (data) => {
@@ -65,12 +78,12 @@ function removeItemInBackend(item) {
   });
 }
 
-function updateItemInBackend(item, completed) {
+function updateItemInBackend(itemId, completed) {
   const payload = {
     completed,
   };
   $.ajax({
-    url: `${todolistServer}/{item.id}`,
+    url: `${todolistServer}/${itemId}`,
     type: 'PUT',
     data: payload,
     async: false,
@@ -83,21 +96,22 @@ function updateItemInBackend(item, completed) {
 function completeItem() {
   const item = this.parentNode.parentNode;
   const parent = item.parentNode;
-  const { id } = parent;
+  const parentClass = parent.getAttribute('class');
+  const itemId = item.getAttribute('id')
   const value = item.innerText;
 
-  if (id === 'todo') {
+  if (parentClass === 'todo') {
     data.todo.splice(data.todo.indexOf(value), 1);
     data.completed.push(value);
-    updateItemInBackend(item, true);
+    updateItemInBackend(itemId, true);
   } else {
     data.completed.splice(data.completed.indexOf(value), 1);
     data.todo.push(value);
-    updateItemInBackend(item, false);
+    updateItemInBackend(itemId, false);
   }
 
   // Check if the item should be added to the completed list or to re-added to the todo list
-  const target = (id === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
+  const target = (parentClass === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
 
   parent.removeChild(item);
   target.insertBefore(item, target.childNodes[0]);
@@ -106,16 +120,17 @@ function completeItem() {
 function removeItem() {
   const item = this.parentNode.parentNode;
   const parent = item.parentNode;
-  const { id } = parent;
+  const parentClass = parent.getAttribute('class');
+  const itemId = item.getAttribute('id')
   const value = item.innerText;
 
-  if (id === 'todo') {
+  if (parentClass === 'todo') {
     data.todo.splice(data.todo.indexOf(value), 1);
   } else {
     data.completed.splice(data.completed.indexOf(value), 1);
   }
   parent.removeChild(item);
-  removeItemInBackend(item);
+  removeItemInBackend(itemId);
 }
 
 // Adds a new item to the todo list
