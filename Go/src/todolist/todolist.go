@@ -10,8 +10,8 @@ import (
 	"github.com/gorilla/mux" // http router package
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	log "github.com/sirupsen/logrus" // Logger package
 	"github.com/rs/cors"
+	log "github.com/sirupsen/logrus" // Logger package
 )
 
 // Connect to the database
@@ -19,9 +19,9 @@ var db, connErr = gorm.Open("mysql", "root:rpass@/todolist?charset=utf8&parseTim
 
 // TodoItemModel is a blueprint struct used by GORM to make db migrations
 type TodoItemModel struct {
-	ID int `gorm:"primary_key"`
+	ID          int `gorm:"primary_key"`
 	Description string
-	Completed bool
+	Completed   bool
 }
 
 // GetItemByID hecks if todo with provided Id exists in the database
@@ -59,7 +59,7 @@ func GetUncompletedItems(w http.ResponseWriter, r *http.Request) {
 // DeleteItem removes a todolist item from the db
 func DeleteItem(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id, _ := strconv.Atoi(vars["id"])  // convert string to int
+	id, _ := strconv.Atoi(vars["id"]) // convert string to int
 	err := GetItemByID(id)
 	if err == false {
 		w.Header().Set("Content-Type", "application/json")
@@ -87,11 +87,11 @@ func UpdateItem(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, `{"updated": false, "error": "Record Not Found"}`)
 	} else {
 		completed, _ := strconv.ParseBool(r.FormValue("completed"))
-		log.WithFields(log.Fields{"Id":id, "Completed": completed}).Info("Updating TodoItem")
-		todo := &TodoItemModel{}  // create a model object
-		db.First(&todo, id)  // fetch the model with the matching id
-		todo.Completed = completed  // update the completed field of found obj
-		db.Save(&todo)  // save changes
+		log.WithFields(log.Fields{"Id": id, "Completed": completed}).Info("Updating TodoItem")
+		todo := &TodoItemModel{}   // create a model object
+		db.First(&todo, id)        // fetch the model with the matching id
+		todo.Completed = completed // update the completed field of found obj
+		db.Save(&todo)             // save changes
 		w.Header().Set("Content-Type", "application/json")
 		io.WriteString(w, `{"updated": true }`)
 	}
