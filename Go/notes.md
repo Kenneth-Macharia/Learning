@@ -57,6 +57,9 @@ _Check install location after installation using `$ which go`_
 
 _Use `go --help` to see available commands for interacting with the Go enironment_
 
+- Use `go clean {flag} {package_URL}..` to remove packages and binaries installed
+  by `go get ...` _See more options for cleaning `go help clean`
+
 ## Organizing Go Code
 
 - Modules are Go's unit of code distribution and versioning and are a colletion of
@@ -165,6 +168,7 @@ _Use `go --help` to see available commands for interacting with the Go enironmen
           (int + int16), do this instead (int + int(int16))
         - Int operators include: `+`, `-`, `*`, `/` (integer division and yields
           an int always) and `%` (the remainder)
+        - Operator precedece is implied using _spacing_ e.g `x<<8 + y<<16`
 
     4. Bitwise operators: when comparing bit representation of two ints, they return
     the result of the set bits (1) comparison of the two, converted

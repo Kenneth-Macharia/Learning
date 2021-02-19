@@ -111,7 +111,7 @@ func CreateItem(w http.ResponseWriter, r *http.Request) {
 // healthy responds to requests at /healthy with a API running OK message
 func healthy(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode("Connected to API")
+	json.NewEncoder(w).Encode("API is online")
 }
 
 func init() {
@@ -123,11 +123,11 @@ func main() {
 	if connErr != nil {
 		panic(connErr.Error())
 	}
+
 	log.Info("Connected to database.")
 	defer db.Close()
 
 	// Run database migrations
-	// db.Debug().DropTableIfExists(&TodoItemModel{})
 	db.Debug().AutoMigrate(&TodoItemModel{})
 
 	log.Info("Starting Todolist API server.....")
