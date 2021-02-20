@@ -286,7 +286,24 @@ _Constants have to be assigned at compile time and must contain
     with all array functionalities. Are reference types to the
     underlying array. They are also not fixed length and resize as
     elements are added to them _usually to twice the previous size_,
-    giving them extra capacity.
+    giving them extra capacity:
+
+              func Append(slice, data []byte) []byte {
+                  l := len(slice)
+                  if l + len(data) > cap(slice) {  // reallocate
+                      // Allocate double what's needed, for future growth.
+                      newSlice := make([]byte, (l+len(data))*2)
+                      // The copy function is predeclared and works for any slice type.
+                      copy(newSlice, slice)
+                      slice = newSlice
+                  }
+                  slice = slice[0:l+len(data)]
+                  copy(slice[l:], data)
+                  return slice
+              }
+
+    - They are a three-item descriptor containing a pointer to the data
+    (inside an array), the length, and the capacity.
 
     - Using slices:
 
@@ -307,7 +324,8 @@ _Constants have to be assigned at compile time and must contain
       operation will be triggered to move over all the elements to a new
       bigger slice, which can be costly. Using the `make()` can be used
       to avoid this_
-      _since slice operations are reference operations there ever is
+      _`make()` is used to create initialized `arrays`, `slices` and `maps` only_
+      _Since slice operations are reference operations there ever is
       only one underlying array being affected_
 
     c) Maps: an un-ordered key-value pair data structure. Their length is determined
@@ -332,9 +350,9 @@ _Constants have to be assigned at compile time and must contain
 
       - To check if the key does exist:
 
-      1. `return_val, ok := mapName[_key_]` : the `ok` variable will
+      1. `return_val, ok := mapName[_key_]` : the `comma ok` variable will
       contain true if the key exists or false otherwise.
-      2. To check existance only: `_ , ok := mapName[_key_]`
+      2. To check existance only: us the _blank identifier_ `_ , ok := mapName[_key_]`
 
       _Similar to slices, maps are passed by reference thus a change
       downstream affects the original map_
@@ -562,6 +580,29 @@ get the address a value that is stored at in memory i.e `&a`
 
   `See code samples in main.go`
 
+## New and Constructor Literals
+
+- `new()` is a built-in function that allocates memory, without initializing i.e
+  zeros it out e.g `new(T)` allocates zeroed storage for a new item of type T and
+  returns its address a value of type *T i.e _a pointer to a newly allocated zero
+  value of type T_
+- Since the memory returned by new is zeroed, each type can be used without further
+  initialization.
+- Sometimes the zero value isn't good enough and an initializing constructor is
+  necessary e.g
+
+          func NewFile(fd int, name string) *File {
+            if fd < 0 {
+              return nil
+            }
+            return `&File{fd, name, nil, 0}`
+          }
+
+- The fields of a composite literal are laid out in order and must all be present.
+  However, by labeling the elements explicitly as field:value pairs, the
+  initializers can appear in any order, with the missing ones left as their
+  respective zero values i.e `&File{fd: fd, name: name}`
+
 ## Functions
 
 - Blocks of code that implement specific logic within an application and
@@ -629,41 +670,57 @@ get the address a value that is stored at in memory i.e `&a`
 
 - Are functions that execute within known contexts _(types)_, and in
   Go, they can be associted with any type including primitives.
+- They have a receiver object of the type they belong to which can be a _pointer
+receiver `objName *Type`_ or a _value receiver `objName Type`_
 
 `See code samples in main.go`
 
 ## Interfaces
 
+- An interface is a completely abstract type (only deifnes abstract methods),
+  defining and exposing the behaviour of that type.
+
 _In the real world, the implementation details of classes change,
  often quite substantially. If other classes are relying on the
  internal implementation details of the class, then code dependent
  on that class will start to malfunction when those details change.
-  By defining an interface, a class promises other classes
-  which depend on it "I will always have these properties and
-  methods available, even if the details of how I execute them may
-  change."_
+ By defining an interface, a class promises other classes
+ which depend on it "I will always have these properties and
+ methods available, even if the details of how I execute them may
+ change."_
 
-- Intefaces in Go are automatically implemented, if the implementer
-  has all the methods defined in the interface.
+- Intefaces in Go are automatically implemented (implicit), if the implementer
+  has all the methods defined in the interface (with a similar signature as an
+  interface methods). Explicit implementation i.e use of _implements_ keyword is
+  is nto supported.
 - Interfaces are types _(interface)_ just like structs, but unlike
-structs which describe data, interfaces describe behaviour by
-storing method definitions e.g from the Go i/o package
+  structs which describe data, interfaces describe behaviour by
+  storing method definitions e.g from the Go i/o package
 
         type Writer interface {
             Write([]byte) (int, err)  // no. bytes written & err
         }
 
-- Anything implementing the above interface will take the slice of
-  bytes and write it somewhere e.g to console, tcp connenction or a
-  file.
-- To implement it we can define a console writer which will take
-  the bytes slice and print to console e.g using a struct
+- The Writer type above is designed to write a slice of bytes to _some_ output.
+- Any type that needs this functionality is required to implement this interface
+  and add its custom functionality by adding the interface method with the same
+  signature.
+- Advantages:
 
-        type ConsoleWriter struct {}
+    1. Standardization: method defination across all types that need to write a
+    stream of bytes somewhere is standardized.
+    2. Polymorphism: spcifiying where the bytes are specifically being written
+    to in the method implemementation, allows the interfaces's objects to be of
+    different types.
+    3. Avoids creating concrete types to be consumed by others that might result
+    in code breaks in the consumers, when the concrete type's functionality changes.
 
-- In Go, interfaces are implicitly implemented by defining a method
-  with a similar signature as an interface method and not by using
-  keywords such as _implements_ e.g.
+- To implement the Writer interface above, we can define a console writer type which
+  will take the bytes slice and print to console:
+
+           type ConsoleWriter struct {}
+
+- Define a method of the ConsoleWriter type declared above:
 
         func (cw ConsoleWriter) Write(data []byte) (int, error) {
             // Custom implementation of the interface
@@ -679,9 +736,6 @@ storing method definitions e.g from the Go i/o package
             writerObj.Write([]byte("Hello Go"))
         }
 
-- Interfaces drive polymorphism by enabling an object to take
-  different forms depending on the implemetation of an interface i.e
-  how it's methods are being overriden.
 - In the above example, the writerObj defined can be a console
   writer, tcp writer or file writer depending on the implementation
   code _(the struct & its method in our case)_, but it will always

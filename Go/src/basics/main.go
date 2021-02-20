@@ -501,7 +501,7 @@ func (obj greeter) greet() {
 // declare another method. Receiving the context by-ref via obj.
 func (obj *greeter) greet2() {
 	// changes here will propagate to the struct
-	fmt.Println(obj.greeting, obj.name) //implicit dereferencing
+	fmt.Println(obj.greeting, obj.name) //implicit dereferencing for pointer objs
 }
 
 // Interfaces: primitive type
@@ -516,8 +516,8 @@ type IntCounter int
 
 // Increment is a method to increment the int type
 func (ic *IntCounter) Increment() int {
-	*ic++
-	return int(*ic)
+	*ic++	// deferencing the pointer to increment the int value (no pointer arithmentic in Go)
+	return int(*ic)  // return the dereferened value of ic
 }
 
 // ******* INTERFACE COMPOSITION *******
