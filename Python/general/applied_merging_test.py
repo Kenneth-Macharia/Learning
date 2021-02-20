@@ -27,20 +27,17 @@ def merge_duplicates(records):
                             and word not in seen.keys():
                         if len(records[i]) > len(records[j]):
                             seen[word] = records[j]
-                            break
                         else:
                             seen[word] = records[i]
-                            break
+                        break
 
                     elif word in records[j] and word.isalpha() \
                             and word in seen.keys():
                         if len(seen[word]) > len(records[j]):
                             seen[word] = records[j]
-                            break
-                        else:
-                            break
+                        break
 
-    return [v for k, v in seen.items()]
+    return [v for v in seen.values()]
 
 
 print(merge_duplicates(records))
