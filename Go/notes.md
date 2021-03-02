@@ -31,6 +31,8 @@ interpreted language"_
 
 ## Setting up a Go local environment
 
+`Changes introduced in Go 1.16: https://blog.logrocket.com/whats-new-in-go-1-16/`
+
 - Using the binary availble on golang.org, install Go to _/usr/local/go_
 
 _Check install location after installation using `$ which go`_
@@ -51,7 +53,7 @@ _Check install location after installation using `$ which go`_
 - Set up your workspace folder:
 
     1. Create a project folder with an _src_, _bin_ and _pkg_ folder to hold
-    external the source code, compiled binaries and dependancy _(to be included in
+    source code, compiled binaries and dependancy _(to be included in
     project binaries but not needing re-compling)_.
     2. Add the workspace folder above to GOPATH and its bin folder to PATH as well.
 
@@ -84,7 +86,9 @@ _Use `go --help` to see available commands for interacting with the Go enironmen
   subdirectory within the module e.g `github.com/<github_account_name>/package_directory`
 - Inside the files, the package to which the file belongs to is indicated as the
   first line i.e `package <package fileName>`
-- Imported/ external packages follow next in the `import ()` statement.
+- Imported/ external packages follow next in the `import ()` statement. If you’re
+  not directly using any entities in an imported package, make sure you prefix the
+  import statement with an underscore.
 - A main package file with a main function is a Go app's entry point and is
   required for every Go application.
 
@@ -293,7 +297,8 @@ _Constants have to be assigned at compile time and must contain
                   if l + len(data) > cap(slice) {  // reallocate
                       // Allocate double what's needed, for future growth.
                       newSlice := make([]byte, (l+len(data))*2)
-                      // The copy function is predeclared and works for any slice type.
+                      // The copy function is predeclared and works for any slice
+                      type.
                       copy(newSlice, slice)
                       slice = newSlice
                   }
