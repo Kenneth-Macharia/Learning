@@ -531,7 +531,7 @@ print(os.path.relpath(path))
 # Parents: evaluates to the ancestor folders of a Path object with an integer index
 # Name: file name made up of the stem/base_name and the suffix/extension
 
-#(NB) All attribtute above evaluate to a string when extracted from a Path objec, except the parent, which evaluates to anohter Path object
+#(NB) All attribtute above evaluate to a string when extracted from a Path objec, except the parent, which evaluates to another Path object.
 
 p = Path('/Users/Al/spam.txt')
 print(p.anchor)
