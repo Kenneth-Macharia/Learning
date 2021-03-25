@@ -419,13 +419,13 @@ print('\n------------- *** READING AND WRITING FILES *** -----------------------
 from pathlib import Path
 print(Path('root', 'Users', 'kenneth', 'Documents'))
 
-# Path() returns a WindowsPath or PosixPath object (depending on the OS), that can be passed to other file-related fucnctions for further manupulation.
+# Path() returns a WindowsPath or PosixPath object (depending on the OS), that can be passed to other file-related functions for further manupulation.
 
 myFiles = ['accounts.txt', 'details.csv', 'invite.docx']
 for filename in myFiles:
     print(Path(rf'C:\Users\Al{filename}'))
 
-# (NB) '\' can't be used a part of folder or file names on Windows, but can on Unix-like systems and vice versa for '/'. Use '/' in Python in conjuction with Path(), which will sort all this out on every OS.
+# (NB) '/' can't be used a part of folder or file names on Windows, but can on Unix-like systems and vice versa for '\'. Use '/' in Python in conjuction with Path(), which will sort all this out on every OS.
 # The / operator that we normally use for division can also combine Path objects and strings. This is helpful for modifying a Path object after you’ve already created it with the Path() function, which is safer than using join() or any other str concatenation method, BUT atleast one of the values must be a Path() object.
 
 print(Path('spam') / 'bacon' / 'eggs')
