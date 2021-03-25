@@ -38,7 +38,7 @@ interpreted language"_
 _Check install location after installation using `$ which go`_
 
 - Downloaded libraries using `$ go get <lib>` go into `~/go`, if $GOPATH has not
-  been set.
+  been set. _`go get` deprecated in Go 1.16 in favour of `go install`_
 - If using another location, set a `go` directory with a `bin`, `src`
   and `pkg` sub-directories.
 - Add this folder as the _first item in GOPATH_ for `go get` to use it for
