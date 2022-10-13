@@ -6,6 +6,7 @@ __pycache__
 .remote-sync.json
 node_modules
 .vscode
+.fleet
 *.code-workspace
 .coverage
 .condaauto
