@@ -15,9 +15,9 @@
     2. Statically typed - variables types must be declared at compile time
     3. Fast - both compile and run times
     4. Compiles direct to machine code
-    5. Concurrency built in
+    5. Concurrency built in/ first class citizens
     6. Simple - also leaves out some complex features
-    7. Memory managed and speed optimized gabarge collection
+    7. Memory managed and speed optimized garbage collector
     8. Compiles into a single binary including dependancies
     9. Strong dev community
 
