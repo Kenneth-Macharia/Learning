@@ -1,4 +1,6 @@
-from django.shortcuts import render
+import json
+
+from django.shortcuts import render, get_object_or_404
 from .models import Article
 from .serializers import ArticleSerializer
 from rest_framework.parsers import JSONParser
@@ -14,18 +16,81 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 
+from rest_framework import viewsets
+
 
 # Create your views here
-# Generics class based views to further trim down the API implementations
-class ArticleList(generics.ListCreateAPIView):
-    queryset = Article.objects.all()  # type: ignore
-    serializer_class = ArticleSerializer
-
-
-class ArticleDetails(generics.RetrieveUpdateDestroyAPIView):
+# ModelViewset inherit from the generic APIView with implementation for various actions via
+# mixins classes. Action provided include list, create, retrieve, update, partial_update and
+# destroy
+class ArticleViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     queryset = Article.objects.all()  # type: ignore
     serializer_class = ArticleSerializer
+
+# Generic Viewset, inheriting from Generic APIView provides get_object, get_queryset and
+# other APIView behaviour but no actions by default. To use these, add mixin classes or
+# explicitly define the actual implementation
+# class ArticleViewSet(viewsets.GenericViewSet,
+#                      mixins.ListModelMixin,
+#                      mixins.CreateModelMixin,
+#                      mixins.RetrieveModelMixin,
+#                      mixins.UpdateModelMixin,
+#                      mixins.DestroyModelMixin):
+#
+#     lookup_field = 'slug'
+#     queryset = Article.objects.all()  # type: ignore
+#     serializer_class = ArticleSerializer
+
+# Viewsets abstract url configurations and allow fast modelling of the view and API
+# interactions based on common conventions. Viewset classes are bound only on instantiation to
+# HTTP method handlers when views are defined using router classes
+# class ArticleViewSet(viewsets.ViewSet):
+#     lookup_field = 'slug'
+#
+#     def list(self, request):
+#         articles = Article.objects.all()
+#         serializer = ArticleSerializer(articles, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#     def create(self, request):
+#         serializer = ArticleSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     def retrieve(self, request, slug):
+#         queryset = Article.objects.all()
+#         article = get_object_or_404(queryset, slug=slug)
+#         serializer = ArticleSerializer(article)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#     def update(self, request, slug):
+#         # FIXME: Creates new instance
+#         serializer = ArticleSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     def delete(self, request, slug):
+#         queryset = Article.objects.all()
+#         article = get_object_or_404(queryset, slug=slug)
+#         article.delete()
+#         return Response(status=status.HTTP_200_OK)
+
+
+# Generics class based views to further trim down the API implementations
+# class ArticleList(generics.ListCreateAPIView):
+#     queryset = Article.objects.all()  # type: ignore
+#     serializer_class = ArticleSerializer
+
+
+# class ArticleDetails(generics.RetrieveUpdateDestroyAPIView):
+#     lookup_field = 'slug'
+#     queryset = Article.objects.all()  # type: ignore
+#     serializer_class = ArticleSerializer
 
 # ===== CBVs with mixin classes that abstract the common CBV functionalities =====
 # Generics class provides the CBV core functionality and the mixin classes the specific
