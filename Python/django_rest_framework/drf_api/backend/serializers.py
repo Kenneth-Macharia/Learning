@@ -11,6 +11,8 @@ class ArticleSerializer(serializers.ModelSerializer):
     # Not added to POST payload as its is dynamically generated but if not added
     # as a read-only field the serializer validation will fail
     slug = serializers.SlugField(read_only=True)
+    # auto adds user name to articles
+    author = serializers.StringRelatedField()
 
     class Meta:
         model = Article

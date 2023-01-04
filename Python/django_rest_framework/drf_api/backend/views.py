@@ -17,6 +17,8 @@ from rest_framework import mixins
 from rest_framework import generics
 
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here
@@ -27,6 +29,12 @@ class ArticleViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     queryset = Article.objects.all()  # type: ignore
     serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # adds the request user as author when creating an article
+        serializer.save(author=self.request.user)
+
 
 # Generic Viewset, inheriting from Generic APIView provides get_object, get_queryset and
 # other APIView behaviour but no actions by default. To use these, add mixin classes or
