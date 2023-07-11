@@ -413,8 +413,8 @@ print('\n------------- *** READING AND WRITING FILES *** -----------------------
 
 # Additional volumes, such as a DVD drive or USB flash drive, will appear differently on different operating systems. On Windows, they appear as new, lettered root drives, such as D:\ or E:\. On macOS, they appear as new folders under the /Volumes folder. On Linux, they appear as new folders under the /mnt (“mount”) folder. Also note that while folder names and filenames are not case-sensitive on Windows and macOS, they are case-sensitive on Linux.
 
-# Back slashes are used to separate path folders on Windows and forward slashes on Unix-like systems. For pythin script to interact properly with either systems, the correct separator needs to be used.
-# The Path() function in the pathlib module will return the correct path (with the correct separator for the system it is run on) when su-plied with the folder names.
+# Back slashes are used to separate path folders on Windows and forward slashes on Unix-like systems. For python script to interact properly with either systems, the correct separator needs to be used.
+# The Path() function in the pathlib module will return the correct path (with the correct separator for the system it is run on) when supplied with the folder names.
 
 from pathlib import Path
 print(Path('root', 'Users', 'kenneth', 'Documents'))
@@ -554,7 +554,7 @@ print(os.path.basename(calcFilePath))
 print(os.path.dirname(calcFilePath))
 print(os.path.split(calcFilePath))  # returns a tuple of the path split accordingly
 
-# Also, note that os.path.split() does not take a file path and return a list of strings of each folder. For that, use the split() string method and split on the string in os.sep. (Note that sep is in os, not os.path.) The os.sep variable is set to the correct folder-separating slash for the computer running the program, '\\' on Windows and '/' on macOS and Linux, and splitting on it will return a list of the individual folders.
+# Also, note that os.path.split() does not take a file path and return a list of strings of each folder. For that, use the split() string method and split on the string in os.sep. (Note that sep is in os, not os.path.) The os.sep variable is set to the correct folder-separating slash for the computer running the program, '\' on Windows and '/' on macOS and Linux, and splitting on it will return a list of the individual folders.
 
 print(calcFilePath.split(os.sep))
 

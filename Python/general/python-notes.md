@@ -2,7 +2,7 @@
 
 _ALSO REFER TO THE PART.PY FILES FOR MORE NOTES AND EXPLANATIONS TOGETHER WITH DEMOS_
 
-- Python is a DYNAMIC PROGRAMMING LANGUAGE because you dont need to declare variable type before assignment, as opposed to STATIC PROGRAMMING languages, where variable types have to be known pre-run time.
+- Python is a DYNAMIC PROGRAMMING LANGUAGE because you dont need to declare variable type before assignment, as opposed to STATIC PROGRAMMING languages, where variable types have to be known at pre-run time.
 <https://stackoverflow.com/questions/20563433/difference-between-static-and-dynamic-programming-languages>
 
 ## Strings
@@ -39,7 +39,7 @@ _STRING INTERPOLATION: the process of substituting string within a string with o
 ## Range
 
 - Can be used to generate numbers between a range e.g. list(range(0, 5)), returns a list of items between 0 and 4, list(range(0, 20, 2)) will generate a list of even numbers between 0 and 19 (2 is a step argument).
-- Ranges are beneficial when the numbers generated need not be saved in memory i.e to a variable, e.g when iterating through some range of numbers work on something other than the rumber range.
+- Ranges are beneficial when the numbers generated need not be saved in memory i.e to a variable, e.g when iterating through some range of numbers work on something other than the number range.
 
 ## Functions
 
@@ -58,7 +58,7 @@ _STRING INTERPOLATION: the process of substituting string within a string with o
 
                 return num_list%2 == 0
 
-- Using the filter generater to get all even number from a list, supply ot it, the list and a condition to check that a number is even.
+- Using the filter generater to get all even number from a list, supply to it, the list and a condition to check that a number is even.
 
     `even_numbers = list(filter(is_even, list_of_nums)`
 
@@ -72,7 +72,7 @@ _STRING INTERPOLATION: the process of substituting string within a string with o
 - Name spaces are:
 
     1. Local namespace: includes name declared within a function (def or lambda) and only last until a return is done.
-    2. Global namespace: includes names from imported modules and lasts until the end of the script.
+    2. Global namespace: includes names from imported modules and lasts until the end of the script/ program.
     3. Built-in namespace: includes built-in fucntins and exception names.
 
 - Scope defines the parts fo the program that a name can be used without a prefix e.g math.log10() or cmath.log10() and these include:
@@ -84,17 +84,19 @@ _STRING INTERPOLATION: the process of substituting string within a string with o
 
 - If a name is not found in any of the scopes above a 'NameError' exception is raised.
 
-_If you define a global variable inside a local namespace with a similar name as global namespace variable nad re-assign its value, then reference of the globally defined variable is moved to the locally defined global variable_
+_If you define a global variable inside a local namespace with a similar name as global namespace variable and re-assign its value, the reference of the globally defined variable is moved to the locally defined global variable_
 
 <https://code.tutsplus.com/tutorials/what-are-python-namespaces-and-why-are-they-needed--cms-28598>
 
-- Working with the buil-in namespace scope:
+- Working with the built-in namespace scope:
 
-    1. Method 1 for importing names: 'from module1 import *, imports all the names from that module, and is both inefficent and risky as you will be importing names that will not be used. Also there is high risk of name conflict due to the high name population and if another module with similar names is inported, their names overwrite any similar names of the first unexplicit import.
+    1. Method 1 for importing names: 'from module1 import *, imports all the names from that module, and is both inefficent and risky as you will be importing names that will not be used. Also there is high risk of name conflict due to the high name population and if another module with similar names is imported, their names overwrite any similar names of the first unexplicit import.
 
-    2. Method 2: from module1 import nameA, nameB: only imports the two names explicitly mentioned. Also, any name in the local module namespace, having similar names with the explicitly improted names will overwrite the imprted names.
+    2. Method 2: from module1 import nameA, nameB: only imports the two names explicitly mentioned. Also, any name in the local module namespace, having similar names with the explicitly imported names will overwrite the imported names.
 
-    3. Method 3: import module, the safest and recommend module import method allowing prefixing of imported names with then imported module name to prevent conflict with the local module namespace e.g math.random()
+    3. Method 3: import module, the safest and recommend module import method allowing prefixing of imported names with the imported module name to prevent conflict with the local module namespace e.g math.random()
+
+<https://www.pythonmorsels.com/4-ways-import-module-python/>
 
 - Locals() internal function returns a dict of all local scope variables and globals() returns all globals scope variables.
 
